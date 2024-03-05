@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modulul 1-Tema 2</title>
+    <link rel="stylesheet" href="./css/index.css" />
+  </head>
+  <body>
+    <h1>Modulul 1 - Tema 2 - Ramificaţii și iterații</h1>
+    <h2>Ramificarea codului</h2>
+    <h3>Instrucțiunea condițională if</h3>
+    <p>if (condiție) { // corpul condiției if }</p>
+    <h3>Instrucțiunea condițională if...else</h3>
+    <p>
+      if (condiție) { // corpul condiției if } else { // corpul condiției else }
+    </p>
+    <h3>Instrucțiunea condițională else...if</h3>
+
+    <h2>Operatorul ternar (ternary operator)</h2>
+    <p>
+      (condiție) ? (o_expresie_în_cazul_condiției_adevărate) :
+      (o_expresie_în_cazul_condiției_false)(/o_expresie_)
+    </p>
+
+    <h2>Instrucțiunea condițională switch</h2>
+    <p>
+      switch (valoarea_pentru_care_se_face_egalitatea) { <br />
+      case posibila_valoare: <br />
+      instrucțiuni de execuție; <br />
+      break; <br />
+      <br />
+      case posibila_valoare: <br />
+      instrucțiuni de execuție; <br />
+      break; <br />
+      <br />
+      default: <br />
+      instrucțiuni de execuție; <br />
+      }
+    </p>
+
+    <h2>Scope</h2>
+    <p>
+      const=(value global) <br />
+      if(true){const=(value internal)}
+    </p>
+    <p><b>Atentie...!!!</b></p>
+    <p>
+      Variabilele se mai pot declara si cu sintaxa "var" si in cazul acesta ele
+      pot fi accesate oriunde ar fi ele declarate.
+    </p>
+
+    <h2>Iterații</h2>
+    <p>
+      O sarcină des întâlnită în programare este să efectuăm același tip de
+      acțiune de mai multe ori. De exemplu, să eliminăm clienții din listă, unul
+      câte unul, sau să verificăm salariile angajaților și să executăm același
+      cod pentru fiecare dintre ei. În astfel de scopuri, pentru repetarea
+      continuă a unei secțiuni de cod - sunt folosite buclele(loops).
+    </p>
+
+    <ul>
+      <li>
+        <b>Loop(buclă)</b> - o structură de control din limbajele de programare
+        high level, concepută pentru a organiza execuția multiplă a unui set de
+        instrucțiuni.
+      </li>
+      <li>
+        <b>Loop body(corpul buclei)</b> - o secvență de instrucțiuni destinate
+        executării multiple.
+      </li>
+      <li>
+        <b>Iterație</b> - execuție unică a întregului cod din corpul buclei.
+      </li>
+      <li>
+        <b>Counter</b> - o variabilă care stochează numărul iterației curente.
+        Bucla nu conține neapărat un numărător și nici nu trebuie să fie unul,
+        condiția de ieșire din buclă poate depinde de mai multe variabile care
+        sunt modificate în buclă în timpul execuției.
+      </li>
+    </ul>
+    <h3>Ciclul while</h3>
+    <p>while (condition) { // cod, corpul buclei (statement) }</p>
+
+    <h3>Ciclul do...while</h3>
+    <p>do { // statement } while (condition);</p>
+
+    <h3>Ciclul for</h3>
+    <p>for (initialization; condition; post-expression) { // statements }</p>
+
+    <h3>Operatorul break</h3>
+    <p>
+      Putem întrerupe bucla în orice moment. Pentru a face acest lucru, există o
+      instrucțiune break, care oprește complet execuția buclei și continuă
+      execuția codului dinafara buclei.
+    </p>
+
+    <h3>Operatorul continue</h3>
+    <p>
+      Nu întrerupe întreaga buclă, ci doar execuția iterației curente. Este
+      folosit doar dacă nu există nimic de făcut la iterația curentă a buclei și
+      este timpul să trecem la următoarea iterație.
+    </p>
+
+    <script src="./js/index2.js"></script>
+  </body>
+</html>

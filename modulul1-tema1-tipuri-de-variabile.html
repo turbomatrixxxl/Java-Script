@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modulul 1 Tema 1</title>
+    <link rel="stylesheet" href="./css/index.css" />
+  </head>
+  <body>
+    <h1>Modulul 1 - Tema 1 - Tipuri de variabile</h1>
+    <a href="https://youtu.be/pX_r8Bu0uFY" target="_blank">Lectie video</a>
+    <h2>Introducere în limbajul Javascript</h2>
+    <p>
+      Când vorbim despre programare, prima dată ne vine în minte un set de
+      instrucțiuni dintr-un fișier. Codul sursă - este textul unui program
+      pentru orice limbaj de programare, un set de construcții sintactice
+      lizibile care descriu un set de instrucțiuni pentru un calculator. <br />
+      <br />
+      Calculatorul nu înțelege codul sursă, din acest motiv există un pas
+      adițional care convertește codul dintr-un fișier într-un set de
+      instrucțiuni clare. Această funcție îi revine unui program special numit:
+      <b>compilator sau interpretor</b>. Deci, codul nu e scris pentru
+      dispozitiv (calculator), ci pentru programator. Codul sursă trebuie să fie
+      scris corect pentru a îndeplini un task bine definit, cât și clar și ușor
+      de înțeles.
+    </p>
+
+    <h3>Gândirea logică</h3>
+
+    <p>
+      Există o mulțime de limbaje de programare, însă niciunul nu-i atât de
+      dificil ca și cel uman, deoarece sunt compuse dintr-un set mai mic de
+      instrucțiuni sintactice, iar principiul de funcționare și conceptele de
+      bază sunt asemănătoare în toate limbajele de programare. <br />
+      <br />
+      Programatorii experimentați privesc o problemă din punct de vedere
+      algoritmic, adică e alcătuită din pași elementari necesari soluționării
+      acesteia. Noi folosim zilnic algoritmii in viata de zi cu zi. De exemplu,
+      procesul de pregătire a unui ceai - este un set alcătuit din mai mulți
+      pași simpli. Când veți fi obișnuiți să gândiți algoritmic cu privire la
+      soluția unei probleme, orice limbaj de programare va fi doar un tool
+      pentru a ajunge la soluția dorită.
+    </p>
+
+    <h3>JavaScript</h3>
+
+    <p>
+      <b>JavaScript</b> este o implementare a specificației EcmaScript, un
+      limbaj de programare de nivel înalt, suportat de toate browserele web
+      moderne. A fost proiectat inițial pentru a interacționa cu elementele
+      paginilor web și pentru un plus de interactivitate. <br />
+      <br />
+      <b>BINE DE ȘTIUT</b> <br />
+
+      JavaScript nu are nici o legătură cu limbajul Java. Acestea sunt 2 limbaje
+      independente și total diferite.
+    </p>
+
+    <p>
+      Pentru dezvoltarea de Front-end a unei aplicații web, JavaScript se
+      folosește împreună cu HTML și CSS pentru a asigura funcționalitatea unei
+      pagini web, cum ar fi:
+    </p>
+
+    <ul>
+      <li>calcule simple</li>
+      <li>validarea și manipularea datelor introduse de utilizator</li>
+      <li>stocarea informațiilor în browser</li>
+      <li>modificare dinamică a documentului HTML</li>
+      <li>reacția la acțiunile utilizatorului</li>
+      <li>crearea de elemente interactive: galerii, grafice etc.</li>
+      <li>interacțiunea cu backend-ul</li>
+    </ul>
+
+    <p>
+      <b>BINE DE ȘTIUT</b> <br />
+      Dacă codul JavaScript este scris pentru a fi executat în browser
+      (Front-end), programatorul nu are instrumente și acces la fișierul sau
+      sistemul de operare, din motive de securitate.
+    </p>
+
+    <p>La ora actuală, cu ajutorul limbajului JavaScript putem construi:</p>
+
+    <ul>
+      <li>aplicații web, folosind framework-uri ca React, Vue, Angular etc.</li>
+      <li>Back-end/servere cu Node.js</li>
+      <li>aplicații mobile, folosind React Native sau Ionic</li>
+      <li>aplicații desktop, folosind Electron</li>
+      <li>microcontroalere cu Johnny-Five și Espruino</li>
+    </ul>
+
+    <p>
+      Pentru realizarea acestora avem nevoie de cunostințe solide a sintaxei,
+      specificațiilor și mecanismului intern și de a antrena gândirea
+      algoritmică și rezolvarea problemelor, în număr cât mai mare.
+    </p>
+
+    <h2>Adăugarea unui script</h2>
+
+    <p>
+      Pentru a adăuga un script într-o pagină web, în fișierul HTML adăugăm
+      tag-ul script, iar la atributul src menționăm calea externă către fișierul
+      JavaScript. <br />
+      <br />
+      Pentru a adăuga cod JavaScript dintr-un fișier extern:
+    </p>
+
+    <ul>
+      <li>Creați un fișier cu extensia .js si adăugați-l in subfolderul js.</li>
+      <li>
+        Menționați calea de acces către fișierul creat în atributul src din
+        tag-ul script.
+      </li>
+    </ul>
+
+    <p>
+      <b>BINE DE ȘTIUT </b> <br />
+      Fișierul cu cod JavaScript nu este necesar să se afle într-un folder numit
+      js, însă este o practică bună. <br />
+      <br />
+      Dacă script-ul este adăugat în (head), atunci randarea paginii se oprește
+      până în momentul în care acel script este încărcat și executat complet.
+      Browser-ul încarcă și reflectă HTML-ul progresiv. Dacă întâlnește tag-ul
+      (script) fără atribute suplimentare, atunci se execută script-ul și doar
+      după aceea se prelucrează codul HTML rămas. Din acest motiv se adaugă
+      script-ul înainte de a închide tag-ul (body).
+    </p>
+
+    <h3>Atașarea mai multor script-uri</h3>
+
+    <p>
+      La conectarea unor fișiere cu cod JavaScript, interpretorul prelucrează
+      script-urile în acea ordine în care sunt atașate în fișierul HTML.
+    </p>
+
+    <h2>Tool-uri necesare</h2>
+
+    <p>
+      În timp ce scrieți cod, vor apărea avertismente și erori. Consola unui
+      browser afișează informații legate de pagina web, inclusiv mesaje despre
+      erori și avertismente de execuție a codului JS care rulează în contextul
+      paginii. <br />
+      <br />
+      Următoarele combinații de taste vor deschide instrumentele folosite de un
+      programator în tab-ul Console:
+    </p>
+
+    <ul>
+      <li>Windows și Linux - Ctrl + Shift + J sau F12</li>
+      <li>MacOS - Command + Option + J</li>
+    </ul>
+
+    <h3>Resurse adiționale</h3>
+
+    <ul>
+      <li>
+        <a
+          href="https://developer.chrome.com/docs/devtools/console/log/"
+          target="_blank"
+          >Printarea unui mesaj în consolă</a
+        >
+      </li>
+      <li>
+        <a
+          href="https://developer.chrome.com/docs/devtools/console/api/"
+          target="_blank"
+          >Handbook despre API console</a
+        >
+      </li>
+    </ul>
+
+    <h2>Sintaxa de bază</h2>
+
+    <p>
+      Când scrieți cod, nu este important să știți doar ce simbol sau
+      construcție pot fi folosite, dar, în primul rând, este necesar să
+      înțelegeți terminologia și componentele codului sursă. În această
+      secțiune, nu este important pentru noi să înțelegem cum și ce
+      funcționează, ci ne vom familiariza doar cu terminologia și sintaxa de
+      bază.
+    </p>
+
+    <h3>Instrucțiuni de control</h3>
+
+    <p>
+      <b>O instrucțiune de control</b> este un set de cuvinte și simboluri din
+      sintaxa specifică unui limbaj care împreună exprimă o idee/o instrucțiune
+      pentru un calculator.
+    </p>
+
+    <p>a = b * 2;</p>
+
+    <p>
+      Instrucțiunile JavaScript se termină cu punct și virgulă, acest aspect
+      fiind similar cu ceea ce reprezintă punctul la sfârșitul unei propoziții.
+    </p>
+
+    <ul>
+      <li>
+        a și b - variabile (ca într-o ecuație algebrică) care stochează date ce
+        pot fi folosite, ulterior, într-un program. O variabilă e compusă
+        dintr-un identificator (nume) și o valoare asociată acestuia.
+      </li>
+      <li>
+        2 - un număr. Acesta se numește "literal value", deoarece nu este
+        stocată într-o variabilă.
+      </li>
+      <li>
+        = și * - operatori ce efectuează acțiuni asupra valorilor și a
+        variabilelor.
+      </li>
+    </ul>
+
+    <p>
+      Să ne imaginăm că variabila b stochează deja numărul 10. Apoi această
+      instrucțiune îi spune calculatorului:
+    </p>
+
+    <ol>
+      <li>Caută variabila cu id b și află ce valoare are stocată.</li>
+      <li>Înlocuiește în enunț valoarea variabilei b (10) cu b.</li>
+      <li>Efectuează operația de înmulțire la 10 cu 2.</li>
+      <li>
+        Scrie rezultatul evaluării expresiei, în partea dreaptă a variabilei a.
+      </li>
+    </ol>
+
+    <p>
+      <b>BINE DE ȘTIUT</b> <br />
+      Încheierea unei instrucțiuni cu punct și virgulă nu este obligatorie, dar
+      este recomandat să o puneți în practică. Această regulă simplă va face
+      codul mai ușor de înțeles și va ajuta la evitarea unor erori.
+    </p>
+
+    <h3>Expresiile</h3>
+
+    <p>
+      Instrucțiunile sunt alcătuite din mai multe părți, la fel ca în orice
+      limbă, frazele sunt alcătuite din propoziții, iar aceste propoziții sunt
+      numite expresii. <br />
+      <br />
+      <b>Expression</b> - fac referire la o variabilă, o valoare sau la un set
+      de variabile și valori în combinație cu operatorii aritmetici.
+    </p>
+
+    <p>[ [a] = [ [b] * [2] ] ]</p>
+
+    <p>
+      Instrucțiunea din exemplul de mai sus conține 5 expresii și sunt încadrate
+      în paranteze pătrate pentru a fi mai ușor vizualizate (nu este sintaxa
+      limbajului):
+    </p>
+
+    <ul>
+      <li>[2] - expresia valorii literale.</li>
+      <li>
+        [b] și [a] - sunt expresiile variabilelor; acestea necesită înlocuirea
+        valorii unei anumite variabile, dar numai dacă aceasta se află în partea
+        dreaptă a expresiei de atribuire.
+      </li>
+      <li>[b * 2] - expresie aritmetică pentru înmulțire.</li>
+      <li>
+        [a = b * 2] - expresie de atribuire. În cazul nostru, indică necesitatea
+        de a evalua partea dreaptă a expresiei și de a atribui rezultatul
+        variabilei a din partea stângă a expresiei.
+      </li>
+    </ul>
+
+    <p>
+      Există și expresii de apel, comparații etc. Nu le vom lua în considerare
+      acum pe toate, ci este important pentru noi să înțelegem din ce părți este
+      format codul sursă și cum să-l citim corect.
+    </p>
+
+    <h3>Interface</h3>
+
+    <p>
+      Când ne apropiem de un aparat de cafea sau ne urcăm la volanul unei
+      mașini, există un set de comenzi cu care putem interacționa. În programare
+      se numește "interface". <br />
+      <br />
+      <b>Interface</b> - este un set de proprietăți și metode ale unei entități
+      disponibile pentru utilizare în codul sursă.
+    </p>
+
+    <h3>Proprietăți</h3>
+
+    <p>
+      Noi toți avem proprietăți: înălțime, greutate, culoarea ochilor, adică
+      niște caracteristici descriptive. În mod similar, datele au proprietăți,
+      de exemplu, un șir are o proprietate pentru lungimea sa. Sintaxa pentru
+      accesarea unei proprietăți este foarte simplă - printr-un punct.
+    </p>
+
+    <p><b>entitate.numele_proprietății</b></p>
+
+    <p>
+      Pentru claritate, să ne uităm la proprietatea unui șir - length, conține
+      numărul de caractere din șir.
+    </p>
+
+    <p>"JavaScript is awesome".length;</p>
+
+    <h3>Metode</h3>
+
+    <p>
+      O metodă este un apel la o acțiune, cum ar fi aleargă sau scrie. De
+      asemenea, datele au propriile metode predefinite, de exemplu, putem adăuga
+      sau elimina elemente dintr-o colecție, putem converti un șir etc. Sintaxa
+      pentru apelarea unei metode este foarte asemănătoare cu accesarea unei
+      proprietăți, dar o pereche de paranteze se adaugă la sfârșit.
+    </p>
+
+    <p><b>entitate.numele_metodei()</b></p>
+    <p>
+      Ca exemplu, să apelăm metoda toUpperCase(), tehnică ce va face ca toate
+      literele dintr-un string să fie scrise cu majuscule.
+    </p>
+
+    <p>"JavaScript is awesome".toUpperCase();</p>
+
+    <h3>Strict mode</h3>
+
+    <p>
+      O nouă caracteristică în ECMAScript 5 permite să punem script-ul în
+      deplină conformitate cu standardul modern. Acest lucru previne anumite
+      erori, cum ar fi utilizarea unei sintaxe nesigure și depreciate. Pentru a
+      pune script-ul în strict mode, este suficient să specificăm directiva, la
+      începutul fișierului js. Scrieți întotdeauna codul în strict mode.
+    </p>
+
+    <p>
+      "use strict"; <br />
+      // Este un comentariu doar. În continuare va fi întregul cod din fișierul
+      JS
+    </p>
+
+    <h2>Variabile și tipul variabilelor</h2>
+
+    <p>
+      Variabilele sunt folosite pentru stocarea unor date și sunt formate
+      dintr-un identificator (nume) și o zonă alocată în memorie în care este
+      stocată valoarea. O variabilă poate fi gândită ca o cutie ce are un nume
+      și conține ceva (valoare).
+    </p>
+
+    <h3>Denumiri de variabile</h3>
+    <a
+      href="https://www.freecodecamp.org/news/javascript-naming-conventions-dos-and-don-ts-99c0e2fdd78a"
+      >Convenții de denumiri a variabilelor</a
+    >
+
+    <h3>Keywords</h3>
+
+    <p>
+      Există o listă cu cuvinte cheie rezervate care au o semnificație specială
+      și sunt folosite pentru anumite scopuri. Aceste denumiri nu le putem
+      utiliza ca identificatori.
+    </p>
+
+    <p>
+      abstract --arguments --await --boolean <br />
+      break --byte --case --catch <br />
+      char --class --const --continue <br />
+      debugger --default --delete --do <br />
+      double --else --enum --eval <br />
+      export --extends --false --final <br />
+      finally --float --for --function <br />
+      goto --if --implements --import <br />
+      in --instanceof --int --interface <br />
+      let --long --native --new <br />
+      null --package --private --protected <br />
+      public --return --short --static <br />
+      super --switch --synchronized --this <br />
+      throw --throws --transient --true <br />
+      try --typeof --var --void <br />
+      volatile --while --with --yield
+    </p>
+
+    <h3>Declararea variabilelor</h3>
+    <h3>Când folosim const și let ?</h3>
+    <h3>constant și CONSTANT</h3>
+    <h3>Accesarea unei variabile</h3>
+    <h3>Variabilele primitive</h3>
+    <h3>Operatorul typeof</h3>
+
+    <h2>Interacțiunea cu utilizatorul</h2>
+    <h3>Printarea datelor</h3>
+    <a
+      href="https://medium.com/free-code-camp/how-to-use-the-javascript-console-going-beyond-console-log-5128af9d573b"
+      target="_blank"
+      >Going beyond console.log()
+    </a>
+    <h3>Obținerea datelor</h3>
+
+    <h2>Operatorii de bază</h2>
+    <h3>Operatorii aritmetici</h3>
+    <h3>Operatori de comparare</h3>
+    <h3>Operatorii de egalitate</h3>
+
+    <h2>Numere</h2>
+    <h3>Convertirea către un număr</h3>
+    <h3>Metoda Number.parseInt() și Number.parseFloat()</h3>
+    <h3>Verificarea unui număr</h3>
+    <h3>Adunarea numerelor zecimale</h3>
+    <h3>Clasa Math</h3>
+
+    <h2>Strings</h2>
+    <h3>Concatenarea (combinarea) șirurilor de caractere</h3>
+    <h3>Șiruri de șabloane</h3>
+    <h3>Proprietăți și metode a șirurilor</h3>
+    <h4>Proprietatea length</h4>
+    <h4>Metodele toLowerCase() și toUpperCase()</h4>
+    <h4>Metoda indexOf()</h4>
+    <h4>Metoda includes()</h4>
+    <h4>Metoda endsWith()</h4>
+    <h4>Metodele replace() și replaceAll()</h4>
+    <h4>Metoda slice()</h4>
+
+    <h2>Operatorii logici</h2>
+    <h3>Type casting</h3>
+    <h3>Operatorii logici</h3>
+    <h4>"ȘI" (and)</h4>
+    <h4>"SAU" (or)</h4>
+    <h4>"NU" (not)</h4>
+    <h3>Materiale adiționale</h3>
+    <a href="https://www.youtube.com/watch?v=UvI-AMAtrvE" target="_blank"
+      >Logic Gates Explained (video)
+    </a>
+
+    <script src="./js/index1.js"></script>
+  </body>
+</html>

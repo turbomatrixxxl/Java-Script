@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modulul2-Tema3</title>
+    <link rel="stylesheet" href="./css/index.css" />
+  </head>
+  <body>
+    <h1>Modulul 2 - Tema 3 - Arrays</h1>
+
+    <h2>Arrays</h2>
+    <p>
+      <b>Array</b>(matrice) este o structură de date pentru stocarea și
+      manipularea unei colecții de valori indexate. E folosit pentru a stoca
+      colecții de date, cum ar fi o listă de stațiuni, produse, clienți dintr-un
+      hotel etc.
+    </p>
+
+    <h3>Crearea</h3>
+    <p>
+      Un array este declarat cu paranteze pătrate: []. În interiorul
+      parantezelor, fiecare element este separat prin virgulă.
+    </p>
+    <p>const clients = ["Mango", "Poly", "Ajax"];</p>
+
+    <h3>Accesarea elementelor</h3>
+    <p>
+      Pentru a accesa valoarea unui element din matrice, se poate utiliza
+      sintaxa - array[index]. Nu trebuie să existe nici un spațiu între numele
+      matricei și parantezele pătrate.
+    </p>
+    <p>Indexarea elementelor unui array începe de la zero.</p>
+
+    <h3>Redefininirea unui array</h3>
+    <p>
+      Spre deosebire de un șir de caractere, elementele unui array pot fi
+      modificate prin accesarea lor prin index și atribuite alte valori.
+    </p>
+
+    <h3>Lungimea unui array</h3>
+    <p>
+      Lungimea unui array, adică numărul de elemente, este stocat în
+      proprietatea length. Aceasta este o valoare dinamică care se modifică
+      automat atunci când elementele sunt adăugate sau eliminate.
+    </p>
+
+    <h3>Indexul ultimului element</h3>
+    <p>
+      De cele mai multe ori, nu putem știi de dinainte care va fi lungimea
+      array-ului. Pentru a obține valoarea ultimului element, se folosește
+      următoarea abordare - lungimea matricei este întotdeauna cu unu mai mult
+      decât indicele ultimului element. Folosind formula length_array - 1 putem
+      obține valoarea ultimului element în orice matrice.
+    </p>
+
+    <h2>Iterarea unui array</h2>
+    <p>
+      Bucla <b>for</b> este folosită pentru a itera în interiorul unui array,
+      adică "a realege" element cu element.
+    </p>
+
+    <h3>Ciclul for...of</h3>
+    <p>
+      Construcția for...of declară o buclă care iterează peste alte obiecte
+      iterabile, cum ar fi array și șiruri. Corpul buclei va fi executat pentru
+      valoarea fiecărui element. Acesta este un înlocuitor bun pentru o buclă
+      for dacă nu avem nevoie de acces la contorul iterației.
+    </p>
+    <p>for (const variable of iterable) { // corpul ciclului }</p>
+    <ul>
+      <li>
+        <b>variable</b> — o variabilă care va stoca valoarea elementului la
+        fiecare iterație.
+      </li>
+      <li>
+        <b>iterable</b> — este o colecție care are elemente iterabile, cum ar fi
+        un array.
+      </li>
+    </ul>
+
+    <h3>Operatorul break și continue</h3>
+    <p>
+      Vom căuta numele unui client într-un array de nume și dacă îl găsim, vom
+      întrerupe ciclul, deoarece nu are rost să căutăm mai departe, numele fiind
+      unice.
+    </p>
+    <p>
+      Putem seta inițial, message, la o valoare de eroare, iar în buclă, putem
+      suprascrie variabila cu un mesaj de succes, dacă numele este găsit.
+      Totuși, vom avea nevoie de break, pentru că dacă avem o matrice de 10000
+      de clienți, iar cel de care avem nevoie se află pe poziția 2, atunci nu
+      are nici un rost să iterăm restul de 9998 elemente.
+    </p>
+
+    <h2>Atribuire prin referință și după valoare</h2>
+    <p>
+      Diferența fundamentală dintre <b>tipurile de date primitive</b> și
+      complexe este modul în care sunt stocate și copiate. Primitive: șiruri de
+      caractere, numere, boolean, null și undefined sunt copiate ca un întreg
+      când sunt atribuite <b>după valoare(by value)</b>.
+    </p>
+    <p>
+      <b>Tipurile complexe</b> de date se comportă diferit. O variabilă căreia i
+      se atribuie un array sau un obiect nu stochează valoarea în sine, ci
+      adresa locației sale în memorie, cu alte cuvinte - o referință (pointer)
+      la acesta, iar acestea sunt transmise prin
+      <b>referință (by reference)</b>.
+    </p>
+    <p>
+      Imaginează-ți o variabilă ca fiind o foaie de hârtie. Vom prezenta valoare
+      acesteia, scriind-o pe această foaie.
+    </p>
+    <p>
+      Dacă dorim să comunicăm utilizatorilor conținutul acestei înregistrări,
+      putem proceda în acest fel - creăm copii fizice și le oferim tuturor,
+      adică facem copii <b>multiple</b> independente (<b
+        >atribuire după valoare</b
+      >).
+    </p>
+    <p>
+      Sau puneți acea foaie într-o cameră încuiată și oferiți utilizatorilor o
+      cheie pentru acea cameră, adică <b>o</b> instanță comună (<b>
+        atribuire prin referință </b
+      >).
+    </p>
+    <p>
+      Acum să schimbăm datele de pe foaia de hârtie - valoarea variabilei.
+      Evident, vizitatorii camerei vor vedea întotdeauna modificările pe care le
+      facem, deoarce modificăm originalul, întrucât ei au acces aici. Este, de
+      asemenea, evident faptul că proprietarii de copii de hârtie nu vor observa
+      modificările, uitându-se la copiile lor.
+    </p>
+    <p>
+      La parsarea după valoare, o nouă locație în memorie este alocată
+      variabilei și datele sunt copiate în ea.
+    </p>
+    <p>
+      La parsarea valorii prin referință, în loc să creeze un nou obiect,
+      variabilei i se atribuie o referință (pointer) unui obiect deja existent,
+      adică locului său în memorie. Astfel, mai multe variabile pot indica
+      același obiect, asemănător unei încăperi închise și au o cheie de acces
+      către foaia originală. Toate tipurile primitive sunt atribuite după
+      valoare - se crează o copie.
+    </p>
+    <p>
+      Tipurile complexe - obiectele, matricele, funcțiile sunt atribuite prin
+      referință, adică variabila primește pur și simplu o referință la un obiect
+      deja existent.
+    </p>
+
+    <h2>Metodele unui array</h2>
+    <h3>Metoda split() și join()</h3>
+    <p>
+      Metoda split(delimeter) transformă un string într-un array prin
+      "divizarea" acestuia la delimitator delimeter. Dacă delimitatorul este un
+      string gol, atunci va fi returnat un array de caractere individuale.
+      Delimitatorul poate fi unul sau mai multe caractere.
+    </p>
+    <p>
+      Metoda matricei join(delimeter) unește elementele unui array într-un
+      string. În acel string, elementele vor fi separate prin caracterul sau
+      grupul de caractere specificate în delimeter. Această metodă este inversul
+      metodei split(delimeter).
+    </p>
+
+    <h4>Metoda indexOf()</h4>
+    <p>
+      indexOf(value) returnează primul index la care elementul cu valoarea value
+      a fost găsit într-un array, sau numărul -1, dacă nu există un astfel de
+      element. Se folosește indexOf atunci când trebuie să obținem direct
+      indexul unui element.
+    </p>
+
+    <h4>Metoda includes()</h4>
+    <p>
+      includes(value) verifică dacă array-ul conține un element cu valoare value
+      și returnează true sau, respectiv, false. Sfera de aplicare a acestei
+      metode se reduce la situațiile în care este necesar să se verifice dacă
+      există un element în array și poziția (indexul) acestuia nu este
+      importantă.
+    </p>
+
+    <h5>Verificarea mai multor condiții cu ajutorul metodei includes()</h5>
+
+    <h4>Metoda push() și pop()</h4>
+    <p>
+      Adaugă sau elimină elemente marginale, din extremele unui array. Ele
+      funcționează numai cu elementele de extremă stângă și extremă dreaptă și
+      nu pot pune sau elimina un element dintr-o poziție de mijloc.
+    </p>
+    <p>
+      Metoda push() adaugă unul sau mai multe elemente la sfârșitul unui array,
+      fără a fi nevoie să specificăm indecșii elementelor care se adaugă.
+      Returnează lungimea array-ului după ce au fost adăugate elementele.
+    </p>
+    <p>
+      Metoda pop() elimină ultimul element de la sfârșitul array-ului și
+      returnează elementul care a fost șters. Dacă array-ul este gol, metoda
+      returnează undefined.
+    </p>
+    <p>
+      <b>Atentie...!!!</b> <br />Cu metodele "<b>unshift/shift</b>" executi
+      aceleasi comenzi, dar se aplica in partea stanga a sirului.
+    </p>
+
+    <h4>Metoda slice()</h4>
+    <p>
+      slice(begin, end) returnează un nou array care conține o copie a unei
+      părți a matricei originale, fără a o modifica. Copia este realizată de la
+      begin până la end dar fără a-l include.
+    </p>
+    <p>
+      Dacă begin și end nu sunt specificate, va fi creată o copie completă a
+      array-ului original.
+    </p>
+    <p>
+      Dacă valoarea end nu este specificată, copia va fi de la start până la
+      sfârșitul array-ului inițial.
+    </p>
+    <p>
+      Dacă valoarea lui start este negativă și end nu este specificat, atunci
+      ultimele elemente start vor fi copiate.
+    </p>
+
+    <h4>Metoda splice()</h4>
+    <p>
+      Este o metodă universală de a lucra cu o matrice. Șterge, adaugă și
+      înlocuiește elemente dintr-o locație, după un anumit index dintr-o
+      matrice.
+    </p>
+
+    <h5>Îndepărtarea</h5>
+    <p>
+      Pentru a șterge elemente dintr-un array, sunt transmise două argumente.
+    </p>
+    <p>splice(position, num)</p>
+    <ul>
+      <li>
+        position - specifică poziția (indexul) primului element ce trebuie
+        eliminat
+      </li>
+      <li>num - determină cantitatea de elemente ce vor fi îndepărtate</li>
+    </ul>
+    <p>
+      Metoda splice modifică array-ul original și returnează un array care
+      conține elementele eliminate. De exemplu, avem o serie de evaluări care
+      conține cinci numere: de la 1 la 5.
+    </p>
+    <p>
+      În practică, valoarea returnată (un array de elemente îndepărtate) este
+      rar folosită. Practic, trebuie doar să eliminăm elementele dintr-un array
+    </p>
+
+    <h5>Adăugarea</h5>
+    <p>
+      Pentru a adăuga unul sau mai multe elemente într-un array, trebuie să
+      trecem trei sau mai multe argumente, iar al doilea argument trebuie să fie
+      zero.
+    </p>
+    <p>splice(position, 0, new_element_1, new_element_2, ...)</p>
+    <ul>
+      <li>
+        Argumentul <b>position</b> specifică poziția de pornire în array de la
+        care vor fi inserate noile elemente.
+      </li>
+      <li>
+        Al doilea argument este <b>zero</b>, îi spune metodei să nu ștergă
+        elemente în care au fost adăugate altele noi.
+      </li>
+      <li>
+        Al treilea, al patrulea și restul argumentelor ulterioare sunt elemente
+        noi care vor fi adăugate in interiorul array-ului.
+      </li>
+    </ul>
+    <p>
+      Spre exemplu, avem un array cu nume de culori, sub formă de string-uri. Să
+      adăugăm o nouă culoare înaintea elementului cu indexul 2.
+    </p>
+    <p>
+      Putem parsa un număr nelimitat de elemente, ca al patrulea, al cincilea
+      argument și așa mai departe.
+    </p>
+
+    <h5>Înlocuirea</h5>
+    <p>
+      Înlocuirea este o operație de adăugare în care elementele sunt îndepărtate
+      din locul în care au fost adăugate cele noi. Acest lucru necesită cel
+      puțin trei argumente pentru a fi transmise. Numărul de elemente șterse și
+      adăugate nu e necesar să fie același.
+    </p>
+    <p>splice(position, num, new_element_1, new_element_2, ...)</p>
+    <ul>
+      <li>
+        <b>position</b> - specifică poziția (indexul) primului element ce
+        trebuie eliminat
+      </li>
+      <li>
+        <b>num</b> - specifică numărul de elemente ce necesită a fi îndepărtate
+      </li>
+      <li>
+        Al treilea, al patrulea și următoarele sunt elemente noi care vor fi
+        adăugate în array
+      </li>
+    </ul>
+    <p>Spre exemplu, avem o matrice cu 4 limbaje de programare.</p>
+
+    <h4>Metoda concat()</h4>
+    <p>
+      Îmbină două sau mai multe array-uri și reiese unul singur. Nu schimbă
+      array-ul pe care este folosit, ci doar returnează unul nou. Ordinea
+      argumentelor metodei afectează ordinea elementelor din array-ul nou creat.
+    </p>
+
+    <script src="./js/index3.js"></script>
+  </body>
+</html>
