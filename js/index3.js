@@ -357,5 +357,29 @@ console.log(`allClientsWithOldFirst:`, allClientsWithOldFirst); // ["Mango", "Aj
 const allClientsWithNewFirst = newClients.concat(oldClients);
 console.log(`allClientsWithNewFirst:`, allClientsWithNewFirst); // ["Monkong", "Singu", "Mango", "Ajax", "Poly", "Kiwi"]
 
-// console.log(oldClients); // ["Mango", "Ajax", "Poly", "Kiwi"]
-// console.log(newClients); // ["Monkong", "Singu"]
+// ------     Cristi Socaci     ------
+console.log(`---------        Cristi Socaci        ---------`);
+
+console.log("-----  replace on index  ----");
+const family = [`radu`, `lavi`, `diti`, `ovi`, `mama`, `altu`];
+console.log(`old family members :`, family);
+family[2] = `nicu`;
+console.log(`new family members :`, family);
+
+console.log("-----  replace last  ----");
+const lastMember = family.length - 1;
+family[lastMember] = `Nelu`;
+console.log(`last new family members :`, family);
+const newMember = [`Rodica`];
+let bigFamily = family.concat(newMember);
+console.log(`Big family is :`, bigFamily);
+
+console.log("-----  show each upper case  ----");
+for (let i = 0; i < bigFamily.length; i++) {
+  console.log(bigFamily[i].toUpperCase(), "is a member of my family");
+}
+
+console.log("-----  for(const (value) of (value))  ----");
+for (const members of bigFamily) {
+  console.log(members.toLowerCase());
+}

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modulul 2-Tema 4</title>
+    <link rel="stylesheet" href="./css/index.css" />
+  </head>
+  <body>
+    <h1>Modulul 2 - Tema 4 - Funcţii</h1>
+    <h2>Funcții</h2>
+    <p>
+      Funcția este o subrutină. O bucată de cod independentă, concepută pentru a
+      îndeplini o anumită sarcină, de mai multe ori, cu valori inițiale
+      diferite. Funcțiile ne permit să structurăm un cod mai mare, să reducem
+      repetarea codului și să-l modularizăm.
+    </p>
+    <p>
+      O funcție poate fi considerată ca o cutie neagră care ia ceva ca intrare
+      (date) și returnează ceva la ieșire (rezultatul executării codului din
+      interiorul ei).
+    </p>
+    <h3>Declararea funcțiilor</h3>
+    <p>
+      // 1. Declararea funcției multiply <br />
+      function multiply() { <br />
+      // Corpul funcției <br />
+      console.log("Se va printa acest mesaj când se apelează funcția de
+      multiplicare"); <br />
+      } <br />
+      <br />
+      // 2. Apelul funcției multiply <br />
+      multiply(); // 'Se va printa acest mesaj când se apelează funcția de
+      multiplicare' <br />
+      multiply(); // 'Se va printa acest mesaj când se apelează funcția de
+      multiplicare' <br />
+      multiply(); // 'Se va printa acest mesaj când se apelează funcția de
+      multiplicare'
+    </p>
+    <p>
+      O declarație de funcție (<b>function declaration</b>) începe cu cuvântul
+      cheie function, urmat de numele său - un verb care răspunde la întrebarea
+      "<b> Ce va face? </b>" și o pereche de paranteze rotunde.
+    </p>
+    <p>
+      Corpul funcției este închis între acolade <b>{}</b> și conține
+      instrucțiuni care trebuie executate atunci când este <b>apelat</b>. Apoi,
+      când este nevoie, funcția se <b>apelează</b> cu numele său și paranteze
+      rotunde.
+    </p>
+
+    <h3>Parametri și argumente</h3>
+    <p>
+      În parantezele de după numele funcției sunt specificați parametrii -
+      datele de intrare pe care funcția le așteaptă atunci când este apelată.
+    </p>
+    <p>
+      Parametrii sunt niște variabile locale disponibile numai în corpul
+      funcției. Sunt separate prin virgule, dacă există mai mulți parametri.
+      Dacă funcția nu așteaptă niciun parametru , atunci sunt scrise doar
+      paranteze rotunde goale.
+    </p>
+    <p>
+      Ordinea de transmitere a argumentelor trebuie să se potrivească cu ordinea
+      parametrilor declarați: valoarea primului argument va fi atribuită
+      primului parametru, valoarea celui de-al doilea argument celui de-al
+      doilea parametru și așa mai departe. Dacă există mai mulți parametri decât
+      argumente, atunci li se vor aloca undefined.
+    </p>
+
+    <h3>Returnarea valorii</h3>
+    <p>
+      Instrucțiunea return este folosită pentru a transmite o valoare din corpul
+      unei funcții spre codul extern. Când interpretorul întâlnește un return,
+      iese imediat din funcție (oprește executarea acesteia) și returnează
+      valoarea specificată, în locul din cadrul codului în care a fost oprită
+      funcția.
+    </p>
+    <p>
+      Dacă se declară return fără o valoare explicită, se va returna o valoare
+      specială numită undefined. Dacă nu există return în corpul funcției, va
+      returna în continuare undefined.
+    </p>
+
+    <h3>Ordinea de executare a codului</h3>
+    <p>
+      Când interpretorul întâlnește un apel de funcție (sau metodă), întrerupe
+      execuția codului curent și începe executarea codului din corpul funcției.
+      După ce tot codul funcției a fost executat, interpretorul iese din corpul
+      funcției, revenind la locul de unde a fost apelată și continuă să execute
+      codul de după apelul acelei funcții.
+    </p>
+
+    <h3>Parametrii default</h3>
+    <p>
+      Uneori este necesar să se declare o funcție ai cărei parametri vor avea
+      alte valori decât undefined, chiar dacă nu au fost transmise argumente
+      pentru ei. Acest lucru se face într-un mod foarte simplu, este suficient
+      să specificați valoarea implicită chiar atunci când declarați parametrii
+      în semnătura funcției. Cu această notație, dacă nu se transmite nici o
+      valoare argumentului pentru un parametru, se folosește valoarea implicită.
+    </p>
+
+    <h3>Pseudo-array arguments</h3>
+    <p>
+      Lista tuturor <b>argumentelor</b> poate fi accesată folosind variabila
+      specială arguments, care este disponibilă numai în interiorul funcției și
+      stochează toate argumentele ca o pseudo-matrice.
+    </p>
+
+    <p>
+      <b>Pseudo-array</b> - este o colecție ce are proprietatea <b>length</b> și
+      capacitatea de a accesa un element prin index, dar lipsită de majoritatea
+      metodelor de lucru cu o matrice.
+    </p>
+
+    <h3>Conversia pseudo-array</h3>
+    <p>
+      În mod normal, o pseudo-matrice trebuie convertită într-o matrice,
+      deoarece o pseudo-matrice nu are metodele matricei, precum slice() sau
+      includes(). În practică, sunt utilizate câteva metode de bază.
+    </p>
+    <p>
+      Folosind metoda <b>Array.from()</b>, vom crea o matrice dintr-o
+      pseudo-matrice.
+    </p>
+
+    <p>
+      <b>
+        function fn() { <br />
+        // Variabila args va conține o matrice completă <br />
+        const args = Array.from(arguments); <br />
+        }
+      </b>
+    </p>
+    <p>
+      Folosind operația <b>... (rest)</b>, putem să colectăm un număr arbitrar
+      de elemente, argumente în cazul nostru, într-o matrice și să-l stocăm
+      într-o variabilă. Colectăm toate argumentele, folosind operația rest,
+      chiar în semnătura funcției.
+    </p>
+    <p>
+      <b
+        >function fn(...args) { // Variabila args va conține o matrice completă
+        }</b
+      >
+    </p>
+    <p>
+      Operația rest va fi explicată, în detaliu, un pic mai târziu în curs. Doar
+      una dintre posibilele ei utilizări este prezentată aici.
+    </p>
+
+    <h3>"Return early" pattern</h3>
+    <p>
+      Construția if...else este principala modalitate de a crea ramuri. Cu toate
+      acestea, ramurile suprapuse complexe fac codul greu de înțeles.
+    </p>
+    <p>
+      Să creăm o funcție care procesează retragerea de bani dintr-un cont
+      bancar. Va primi suma pentru retragere și soldul curent al contului, după
+      care, în funcție de o condiție va executa blocul de cod necesar.
+    </p>
+
+    <p>
+      Chiar și într-un exemplu atât de simplu, există un grup de instrucțiuni
+      condiționale, suprapuse, care împiedică să distingem imediat logica de
+      execuție a codului.
+    </p>
+    <p>
+      Într-o funcție poate exista mai multe instrucțiuni return. Cel mai
+      important lucru de reținut este faptul că execuția funcției este
+      întreruptă atunci când interpretorul întâlnește un return, iar tot codul
+      de după acesta va fi ignorat în apelul curent al funcției.
+    </p>
+
+    <p>
+      <b>"Return early"</b> pattern - este o modalitate de a exploata
+      capacitatea unei ieșiri mai rapide dintr-o funcție, folosind instrucțiunea
+      return. Astfel, obținem un cod mai curat, mai plat și mai ușor de înțeles
+      care este ușor de refactorizat.
+    </p>
+    <p>
+      Să separăm toate verificările, de condiție, în instrucțiuni separate if,
+      după care adăugăm codul din corpul lui else. În mod ideal, ar trebui să
+      ajungem cu o listă plată de instrucțiuni condiționale, una după alta și,
+      la sfârșit, un bloc care va fi executat, doar dacă nu este executat niciun
+      if.
+    </p>
+
+    <h3>Function expression</h3>
+    <p>
+      <b>Function expression</b> - o declaraţie obişnuită a unei variabile a
+      cărei valori este o funcţie. Este o alternativă pentru a declara o
+      funcție.
+    </p>
+    <p>
+      Diferența este că function expression nu poate fi apelată înainte de a fi
+      creată, ci doar după.
+    </p>
+    <p>
+      Function declaration poate fi apelată înainte de a fi declarată.<b>!!!</b>
+    </p>
+    <p>
+      Nu contează ce sintaxă vei folosi, ci important este să fie omogen codul
+      din proiect. Adică, trebuie să încercați să nu mixați cele 2 tipuri de
+      declarații a funcțiilor.
+    </p>
+
+    <h2>Scope</h2>
+    <p>
+      Scope - mecanism care determină disponibilitatea variabilelor în codul
+      executat.
+    </p>
+    <p>
+      <b>Scope chain</b> - o ierarhie unde elementele copii au acces la
+      variabile din domeniile părinte, dar nu și invers.
+    </p>
+
+    <h3>Scope-ul global</h3>
+    <p>
+      Variabilele declarate la nivelul superior, adică, în afara oricăror
+      instrucțiuni de control, precum <b>if, while, for și funcții</b>, sunt în
+      <b>scope-ul global</b> și sunt disponibile peste tot, după ce sunt
+      declarate.
+    </p>
+
+    <h3>Block scope</h3>
+    <p>
+      Variabilele declarate în interiorul instrucțiunilor
+      <b>if, for, funcții</b> și a altor blocuri de cod înconjurate de acolade
+      <b>{}</b>, sunt în <b>block scope</b> și sunt disponibile numai în
+      interiorul blocului de cod.
+    </p>
+
+    <h3>Căutarea în lanțul/ierarhia de scopuri</h3>
+    <p>
+      Interpretorul încearcă mai întâi să găsească variabila în scope-ul în care
+      a fost accesată. Dacă nu există o astfel de variabilă în scope-ul local,
+      atunci iese în exterior, un nivel mai superior. Repetă acest pas până când
+      găsește o valoare sau într-un final, ajunge la cel mai înalt domeniu
+      (global) și își dă seama că o variabilă cu un astfel de identificator, nu
+      poate fi găsită. Atunci va exista o eroare, deoarece variabila nu este
+      declarată.
+    </p>
+
+    <h2>Callstack</h2>
+    <p>
+      Când o funcție este apelată, alte funcții pot fi apelate în interiorul ei
+      și așa mai departe. JavaScript este un limbaj cu un singur thread, adică
+      poate fi executată o singură instrucțiune pe o unitate de timp. Asta
+      înseamnă că funcțiile deja apelate care nu și-au încheiat execuția,
+      trebuie să aștepte execuția funcțiilor apelate în interiorul lor, pentru
+      a-și continua mersul.
+    </p>
+    <p>
+      Avem nevoie de un mecanism pentru a stoca lista de funcții care au fost
+      apelate, dar care încă nu și-au încheiat execuția, și de un mecanism care
+      să controleze ordinea în care aceste funcții sunt executate - exact de
+      asta este responsabil callstack-ul.
+    </p>
+
+    <h3>Stack</h3>
+    <p>
+      <b>Stack</b> <b>(stivă)</b> - o structură de date care funcționează
+      conform principiului <b>LIFO (Last-In-First-Out)</b>, adică ultimul
+      intrat, primul ieșit. Ultimul lucru adăugat în stivă va fi primul
+      eliminat, astfel încât putem adăuga sau elimina articole doar din partea
+      de sus a stivei.
+    </p>
+    <p>
+      Gândiți-vă la o stivă ca fiind o matrice care are doar metodele pop și
+      push, ceea ce înseamnă că putem adăuga sau elimina un element doar de la
+      sfârșitul colecției.
+    </p>
+
+    <h3>Callstack</h3>
+    <p>
+      <b>Callstack</b> - este un mecanism de urmărire a interpretorului și a
+      locației sale curente care apelează mai multe funcții. Ce funcție se
+      execută la momentul respectiv, ce funcții sunt apelate din cadrul funcției
+      care se execută și care funcție va fi apelată în continuare, etc.
+    </p>
+    <ul>
+      <li>
+        Când un script apelează o funcție, interpretorul o adaugă în callstack
+        și începe execuția ei.
+      </li>
+      <li>
+        Orice funcție din funcția executată este adăugată în callstack și
+        executată imediat ce sunt apelate.
+      </li>
+      <li>
+        Când execuția funcției este finalizată, interpretorul o scoate din
+        callstack și reia execuția codului din punctul în care s-a oprit. Adică,
+        începe să fie executată funcția care se află următoarea pe stivă.
+      </li>
+    </ul>
+    <p>
+      <b>Stack frame</b> - o structură care este adăugată la stivă, în momentul
+      în care este apelată o funcție. Stochează informații utilitare, cum ar fi
+      numele funcției și numărul liniei în care a avut loc apelul.
+    </p>
+    <p>
+      Când acest cod este executat, <b>foo()</b> va fi apelat prima dată, apoi
+      <b>bar()</b> este apelat în interiorul <b>foo(),</b> iar apoi
+      <b>baz()</b>. Contează și apelurile de console.log(), deoarece este și
+      asta o funcție. Imaginea de mai jos reprezintă un callstack pas cu pas.
+    </p>
+
+    <h3>Callstack overflow</h3>
+    <p>
+      Callstack-ul nu este nelimitat, ci din contra i se alocă o cantitate
+      finită de memorie. Uneori putem vedea în consolă o eroare ca:
+      <b>
+        "Uncaught RangeError: Maximum call stack size exceeded" - stack
+        overflow.
+      </b>
+    </p>
+    <p>
+      Acest lucru se poate întâmpla atunci când recursia este utilizată incorect
+      sau apelurile de funcție sunt plasate într-o buclă, adică dacă există
+      apeluri de funcție nesfârșite și rezultatul nu este returnat, atunci stiva
+      crește. La atingerea limitei numărului de elemente din stivă, va apărea o
+      astfel de eroare și scriptul va pica.
+    </p>
+
+    <script src="./js/index4.js"></script>
+  </body>
+</html>
