@@ -251,6 +251,330 @@ foo();
 // ------     Cristi Socaci     ------
 console.log(`---------        Cristi Socaci        ---------`);
 
+// -----  exemplu  ----
+console.log("-----  exemplu  ----");
+
+function fools(array) {
+  for (let i = 0; i < array.length; i++) {
+    array[i] += 2;
+  }
+  console.log(array);
+
+  return array;
+}
+
+let numberss = [1, 2, 3, 7, 8, 9, 10];
+
+fools(numberss);
+console.log(numberss);
+
+// -----  exemplu `...args` ----
+console.log("-----  exemplu `...args`  ----");
+
+function sayHi(name, ...args) {
+  console.log("Hi", name, args.join(" "));
+}
+
+sayHi(
+  "Radu",
+  "si Lavi !",
+  "Si ceilalti membrii ai familiei noastre unite...!!!"
+);
+
+// -----  exemplu  alt mod declarare functie 1 ----
+console.log("-----  alt mod declarare functie 1  ----");
+console.log("-----  aici apelezi functia dupa declararea ei !!!  ----");
+
+const product = function (a, b) {
+  return a * b;
+};
+
+console.log(product(4, 18));
+
+// -----  exemplu  alt mod declarare functie 2 ----
+console.log("-----  alt mod declarare functie 2  ----");
+console.log("-----  si aici apelezi functia dupa declararea ei !!!  ----");
+
+const divided = (a, b) => {
+  return a / b;
+};
+
+console.log(divided(4, 18));
+
+// -----  exercitiu 1 ----
+console.log("-----  exercitiu 1  ----");
+/*
+
+Example 1 - Body mass index
+Write a function `calcBMI(weight, height)` that calculates and returns the body mass
+index of a person. To do this, divide the weight in kilograms by
+square of a person's height in meters.
+
+The weight and height will be specially passed as strings. Non-integer numbers can be
+specified as `24.7` or `24,7`, i.e. a comma can be used
+as a decimal separator.
+
+Body mass index must be rounded to one decimal place;
+
+*/
+function calcBMI(weight, height) {
+  const weightReplaced = weight.replace(",", ".");
+  const heightReplaced = height.replace(",", ".");
+
+  const weightParsed = Number.parseFloat(weightReplaced);
+  const heightParsed = Number.parseFloat(heightReplaced);
+
+  const bmiOriginal = weightParsed / Math.pow(heightParsed, 2);
+  const bmi = bmiOriginal.toFixed(1);
+  console.log("Original :", bmiOriginal);
+
+  return bmi;
+}
+
+const bmi = calcBMI("88,3", "1.75");
+console.log("Cu o zecimala :", bmi); // 28.8
+
+// -----  exercitiu 2 ----
+console.log("-----  exercitiu 2  ----");
+
+/*
+
+Example 2 - Smaller of numbers
+
+Write a function `min(a,b)` that returns the smaller of the numbers `a` and `b`.
+
+*/
+
+function min(a, ...args) {
+  return a < args ? a : b;
+}
+console.log(min(3, 9));
+
+// -----  exercitiu 3 ----
+console.log("-----  exercitiu 3  ----");
+
+/*
+
+## Example 7 - Average value
+
+Write a `console.log(calAverage(1, 2, 3, 4)); // 2.5
+console.log(calAverage(14, 8, 2)); // 8
+console.log(calAverage(27, 43, 2, 8, 36)); // 23.2` function that takes an arbitrary number of arguments
+and returns their average. All arguments will be only numbers.
+
+
+*/
+function calAverage(...args) {
+  let sum = 0;
+
+  for (args of arguments) {
+    sum += args;
+  }
+
+  return sum / arguments.length;
+}
+
+console.log(calAverage(1, 2, 3, 4)); // 2.5
+console.log(calAverage(14, 8, 2)); // 8
+console.log(calAverage(27, 43, 2, 8, 36)); // 23.2
+
+// -----  exercitiu 4 ----
+console.log("-----  exercitiu 4  ----");
+
+/*
+
+Example 8 - Time Formatting
+
+Write a function `formatTime(minutes)` that will translate the value of `minutes`
+(number of minutes) to a string in hour and minute format `HH:MM`.
+
+
+*/
+
+// TODO: ca exercitiu, creati voi functia padStart
+
+function formatTime(minutes) {
+  let hour = String(Math.floor(minutes / 60));
+  let minute = String(minutes % 60);
+  let time = `${hour}:${minute}`;
+  hour.padStart;
+  return `${padStart(hour)}:${padStart(minute)}`;
+}
+
+console.log(formatTime(70)); // "01:10"
+console.log(formatTime(450)); // "07:30"
+console.log(formatTime(1441)); // "24:01"
+
+function padStart(number) {
+  let pad = String(number);
+
+  if (pad.length <= 1) {
+    return "0".concat(pad);
+  } else {
+    return pad;
+  }
+}
+
+console.log(padStart(7));
+
+// ------     Exercitii tema optional     ------
+console.log(`---------        Exercitii tema optional `);
+
+// - exercitiul-1 -
+console.log(`- exercitiul-1 -`);
+
+/*
+## Example 3 - Area of a rectangle
+
+Write a function `getRectArea(dimensions)` to calculate the area of a rectangle
+with sides, the values of which will be passed to the `dimensions` parameter as a string.
+Values are guaranteed to be separated by a space.
+
+
+*/
+
+function getRectArea(values) {
+  const numbers = values.split(" ");
+  const sideA = numbers[0].replace(",", ".");
+  const sideB = numbers[1].replace(",", ".");
+
+  const side1 = Number.parseFloat(sideA);
+  const side2 = Number.parseFloat(sideB);
+
+  const area = side1 * side2;
+  return area;
+}
+
+console.log(getRectArea("8,4 11,1"));
+
+// - exercitiul-2 -
+console.log(`- exercitiul-2 -`);
+
+/*
+
+Example 4 - Element logging
+
+Write a function `logItems(items)` that takes an array and uses a `for` loop
+that for each element of the array will print a message to the console
+in the format `<item number> - <item value>`. The numbering
+of elements should start with `1`.
+
+For example, for the first element of the array `['Mango', 'Poly', 'Ajax']` with index `0`
+will print `1 - Mango` and for index 2 will print `3 - Ajax`.
+
+*/
+
+function logItems(items) {
+  for (let i = 0; i < items.length; i++) {
+    console.log(`${i + 1} - ${items[i]}`);
+  }
+}
+
+logItems(["Mango", "Poly", "Ajax"]);
+logItems(["🍎", "🍇", "🍑", "🍌", "🍋"]);
+
+// - exercitiul-3 -
+console.log(`- exercitiul-3 -`);
+
+/*
+
+Example 5 - Contact logging
+
+Write a function `printContactsInfo(names, phones)` that prints  to the console the name
+and the user's phone number. The `names` and `phones` parameters will be passed
+strings of names and phone numbers separated by commas. Sequence number of names and
+phone numbers in the rows indicate a match. Number of names and phones
+guaranteed to be the same.
+
+*/
+
+function printContactsInfo(names, phones) {
+  const namesArray = names.split(",");
+  const phonesArray = phones.split(",");
+
+  for (let i = 0; i < namesArray.length; i++) {
+    console.log(namesArray[i], phonesArray[i]);
+  }
+}
+
+printContactsInfo(
+  "Jacob,William,Solomon,Artemis",
+  "89001234567,89001112233,890055566377,890055566300"
+);
+
+// - exercitiul-4 -
+console.log(`- exercitiul-4 -`);
+
+/*
+
+Example 6 - Finding the largest element
+
+Write a function `findLargestNumber(numbers)` that looks for the largest number in
+array.
+
+*/
+
+function findLargestNumber(numbers) {
+  return Math.max(...numbers);
+}
+console.log(findLargestNumber([2, 17, 94, 1, 23, 37])); // 94
+console.log(findLargestNumber([49, 4, 7, 83, 12])); // 83
+
+// - exercitiul-5 -
+console.log(`- exercitiul-5 -`);
+
+/*
+
+Example 9 -Collection of courses (includes, indexOf, push, etc.)
+
+Write functions to work with the `courses` collection of training courses:
+
+- `addCourse(name)` - adds a course to the end of the collection
+- `removeCourse(name)` - removes a course from the collection
+- `updateCourse(oldName, newName)` - changes the name to a new one
+
+*/
+function addCourse(params) {
+  for (let i = 0; i < courses.length; i++) {
+    if (params === courses[i]) {
+      console.log(" You already have this course");
+    }
+  }
+  return courses.push(params);
+}
+
+function removeCourse(params) {
+  let removed;
+
+  for (let i = 0; i < courses.length; i++) {
+    if (params === courses[i]) {
+      removed = courses.splice(i, 1);
+      return courses;
+    }
+  }
+  return console.log("Course with this name was not found");
+}
+
+function updateCourse(old, args) {
+  for (let i = 0; i < courses.length; i++) {
+    if (old === courses[i]) {
+      return courses.splice(i, 1, args);
+    }
+  }
+}
+
+const courses = ["HTML", "CSS", "JavaScript", "React", "PostgreSQL"];
+addCourse("Express");
+console.log(courses); // ['HTML', 'CSS', 'JavaScript', 'React', 'PostgreSQL', 'Express']
+addCourse("CSS"); // ' You already have this course'
+
+removeCourse("React");
+console.log(courses); // ['HTML', 'CSS', 'JavaScript', 'PostgreSQL', 'Express']
+removeCourse("Vue"); // 'Course with this name was not found'
+
+updateCourse("Express", "NestJS");
+console.log(courses); // ['HTML', 'CSS', 'JavaScript', 'PostgreSQL', 'NestJS']
+
 // ------     Exercitii autoverificare 2     ------
 console.log(`---------        Exercitii autoverificare 2        ---------`);
 

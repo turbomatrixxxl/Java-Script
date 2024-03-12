@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modulul3-Tema5-Obiecte</title>
+    <link rel="stylesheet" href="./css/index.css" />
+  </head>
+  <body>
+    <h1>Modulul 3 - Tema 5 - Obiecte</h1>
+    <a href=""><b>Lectie video</b></a>
+
+    <h2>Objects</h2>
+    <p>
+      Obiectele permit să descriem și să grupăm caracteristicile unei entități -
+      un utilizator, o carte, un produs dintr-un magazin sau orice altceva.
+      Obiectele se mai numesc și dicționare, deoarece conțin termeni
+      (proprietăți) și definițiile lor (valori).
+    </p>
+
+    <h3>Crearea unui obiect</h3>
+    <p>Pentru a declara un obiect, folosim {}.</p>
+    <p>
+      Când creăm obiectul, putem adăuga proprietăți, fiecare dintre acestea
+      fiind descrisă ca o pereche cheie:valoare. Cheia se mai numește și numele
+      proprietății și este întotdeauna un string. Valoarea unei proprietăți
+      poate fi de orice tip: primitive, matrice, obiecte, boolean, funcții etc.
+      Proprietățile sunt separate prin virgulă.
+    </p>
+    <p>Regulile pentru denumirea cheilor sunt simple:</p>
+
+    <ul>
+      <li>
+        Dacă cheia este cuprinsă între ghilimele, atunci poate fi un
+        <b>arbitrary string</b>.
+      </li>
+      <li>
+        Dacă nu există ghilimele, atunci apar restricții - nume fără spații, să
+        înceapă cu o literă sau simboluri ca <b>_</b> și <b>$.</b>
+      </li>
+    </ul>
+
+    <h3>Proprietăți anexate la o proprietate</h3>
+    <p>
+      Valoarea proprietății poate fi un alt obiect pentru a stoca date grupate.
+      De exemplu, statisticile unui utilizator dintr-o rețea socială sunt
+      formate din numărul de urmăritori, vizualizări și aprecieri și este cel
+      mai convenabil să stocăm aceste date sub formă de obiect. La fel și cu
+      locația utilizatorului, datele despre țara și orașul în care se află
+      utilizatorul se vor stoca separat.
+    </p>
+    <p>
+      În viitor, această structură de date poate fi folosită pentru a căuta
+      utilizatori în funcție de țară, oraș, numărul minim sau maxim de
+      urmăritori etc.
+    </p>
+
+    <h3>Accesarea proprietăților prin punct</h3>
+    <p>
+      Prima modalitate de a accesa o proprietate a unui obiect este cu sintaxa
+      <b>object.propertyname</b>. Sintaxa punct este folosită în majoritatea
+      cazurilor și este potrivită atunci când cunoaștem dinainte numele
+      (<b>cheia</b>) proprietății pe care vrem să o accesăm.
+    </p>
+    <ul>
+      <li>
+        În locul apelului va fi returnată valoarea proprietății cu acel nume.
+      </li>
+      <li>
+        Dacă obiectul nu are o proprietate cu acest nume, va returna valoarea
+        undefined.
+      </li>
+    </ul>
+
+    <h3>Accesarea proprietăților anexate</h3>
+    <p>
+      Pentru a accesa proprietățile dintr-o altă proprietate, se folosește un
+      lanț de puncte. De exemplu, dacă trebuie să obținem valoarea țării
+      utilizatorului, scriem <b>user.location.country</b>, unde
+      <b>user.location</b> este o referință (<b>calea</b>) la obiect din
+      proprietatea <b>location</b> și <b>user.location.country</b> este o
+      referință la proprietatea <b>country</b> din acest obiect. Adică
+      <b>«punctul»</b> indică următorul nivel din obiect.
+    </p>
+
+    <p>
+      Dacă valoarea proprietății este o matrice, atunci exemplul nostru
+      user.hobbies se va referi la acea matrice. Apoi putem accesa elementele
+      sale prin paranteze pătrate și index sau folosim diferite metode specifice
+      acelei matrice.
+    </p>
+
+    <h3>Accesarea proprietăților prin paranteze pătrate</h3>
+    A doua modalitate de a accesa o proprietate a unui obiect este cu sintaxa
+    <b>object["property name"]</b>. Similar cu accesarea unui element dintr-o
+    matrice, cu o diferență - parantezele nu conțin indexul elementului, ci
+    numele proprietății sub forma unui string.
+
+    <p>
+      Sintaxa "<b>parantezelor pătrate</b>" este folosită mult mai rar, doar
+      atunci când numele proprietății nu este cunoscut în prealabil sau este
+      stocat într-o variabilă, de exemplu, ca valoare a unui parametru de
+      funcție.
+    </p>
+
+    <ul>
+      <li>
+        În locul apelului va fi returnată valoarea proprietății cu acel nume.
+      </li>
+      <li>
+        Dacă obiectul nu are o proprietate cu acest nume, va returna valoarea
+        undefined.
+      </li>
+    </ul>
+
+    <h3>Modificarea valorii unei proprietăți</h3>
+    <p>
+      După ce un obiect este creat, valorile proprietăților pot fi modificate.
+      Pentru a face acest lucru, trebuie să ne referim la ele după nume, de
+      exemplu, le apelăm «printr-un punct» și îi atribuim o valoare nouă.
+    </p>
+
+    <h3>Adăugarea proprietăților</h3>
+    <p>
+      Operația de adăugare a unei noi proprietăți după crearea obiectului nu
+      este diferită față de modificarea valorii unei proprietăți deja existente.
+      Dacă, la scrierea unei valori după nume, nu există o astfel de proprietate
+      în obiect, aceasta va fi automat creată.
+    </p>
+
+    <h3>Proprietăți scurte</h3>
+    <p>
+      Uneori, la crearea unui obiect, valoarea proprietății trebuie luată
+      dintr-o variabilă sau un parametru de funcție ce are același nume ca și
+      proprietatea în sine.
+    </p>
+    <p>
+      Sintaxa din exemplul următor este ambiguă, deoarece trebuie să duplicăm
+      numele proprietății și numele variabilei care stochează valoarea necesară.
+    </p>
+    <p>
+      Sintaxa proprietăților scurte rezolvă această problemă, permițând ca
+      numele unei variabile să fie folosit ca nume de proprietate, iar valoarea
+      acesteia ca valoare a proprietății.
+    </p>
+    <p>
+      La declararea unui obiect este suficient să specificăm doar numele
+      proprietății, iar valoarea va fi preluată dintr-o variabilă cu același
+      nume.
+    </p>
+
+    <h3>Proprietăți calculate</h3>
+    <p>
+      Există situații în care la declararea unui obiect este necesară adăugarea
+      unei proprietăți cu un nume pe care nu-l cunoaștem inițial, deoarece este
+      stocată ca valoare a unei variabile sau ca rezultat al unei funcții.
+    </p>
+    <p>
+      În trecut, pentru acest caz era necesar să creăm mai întâi un obiect și
+      apoi să-i adăugăm proprietăți prin paranteze pătrate, ceea ce nu este
+      foarte confortabil.
+    </p>
+    <p>
+      Sintaxa proprietăților calculate ajută la evitarea codului redundant și,
+      în unele cazuri, la simplificarea acestuia. Valoarea unei proprietăți
+      calculate poate fi orice expresie validă.
+    </p>
+
+    <h3>Metodele unui obiect</h3>
+    <p>
+      Până acum, am considerat obiectele ca fiind doar depozite de date
+      înrudite, cum ar fi informațiile despre o carte. Astfel de obiecte se
+      găsesc de obicei într-o matrice cu aceleași obiecte care reprezintă o
+      colecție de elemente de același tip.
+    </p>
+    <p>
+      Obiectele pot stoca nu numai date, ci și funcții pentru lucrul cu aceste
+      date - metode. Dacă valoarea unei proprietăți este o funcție, acea
+      proprietate se numește o metodă de obiect.
+    </p>
+    <p>
+      Astfel de obiecte sunt ca un model. Ele leagă date și metode pentru a
+      lucra cu acele date. De exemplu, puteam să declarăm o variabilă
+      <b>books</b> și două <b>funcții getBooks()</b> și
+      <b>addBook(bookName)</b>, dar atunci acestea ar fi trei entități
+      independente fără legătură sintactică explicită și cu o conexiune logică
+      destul de slabă.
+    </p>
+
+    <p>
+      // ❌ Entități vag cuplate, chiar independente <br />
+      const books = []; <br />
+      function getBooks() {} <br />
+      function addBook() {}
+    </p>
+
+    <h3>Accesarea proprietăților obiectului în metode</h3>
+    <p>
+      Metodele sunt folosite pentru a lucra cu proprietățile unui obiect și a le
+      modifica. Pentru a accesa un obiect dintr-o metodă, nu este de-ajuns doar
+      numele variabilei, cum ar fi <b>bookShelf</b>, ci și keyword-ul
+      <b>this</b> - contextul. Valoarea lui <b>this</b> va fi
+      <b>obiectul dinaintea «punctului»</b>, adică obiectul care a apelat acea
+      metodă, în cazul nostru este o referință la <b> obiectul bookShelf </b>.
+    </p>
+    <p>
+      Pentru a accesa proprietățile unui obiect în metode, îl accesăm prin
+      <b>this</b> și apoi «<b>prin punct</b>» specificăm calea spre proprietate.
+    </p>
+    <p>
+      Va fi logic să ne gândim - de ce să nu folosim numele obiectului atunci
+      când accesăm proprietăți, pentru că în mod clar nu îl vom schimba? Cert
+      este că numele unui obiect este un lucru mai puțin sigur, metodele unui
+      obiect pot fi copiate în alt obiect (cu un alt nume), iar în viitor vom
+      afla că de multe ori la crearea unui obiect nu cunoaștem numele lor.
+      Folosind this, ne asigurăm că metoda funcționează exact pe obiectul care a
+      apelat acea metodă.
+    </p>
+    <p><b>BINE DE ȘTIUT </b></p>
+    <p>
+      Vom acoperi și subiectul <b>this</b> și toate capcanele sale în detaliu în
+      lecțiile ulterioare, dar pentru moment este suficient să utilizați this
+      atunci când accesați proprietățile unui obiect în metodele sale.
+    </p>
+
+    <h2>Metode de iterare a unui obiect</h2>
+    <p>
+      Spre deosebire de o matrice sau un string, un obiect nu este o entitate
+      iterabilă, adică nu poate fi iterat cu buclele <b>for</b> sau
+      <b>for...of</b>.
+    </p>
+
+    <h3>Ciclul for...in</h3>
+    <p>
+      Pentru a itera un obiect, este folosită o buclă specială for...in care
+      iterează peste cheile obiectului object.
+    </p>
+    <p>
+      for (key in object) <br />
+      { // instrucţiuni }
+    </p>
+    <p>
+      Variabila <b>key</b> este disponibilă doar în corpul buclei. La fiecare
+      iterație, valoarea cheii (numele) proprietății va fi preluată. Pentru a
+      obține valoarea unei proprietăți cu o astfel de cheie (nume), se folosesc
+      parantezele pătrate.
+    </p>
+
+    <h3>Metoda hasOwnProperty()</h3>
+    <p>
+      Să înțelegem conceptul de proprietăți native și preluate ale unui obiect
+      și să învățăm cum să folosim corect bucla for...in.
+    </p>
+    <p>
+      Metoda <b>Object.create(animal)</b> creează și returnează un nou
+      <b>obiect</b>, asociindu-l cu obiectul <b>animal</b>. Prin urmare, este
+      posibil să obținem valoarea proprietății <b>legs</b>, accesând-o ca
+      <b>dog.legs</b>, cu toate că nu se află în obiectul <b>dog</b> deoarece nu
+      este o proprietate nativă a obiectului <b>animal</b>.
+    </p>
+    <p>
+      Operatorul in, care este folosit în bucla for...in, nu face distincția
+      între proprietățile deținute și cele străine ale unui obiect. Această
+      caracteristică ne împiedică, deoarece vrem întotdeauna să iterăm doar
+      propriile proprietăți. Pentru a afla dacă un obiect are proprietăți native
+      sau nu, putem folosi metoda <b>hasOwnProperty(key)</b> care returnează
+      <b>true</b> sau <b>false</b>.
+    </p>
+    <p>
+      Prin urmare, atunci când iterăm cu bucla <b>for...in</b>, este necesar să
+      adăugăm o verificare pentru proprietățile proprii la fiecare iterație.
+      Chiar dacă acum suntem siguri că obiectul nu are proprietăți străine,
+      acest lucru ne va proteja de posibilele erori din viitor.
+    </p>
+
+    <h3>Metoda Object.keys()</h3>
+    <p>
+      Clasa <b>Object</b> are mai multe metode utile pentru lucrul cu obiecte.
+      Primul este <b>Object.keys(obj)</b>, care preia un obiect și returnează o
+      matrice cu toate cheile proprii. Dacă obiectul nu are proprietăți, metoda
+      va returna o matrice goală.
+    </p>
+    <p>
+      Combinând rezultatul <b>Object.keys()</b> și bucla <b>for...of</b>, putem
+      itera extrem de ușor peste propriile proprietăți ale obiectului fără a
+      recurge la bucla arhaică for...in cu verificări de proprietate.
+    </p>
+    <p>
+      Iterăm peste matrice cu cheile obiectului și la fiecare iterație obținem
+      valoarea proprietății cu acea cheie.
+    </p>
+
+    <h3>Metoda Object.values()</h3>
+    <p>
+      Dacă metoda Object.keys(obj) returnează o matrice cu cheile proprietăților
+      native dintr-un obiect, atunci metoda Object.values(obj) returnează o
+      matrice cu valorile în sine. Dacă obiectul nu are proprietăți, metoda
+      Object.values(obj) va returna o matrice goală.
+    </p>
+    <p>
+      O matrice cu valorile proprietăților poate fi, de asemenea, iterată cu o
+      buclă de tip <b>for...of</b>, de exemplu, pentru a obține suma totală a
+      valorilor numerice.
+    </p>
+    <p>
+      Să presupunem că avem un task de a număra totalul de produse dintr-un
+      obiect, sub forma nume-produs: cantitate. Metoda <b>Object.values()</b> va
+      crea o matrice cu toate valorile și apoi într-o iterație le putem calcula.
+    </p>
+
+    <h3>Metoda Object.entries()</h3>
+    <p>
+      Metoda <b>Object.entries(obj)</b> returnează o matrice unde fiecare
+      element va fi o altă matrice cu 2 elemente: <b>numele proprietății</b> și
+      <b>valoarea</b> acestei proprietăți din obiectul obj.
+    </p>
+    <p>
+      În practică, metoda <b>Object.entries(obj)</b> este rar folosită, doar
+      pentru unele sarcini foarte specifice. În 99% din cazuri se va folosi
+      metoda <b>Object.keys()</b> sau <b>Object.values()</b>.
+    </p>
+
+    <h2>Array de obiecte</h2>
+    <p>
+      În task-urile de zi cu zi a unui programator se presupune a fi si
+      manipularea de array-uri cu obiecte de același tip. Asta înseamnă că toate
+      obiectele din acel array au același set de proprietăți, doar că au valori
+      diferite.
+    </p>
+    <p>
+      Pentru a itera peste o astfel de matrice, este folosită bucla
+      <b>for...of</b>. Valorile proprietăților fiecărui obiect pot fi obținute
+      folosind sintaxa "<b>printr-un punct</b>", deoarece în fiecare obiect,
+      setul de proprietăți și numele lor vor fi la fel, doar valorile fiind
+      diferite.
+    </p>
+    <p>
+      De exemplu, ca să obținem o listă cu toate titlurile cărților din colecția
+      cărți:
+    </p>
+    <p>
+      De exemplu, pentru a afla rating-ul mediu a întregii noastre colecții,
+      adunăm toate rating-urile, după care împărțim această valoare la numărul
+      de cărți din colecție.
+    </p>
+
+    <script src="./js/index5.js"></script>
+  </body>
+</html>

@@ -383,3 +383,90 @@ console.log("-----  for(const (value) of (value))  ----");
 for (const members of bigFamily) {
   console.log(members.toLowerCase());
 }
+
+// ------     Exercitii tema optional     ------
+console.log(`---------        Exercitii tema optional        ---------`);
+
+// - exercitiul-1 -
+console.log(`- exercitiul-1 -`);
+
+/*
+Example 7 - Sorting an array with a loop 
+
+Write a script to sort an array of strings alphabetically by the first letter 
+of an element.
+*/
+
+// varianta-1
+console.log(`varianta-1`);
+
+const langs = ["python", "javascript", "c++", "haskel", "php", "ruby"];
+const sortLangs = langs.sort();
+console.log(sortLangs);
+
+// varianta-2
+console.log(`varianta-2`);
+
+const langses = ["python", "javascript", "c++", "haskel", "php", "ruby"];
+
+for (let i = 0; i < langses.length - 1; i += 1) {
+  for (let j = i + 1; j < langses.length; j++) {
+    if (langses[i][0] > langses[j][0]) {
+      let aux = langses[i];
+      langses[i] = langses[j];
+      langses[j] = aux;
+    }
+  }
+}
+
+console.log(langses);
+
+// varianta-3
+console.log(`varianta-3`);
+
+const langsess = ["python", "javascript", "c++", "haskel", "php", "ruby"];
+
+for (let i = 0; i < langses.length - 1; i += 1) {
+  if (langses[i][0] > langses[i + 1][0]) {
+    let aux = langsess[i];
+    langses[i] = langsess[i + 1];
+    langses[j] = aux;
+  }
+}
+
+console.log(langses);
+
+// - exercitiul-2 -
+console.log(`- exercitiul-2 -`);
+
+/*
+Example 8 - Search for an element
+
+Write a script to find the smallest number in an array. The code should work 
+for any array of numbers. Use a loop to solve problems.
+*/
+
+const numberse = [2, 17, 94, -8, 1, 23, -2, 37];
+let min;
+let small = numberse[0];
+for (let i = 0; i < numberse.length; i++) {
+  const element = numberse[i];
+  if (element < small) {
+    min = element;
+  }
+}
+console.log(min); // 1
+
+// varianta-2
+console.log(`varianta-2`);
+
+const numberses = [2, 17, 94, 1, 23, -6, 37, 0, -1, -3];
+let smallest = numberses[0];
+let elements;
+for (let i = 0; i < numberses.length; i++) {
+  elements = numberses[i];
+  if (elements < small) {
+  }
+}
+
+console.log(elements);
