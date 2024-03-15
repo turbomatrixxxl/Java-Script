@@ -405,7 +405,7 @@ console.log(total); // 20
 console.log(`---   Metoda Object.entries()   ---`);
 
 const book9 = {
-  title: "The Last Kingdom",
+  title: ["The Last Kingdom", "pupaza din tei"],
   author: "Bernard Cornwell",
   rating: 8.38,
 };
@@ -484,14 +484,391 @@ console.log(averageRating); // 8.2
 // ------     Cristi Socaci     ------
 console.log(`---------        Cristi Socaci        ---------`);
 
-// -----  exemplu  ----
-console.log("-----  exemplu  ----");
+console.log("----------------- question ---------------");
+
+const products = [
+  { name: "Radar", price: 1300, quantity: 4 },
+  { name: "Scanner", price: 2700, quantity: 3 },
+  { name: "Droid", price: 400, quantity: 7 },
+  { name: "Grip", price: 1200, quantity: 9 },
+];
+
+function calculateTotalPrice(productName) {
+  // Change code below this line
+
+  for (let product of products) {
+    if (product.name === productName) {
+      return product.price * product.quantity;
+    }
+  }
+  return console.log(`we don't have this product`);
+}
+
+console.log(calculateTotalPrice("Radar"));
+calculateTotalPrice("Radarr");
+
+// -----  exemplu interesant ----
+console.log("-----  exemplu interesant: for..in la array => indexurile ----");
+
+const words = ["salut", "ce", "faci"];
+console.log(words);
+
+for (const word in words) {
+  console.log(word);
+}
+
+console.log("----------------- object iteration ---------------");
+
+const goItPeople = {
+  12345: {
+    name: "Cristi",
+    surname: "Socaci",
+    age: 25,
+  },
+  22345: {
+    name: "Iani",
+    surname: "Misoc",
+    age: 23,
+  },
+};
+
+console.log(goItPeople.hasOwnProperty("12345"));
+console.log(goItPeople.hasOwnProperty("123456"));
+
+for (const identifier in goItPeople) {
+  const person = goItPeople[identifier];
+  console.log(`${identifier}: ${person.name} ${person.surname}`);
+}
+
+console.log(Object.keys(goItPeople));
+
+console.log(Object.values(goItPeople));
+
+console.log(Object.entries(goItPeople));
+
+for (const identifier of Object.keys(goItPeople)) {
+  const person = goItPeople[identifier];
+  console.log(`${identifier}: ${person.name} ${person.surname}`);
+}
+
+console.log("----------------- object basics ---------------");
+
+const productNameKey = "name";
+const price = 1300;
+const quantityy = 4;
+
+// --- varianta cu functie in  object ---
+console.log(`--- varianta cu functie in  object ---`);
+
+const product = {
+  [productNameKey]: "Radar",
+  price,
+  quantity: quantityy,
+  available: true,
+  priceHistory: [1200, 1250, 1399, 1300],
+  hala: {
+    address: "Cluj",
+  },
+
+  calculateTotalPrice() {
+    return this.price * this.quantity;
+  },
+};
+
+console.log(product.calculateTotalPrice());
+
+console.log(product.name);
+console.log(product[productNameKey]);
+
+console.log(product.hala.address);
+
+product.name = "Scanner";
+
+console.log(product.name);
+
+product.description = "Best product";
+
+console.log(product.description);
+
+console.log(product.price);
+console.log(product.quantity);
+console.log(product.quantityy);
+
+// --- varianta cu functie in afara object ---
+console.log(`--- varianta cu functie in afara object ---`);
+
+function calculateTotalPrice(product) {
+  return product.price * product.quantity;
+}
+
+console.log(calculateTotalPrice(product));
+
+// ---- functia console.log ----
+console.log(`---- functia console.log ----`);
+
+const myConsole = {
+  log(message) {
+    console.log(message);
+  },
+};
+
+myConsole.log(`Hello...!`);
+
+console.log("----------------- array of objects ---------------");
+
+const products2 = [
+  { name: "Radar", price: 1300, quantity: 4 },
+  { name: "Scanner", price: 2700, quantity: 3 },
+  { name: "Droid", price: 400, quantity: 7 },
+  { name: "Grip", price: 1200, quantity: 9 },
+];
+
+// --- varianta cu for...off ---
+console.log(`--- varianta cu for...off ---`);
+
+for (const product of products2) {
+  console.log(
+    `Pretul produsului product.name este: ${calculateTotalPrice(product)}`
+  );
+}
+
+// --- varianta cu for...in ---
+console.log(`--- varianta cu for...in ---`);
+
+for (const product in products2) {
+  console.log(
+    `Pretul produsului products2[product].name este: ${calculateTotalPrice(
+      products2[product]
+    )}`
+  );
+}
 
 // -----  exercitiu 1 ----
 console.log("-----  exercitiu 1  ----");
 
+/*
+Example 4 - Complex tasks
+
+Write a script for managing a personal account of an Internet bank. There is an `account` object
+in which it is necessary to implement methods for working with balance and
+transaction history.
+
+*/
+
+/*
+ * There are only two types of transaction.
+ * You can deposit or withdraw money from your account.
+ */
+const transactionTypes = {
+  DEPOSIT: "deposit",
+  WITHDRAW: "withdraw",
+};
+
+/*
+ * Each transaction is an object with properties: id, type and amount
+ */
+const account = {
+  // Current account balance
+  balance: 0,
+
+  // Transaction History
+  transactions: [],
+
+  /*
+   * Method creates and returns a transaction object.
+   * Accepts amount and type of transaction.
+   */
+  createTransaction(amount, type) {
+    let beginningId = 0;
+    for (const transaction of this.transactions) {
+      if (transaction.id > beginningId) {
+        beginningId = transaction.id;
+      }
+    }
+    return {
+      id: beginningId + 1,
+      amount,
+      type,
+    };
+  },
+
+  /*
+   * The method responsible for adding the amount to the balance..
+   * Accepts the amount of the transaction.
+   * Calls createTransaction to create a transaction object
+   * then adds it to the transaction history
+   */
+  deposit(amount) {
+    this.balance += amount;
+
+    const transaction = this.createTransaction(
+      amount,
+      transactionTypes.DEPOSIT
+    );
+
+    this.transactions.push(transaction);
+  },
+
+  /*
+   *The method responsible for withdrawing the amount from the balance.
+   * Принимает сумму танзакции.
+   * Calls createTransaction to create a transaction object
+   * then adds it to the transaction history.
+   *
+   * If amount is greater than the current balance, display a message
+   * about the fact that the withdrawal of such an amount is not possible, there are not enough funds.
+   */
+  withdraw(amount) {
+    if (this.balance < amount) {
+      console.log(
+        `About the fact that the withdrawal of such an amount is not possible, there are not enough funds.`
+      );
+      return;
+    }
+
+    this.balance -= amount;
+
+    const transaction = this.createTransaction(
+      amount,
+      transactionTypes.WITHDRAW
+    );
+    this.transactions.push(transaction);
+  },
+
+  /*
+   * The method returns the current balance
+   */
+  getBalance() {
+    return this.balance;
+  },
+
+  /*
+   * The method searches and returns the transaction object by id
+   */
+  getTransactionDetails(id) {
+    for (const transaction of this.transactions) {
+      if (transaction.id !== id) {
+        continue;
+      }
+      return transaction;
+    }
+  },
+
+  /*
+   * The method returns the amount of funds
+   *a specific type of transaction from the entire history of transactions
+   */
+  getTransactionTotal(type) {
+    let sum = 0;
+
+    for (const transaction of this.transactions) {
+      if (transaction.type === type) {
+        sum += transaction.amount;
+      }
+    }
+
+    return sum;
+  },
+};
+
+account.deposit(12);
+account.deposit(13);
+
+account.withdraw(20);
+account.withdraw(20);
+
+console.log(account.getBalance());
+console.log(account.transactions);
+
+console.log(account.getTransactionDetails(2));
+console.log(account.getTransactionDetails(3));
+
+console.log(
+  "deposit total:",
+  account.getTransactionTotal(transactionTypes.DEPOSIT)
+);
+console.log(
+  "withdraw total:",
+  account.getTransactionTotal(transactionTypes.WITHDRAW)
+);
+
 // ------     Exercitii tema optional     ------
 console.log(`---------        Exercitii tema optional `);
 
-// - exercitiul-1 -
-console.log(`- exercitiul-1 -`);
+// - exercitiul- 1 -
+console.log(`- exercitiul- 1 -`);
+
+/*
+
+Example 1 - Object Basics
+
+Write a script that, for the `user0` object, successively:
+
+- adds a `mood` field with value `'happy'`
+- replaces the value `hobby` to `'skydiving'`
+- replaces `premium` to `false`
+- prints the contents of the `user` object in `key:value` format using
+  `Object.keys()` and `for...of`
+
+*/
+
+const userOf = {
+  name: "Mango",
+  age: 20,
+  hobby: "html",
+  premium: true,
+};
+
+userOf.mood = `happy`;
+
+userOf.hobby = `skydiving`;
+
+userOf.premium = `false`;
+
+function keyValue(object) {
+  let key = Object.keys(object);
+  let value = Object.values(object);
+  let keyValue;
+
+  for (let i = 0; i < Object.keys(object).length; i++) {
+    keyValue = Object.keys(object)[i] + ":" + Object.values(object)[i];
+    console.log(keyValue);
+  }
+  return keyValue;
+}
+
+keyValue(userOf);
+
+// - exercitiul- 2 -
+console.log(`- exercitiul- 2 -`);
+
+/*
+Example 2 -  Object.values() method
+
+We have an object that stores our team salaries. Write code for
+summing all salaries and store the result in the sum variable. Should
+get 390. If the `salaries` object is empty, then the result should be 0.
+
+*/
+
+const salaries = {
+  John: 100,
+  Ann: 160,
+  Pete: 130,
+};
+
+const empty = {};
+
+function getTotalSalaries(object) {
+  let total = 0;
+
+  for (const salarie of Object.values(object)) {
+    total += salarie;
+  }
+  console.log(total);
+
+  return total;
+}
+
+getTotalSalaries(salaries);
+getTotalSalaries(empty);

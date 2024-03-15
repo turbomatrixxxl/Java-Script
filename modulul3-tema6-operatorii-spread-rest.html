@@ -10,8 +10,280 @@
     <h1>
       Modulul 3 - Tema 6 - Destructurarea unui obiect și operatorii spread/rest
     </h1>
-    <a href=""><b>Lectie video</b></a>
+    <a href="https://youtu.be/bUfzQLOFdH4"><b>Lectie video</b></a>
     <h2>Operatorul spread și rest</h2>
+    <p>
+      În standardul modern a apărut o nouă sintaxă pentru lucrul cu entități
+      iterabile, cum ar fi un șir, o matrice sau un obiect. Funcționalitatea și
+      numele acestuia depind de locul de aplicare.
+    </p>
+
+    <h3>spread: transmiterea argumentelor</h3>
+    <p>
+      Operația <b>... (spread)</b> permite să pulverizăm o colecție de elemente
+      (matrice, șir sau obiect) într-un loc în care este așteptat un set de
+      valori distincte. Desigur, există anumite restricții, de exemplu, nu putem
+      pulveriza o matrice într-un obiect și invers.
+    </p>
+    <p>
+      Un exemplu din lumea reală ar fi atunci când punem o cutie pe podea fără a
+      scoate merele (sau orice altceva) din ea - acea cutie e ca o matrice cu
+      valori. Dacă vom răsturna cutia și împrăștiem merele din cutie pe podea,
+      dintr-un întreg set, vor deveni niște valori individuale.
+    </p>
+    <p>
+      Singura diferență este că în <b>JavaScript</b>, pulverizarea nu schimbă
+      colecția originală, doar se face o copie a fiecărui element. După
+      pulverizare, lada va rămâne plină cu mere dar totodată și o copie a
+      fiecărui măr pe podea.
+    </p>
+    <p>
+      De exemplu, <b>metoda Math.max(argumente)</b> caută și returnează cel mai
+      mare argument (numere), nu se așteaptă la o matrice cu valori, ci la un
+      număr arbitrar de argumente.
+    </p>
+    <p>
+      <b>Math.max(...[14, -4, 25, 8, 11])</b>, după interpretare, devine
+      <b> Math.max(14, -4, 25, 8, 11) </b>. Sintaxa ... returnează o matrice
+      dezasamblată, adică își pulverizează elementele ca argumente separate.
+    </p>
+
+    <h3>spread: crearea unei noi matrice</h3>
+    <p>
+      Operația <b>... (spread)</b> permite să creăm o copie a unei matrice sau
+      să "alipim" un număr arbitrar de elemente dintr-o matrice într-una nouă.
+      Anterior, <b>metodele slice()</b> și <b>concat()</b> au fost folosite
+      pentru aceasta, dar operația de pulverizare permite să facem același lucru
+      într-o formă mai scurtă.
+    </p>
+    <p>
+      În exemplul de mai sus, avem o ladă de mere temps și dorim să facem o
+      copie exactă a acesteia. Luăm o cutie goală și turnăm în ea merele din
+      cutia originală temps - o pulverizăm într-o altă colecție. În acest caz,
+      cutia temps nu se va modifica, va avea în continuare mere, însă în noua
+      cutie vor fi toate copiile.
+    </p>
+    <p>
+      În exemplul următor, aruncăm mere din două lăzi într-una nouă. Cutiile
+      (matricele) originale nu se vor modifica, dar cea nouă va avea copiile
+      tuturor merelor (elementelor). Ordinea pulverizării este importantă,
+      deoarece afectează ordinea elementelor din noua colecție.
+    </p>
+
+    <h3>spread: crearea unui obiect nou</h3>
+    <p>
+      Operația <b>... (spread)</b> permite să pulverizăm proprietățile unui
+      număr aleatoriu de obiecte, într-unul nou.
+    </p>
+    <p>
+      Ordinea pulverizării contează. Numele proprietăților în obiecte sunt
+      unice, astfel încât proprietățile unui obiect care este pulverizat pot
+      suprascrie valoarea unei proprietăți deja existente dacă numele acestora
+      sunt la fel.
+    </p>
+    <p>
+      Dacă merele din cutie aveau etichete, atunci nu pot exista două mere în
+      aceeași cutie cu aceleași etichete. Prin urmare, la turnarea celei de-a
+      doua cutii, toate merele ale căror etichete se potrivesc cu cele care sunt
+      deja în cutie, vor fi înlocuite.
+    </p>
+    <p>
+      În timpul pulverizării, putem adăuga proprietăți într-un loc ales în mod
+      aleatoriu. Cel mai important de reținut este faptul că numele proprietății
+      este unic și valoarea acestuia poate fi suprascrisă.
+    </p>
+
+    <h3>rest: colectarea tuturor argumentelor unei funcţii</h3>
+    <p>
+      Operația <b>... (rest)</b> permite să colectăm un grup de elemente
+      independente într-o nouă colecție. Sintactic, acesta este geamănul
+      operatorului de pulverizare, dar este ușor să faceți diferența -
+      pulverizarea are loc atunci când <b>...</b> este pe partea
+      <b>dreaptă</b> a unei operații de atribuire, iar colectarea este atunci
+      când <b>...</b> este pe partea din <b>stânga</b>.
+    </p>
+    <p>
+      Să revenim la exemplul cu merele. Dacă sunt mere pe podea și avem o cutie
+      goală, atunci operația rest ne va permite să "adunăm" merele în cutie. În
+      acest caz, merele originale vor rămâne pe podea și va exista o copie a
+      fiecărui măr din cutie.
+    </p>
+    <p>
+      O utilizare a operației rest este de a crea funcții care pot lua un număr
+      arbitrar de argumente.
+    </p>
+    <p>
+      // Cum să declari parametrii funcției <br />
+      // astfel încât, să poată fi transmis orice număr de argumente? <br />
+      function multiply() { <br />
+      // ... <br />
+      } <br />
+      <br />
+      multiply(1, 2); <br />
+      multiply(1, 2, 3); <br />
+      multiply(1, 2, 3, 4);
+    </p>
+    <p>
+      Dacă ne uităm la argumentele și parametrii funcției, atunci observăm că
+      argumentele sunt în partea dreaptă a operației de atribuire, iar
+      parametrii, în stânga, deoarece valorile argumentelor sunt atribuite
+      parametrilor declarați. Deci, putem "colecta" toate argumentele funcției
+      într-un singur parametru, folosind operația rest.
+    </p>
+    <p>
+      Numele parametrului poate fi orice, însă cel mai adesea este numit
+      <b>args</b>, <b>restArgs</b> sau <b>otherArgs</b>, prescurtare de la
+      <b>arguments</b>.
+    </p>
+
+    <h3>rest: colectarea unei părți din argumentele funcției</h3>
+    <p>
+      Operatorul <b>... (rest)</b> permite, de asemenea, să colectăm într-o
+      matrice doar acea partea din argumente care este necesară, declarând
+      <b>parametrii</b>
+      înainte de "colectare".
+    </p>
+    <p>
+      Toate argumentele pentru care vor fi declarați parametri, le vor transmite
+      valorile sale, iar argumentele rămase vor fi plasate într-o matrice.
+      Operația rest colectează toate argumentele rămase și, prin urmare, trebuie
+      să fie ultimul în semnătura funcției, altfel va apărea o eroare.
+    </p>
+
+    <h2>Destructurarea unui obiect</h2>
+    <p>
+      La dezvoltarea programelor, datele vin, de regulă, sub formă de matrici și
+      obiecte, ale căror valori trebuie scrise în variabile locale. Pentru a
+      face acest lucru cât mai ușor, există o sintaxă modernă de atribuire la
+      destructurare.
+    </p>
+
+    <h3>Destructurarea unui obiect</h3>
+    <p>
+      Datele complexe sunt întotdeauna reprezentate sub formă de obiecte.
+      Accesând de multe ori proprietățile unui obiect, poluăm vizual codul.
+    </p>
+    <p>
+      Destructurarea ne permite să "despachetăm" valorile proprietăților
+      obiectului în variabile locale. Acest lucru face ca codul unde sunt acele
+      valori folosite să fie mai puțin poluat.
+    </p>
+    <p>
+      Destructurarea este întotdeauna pe partea stângă a unei operații de
+      atribuire. Variabilelor din acolade li se atribuie valorile proprietăților
+      obiectului. Dacă numele variabilei și numele proprietății se potrivesc,
+      atunci are loc o atribuire, în caz contrar i se va atribui undefined.
+      Ordinea în care variabilele sunt declarate între acolade nu este
+      importantă.
+    </p>
+
+    <h3>Valori implicite</h3>
+    <p>
+      Pentru a evita alocarea <b>undefined</b> la destructurarea proprietăților
+      inexistente ale unui obiect, putem seta valori implicite pentru variabile,
+      care vor fi atribuite numai dacă nu există nicio proprietate cu acel nume
+      în obiect.
+    </p>
+
+    <h3>Modificarea numelui la o variabilă</h3>
+    <p>
+      La destructurare, putem schimba numele variabilei în care este
+      despachetată valoarea proprietății. Mai întâi scriem numele proprietății
+      din care dorim să obținem valoarea, după care punem două puncte și scriem
+      numele variabilei în care dorim să plasăm valoarea acestei proprietăți.
+    </p>
+    <p>
+      O astfel de notație se citește ca "Creăm o variabilă <b>firstTitle</b>, în
+      care plasăm valoarea proprietății title din obiectul <b>firstBook</b>".
+    </p>
+
+    <h3>Destructurarea în cicluri</h3>
+    <p>
+      Când se iterează o matrice cu obiecte folosind o buclă <b>for...of</b>,
+      proprietățile obiectelor sunt accesate de mai multe ori.
+    </p>
+    <p>
+      Pentru a reduce repetările, putem destructura proprietățile obiectului în
+      variabile locale din corpul buclei.
+    </p>
+    <p>
+      Dacă obiectul are puține proprietăți, destructurarea se poate face chiar
+      în locul în care este declarată variabila book.
+    </p>
+
+    <h3>Nested Destructuring Assignments</h3>
+    <p>
+      Pentru a destructura proprietățile obiectelor cu mai multe nivele, se
+      folosesc aceleași principii ca și în cele trei exerciții anterioare.
+    </p>
+
+    <h2>Destructurarea unui Array</h2>
+    <p>
+      Destructurarea poate fi folosită și pentru un array, dar cu unele
+      particularități:
+    </p>
+    <ul>
+      <li>În locul acoladelor <b>{}</b>, se folosesc <b>[]</b>.</li>
+      <li>
+        Variabilele specificate în parantezele pătrate <b>[]</b>, vor primi
+        secvenţial valorile elementelor din acea matrice.
+      </li>
+    </ul>
+    <p>
+      De exemplu, există o matrice de culori din care trebuie să obținem
+      valorile fiecărei componente de culoare în variabile separate.
+    </p>
+    <p>
+      După keyword-ul const sau let, punem parantezele pătrate ca atunci când
+      declarăm o matrice. În interiorul parantezelor, separate prin virgule,
+      indicăm numele variabilelor în care vor fi plasate valorile matricei.
+    </p>
+    <p>
+      În urma unei astfel de declarări vor fi create 3 variabile și elementele
+      vor fi plasate în ele în ordine numerotată - de la 0 până la sfârșitul
+      matricei.
+    </p>
+    <p>
+      La destructurarea matricelor, o valoare poate fi atribuită unei variabile
+      și după ce aceasta a fost declarată. În practică, acest lucru este rar
+      folosit.
+    </p>
+
+    <p>
+      Dacă există mai multe variabile decât elemente în matrice, acestea vor
+      prelua valoarea undefined, astfel putem specifica valori implicite
+      <b>(default)</b>.
+    </p>
+    <p>
+      Uneori avem nevoie să destructurăm doar primele N elemente dintr-o matrice
+      și să se stocheze restul într-o altă variabilă ca matrice. Când
+      destructurăm, putem prelua n elemente, iar restul matricei să o stocăm
+      într-o altă variabilă, folosind operatorul <b>... (rest)</b>.
+    </p>
+    <p>
+      Elementele pot fi omise. Să presupunem că numai ultima valoare trebuie
+      luată din matricea rgb. În practică, aceasta este rar folosită.
+    </p>
+
+    <h2>RORO pattern (receive an object, return an object)</h2>
+    <p>
+      Dacă o funcție ia mai mult de trei argumente, este foarte ușor să nu mai
+      fii sigur în ce ordine să parsezi parametrii. Astfel, rezultă un cod
+      neclar, în locul unde se apelează funcția.
+    </p>
+    <p>
+      Paternul "RORO" ajută la rezolvarea acestei probleme prin înlocuirea
+      setului de parametri cu unul singur - un obiect cu numele proprietăților
+      sale.
+    </p>
+    <p>
+      Apoi, în timpul apelului, transmitem un obiect cu proprietățile necesare.
+    </p>
+    <p>
+      Un alt avantaj este că putem destructura obiectul din parametrul book.
+      Acest lucru se poate face în corpul funcției.
+    </p>
+    <p>Sau imediat în semnătura funcției, nu există nici o diferență.</p>
 
     <script src="./js/index6.js"></script>
   </body>
