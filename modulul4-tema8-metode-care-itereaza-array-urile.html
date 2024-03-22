@@ -7,8 +7,608 @@
   </head>
   <body>
     <h1>Modulul 4 - Tema 8 - Metode care itereaza array-urile</h1>
-    <a href=""><b>Lectie video</b></a>
+    <a href="" , target="_blank"><b>Lectie video</b></a>
     <h2>Pure function</h2>
+    <p>
+      <b>Funcții cu side effect</b> - sunt acele funcții care, în timpul
+      execuției, pot modifica sau utiliza variabile globale, pot modifica
+      valoarea argumentelor de tip referință, pot efectua operațiuni I/O etc.
+    </p>
+    <p>
+      Funcția <b>dirtyMultiply(array, value)</b> înmulțește fiecare element al
+      matricei array cu numărul value. Modifică (<b>mutează</b>) matricea
+      originală prin referință.
+    </p>
+    <p>
+      <b>Pure function</b> - este o funcție al cărei rezultat depinde doar de
+      valorile argumentelor transmise. Pentru aceleași argumente, returnează
+      mereu același rezultat și nu are efecte secundare, adică nu modifică
+      valorile argumentelor.
+    </p>
+    <p>
+      Să scriem o implementare a unei funcții pure pentru înmulțirea elementelor
+      din matrice la un număr. Va returna o nouă matrice fără a o schimba pe cea
+      inițială.
+    </p>
+
+    <h2>Metodele de sortare a unui Array</h2>
+    <p>
+      În JavaScript. matricele (<b>array</b>) au niște metode predefinite care
+      provin din limbajele funcționale. Cele mai multe dintre ele sunt funcții
+      <b>pure</b>. Ele creează o nouă matrice, o populează aplicând funcția de
+      tip <b>callback</b>
+      pentru fiecare element din matricea originală și apoi returnează acea
+      matrice nou creată cu elementele modifcate.
+    </p>
+    <p>
+      Toate metodele de iterație a matrice au o sintaxă similară. array -
+      matricea originală, apelul metodei method și callback funcționează ca
+      argument al metodei.
+    </p>
+    <p><b>array.method(callback[currentValue, index, array])</b></p>
+    <p>
+      În majoritatea metodelor, argumentele funcției callback sunt valoarea
+      elementului currentValue (primul parametru), poziția elementului index (al
+      doilea parametru) și array - matricea originală (al treilea parametru).
+    </p>
+    <p>
+      <b>
+        array.method((item, idx, arr) => { // acțiunea ce va fi întreprinsă la
+        fiecare iterație cu fiecare element al matricei });
+      </b>
+    </p>
+    <p>
+      Toți parametrii, cu excepția elementului item, sunt opționali. Numele
+      parametrilor pot fi compuși din orice, dar există convenții informale.
+    </p>
+    <p>
+      <b
+        >array.method(item => { // acțiunea ce va fi întreprinsă la fiecare
+        iterație cu fiecare element al matricei });</b
+      >
+    </p>
+
+    <h2>Metoda map()</h2>
+    <p>
+      <b>Metoda map(callback)</b> se folosește pentru a modifica o matrice.
+      Apelează funcția callback pentru fiecare element al matricei și scrie
+      rezultatul execuției sale într-o matrice nouă, care va fi rezultatul
+      metodei.
+    </p>
+    <p>
+      <b
+        >array.map((element, index, array) => { // Corpul funcției callback
+        });</b
+      >
+    </p>
+    <ul>
+      <li>Iterează matricea originală element cu element.</li>
+      <li>Nu modifică matricea originală.</li>
+      <li>Rezultatul funcției callback este scris într-o matrice nouă.</li>
+      <li>Returnează o nouă matrice de aceeași lungime.</li>
+    </ul>
+    <p>
+      Metoda este folosită pentru a modifica fiecare element într-o matrice.
+      Matricea originală este folosită ca referință, pe baza căreia se creeaza o
+      altă colecție.
+    </p>
+    <p>
+      Folosirea funcțiilor arrow anonime cu returnări implicite reduce foarte
+      mult "spațiul folosit pentru declarare", codul astfel, devenind mai curat
+      și ușor de citit.
+    </p>
+
+    <h3>Array of objects</h3>
+    <p>
+      Deja cunoaștem că o sarcină des întâlnită pentru un programator este cea
+      de a manipula o serie de obiecte. De exemplu, avem nevoie să obținem o
+      serie de valori dintr-o proprietate de la toate obiectele. Există o serie
+      de studenți, dar trebuie să obținem o matrice separată cu numele lor.
+    </p>
+    <p>
+      Folosind metoda <b>map()</b>, putem itera o matrice de obiecte, iar în
+      funcția <b>callback</b> se va returna valoarea proprietății fiecăruia
+      dintre obiecte.
+    </p>
+
+    <h2>Metoda flatMap()</h2>
+    <p>
+      Metoda <b>flatMap(callback)</b> este similară cu metoda <b>map()</b>, dar
+      este folosită în cazul în care rezultatul este o matrice multidimensională
+      și ar trebui adusă la un singur nivel.
+    </p>
+    <p>
+      <b
+        >array.flatMap((element, index, array) => { // Corpul funcției callback
+        });</b
+      >
+    </p>
+    <p>
+      Matricea students conține o listă de studenți. Fiecare student are o listă
+      de materii pe care el le urmează în proprietatea courses. Mai mulți
+      studenți pot urma aceeași materie. Este necesar să se facă o listă cu
+      toate materiile pe care le urmează acest grup, chiar dacă sunt repetate.
+    </p>
+    <p>
+      Această metodă apelează o funcția callback pentru fiecare element al
+      matricei inițiale și scrie rezultatul execuției sale într-o matrice nouă.
+      Diferența față de map() este că noua matrice este «aplatizată» la o
+      adâncime de un nivel. Această matrice aplatizată este rezultatul metodei
+      flatMap().
+    </p>
+
+    <h2>Metoda filter()</h2>
+    <p>
+      <b
+        >array.filter((element, index, array) => { // Corpul funcției callback
+        });</b
+      >
+    </p>
+    <ul>
+      <li>
+        array.filter((element, index, array) => { // Corpul funcției callback
+        });
+      </li>
+      <li>Iterează peste matricea inițială, element cu element.</li>
+      <li>Returnează o nouă matrice.</li>
+      <li>
+        Adaugă în matricea creată elementele care satisfac condiția funcției
+        callback.
+      </li>
+      <li>
+        Dacă callback-ul a returnat true, elementul este adăugat în matricea
+        returnată.
+      </li>
+      <li>Dacă callback-ul a returnat false, elementul nu este adăugat.</li>
+      <li>
+        Dacă niciun element nu satisface condiția, returnează o matrice goală.
+      </li>
+    </ul>
+    <p>
+      Deci metoda filter apelează funcția callback pentru fiecare element din
+      colecție, iar dacă rezultatul execuției este true, elementul curent este
+      adăugat într-o matrice nouă.
+    </p>
+
+    <h3>Filtrarea elementelor unice</h3>
+    <p>
+      Folosind metoda filter(), putem filtra o matrice, astfel încât, să rămână
+      doar elementele unice. Acest truc funcționează numai cu o serie de valori
+      primitive - nu cu obiecte.
+    </p>
+    <p>
+      Să revenim la colecția de studenți și la proprietatea courses care conține
+      o listă cu materiile fiecărui student pe care le urmează, obținută cu
+      metoda flatMap().
+    </p>
+    <p>
+      Variabila <b>allCourses</b> coține o matrice a tuturor materiilor
+      frecventate, dar care pot fi repetate. Scopul, însă, este de a crea o nouă
+      matrice care să conțină doar elemente unice, adică fără repetări.
+    </p>
+    <p>
+      <b
+        >const uniqueCourses = allCourses.filter( (course, index, array) =>
+        array.indexOf(course) === index );</b
+      >
+    </p>
+    <p>
+      Folosind array.indexOf(course), putem căuta prima potrivire a elementului
+      curent, course, și obținem indexul acestuia în matricea originală.
+      Parametrul index stochează indexul elementului curent, course atunci când
+      iterează prin matrice folosind metoda filter.
+    </p>
+    <p>
+      Dacă rezultatul lui indexOf() și valoarea lui index, sunt egale, atunci,
+      acesta este un element unic.
+    </p>
+    <p>Pentru elementul matematică cu index-ul 0:</p>
+    <ul>
+      <li>indexOf() va returna 0, deoarece caută primul match.</li>
+      <li>Valoarea parametrului index va fi 0.</li>
+      <li>Sunt egali, deci este un element unic.</li>
+    </ul>
+
+    <p>Pentru elementul matematică cu index-ul 3:</p>
+    <ul>
+      <li>indexOf() va returna 0, deoarece caută primul match.</li>
+      <li>Valoarea parametrului index va fi 3.</li>
+      <li>Nu sunt egali, deci este un element repetat.</li>
+    </ul>
+
+    <h3>Array of objects</h3>
+    <p>
+      Când lucrăm cu o matrice de obiecte, filtrarea este efectuată după
+      valoarea unei proprietăți. Rezultatul este o nouă matrice de obiecte
+      filtrate.
+    </p>
+    <p>
+      Spre exemplu: există o serie de studenți cu punctaje la un test. Este
+      necesar să se filtreze cel mai bun (un scor peste 80), cel mai slab (un
+      scor sub 50) și studenții medii (un scor între 50 și 80).
+    </p>
+
+    <h2>Metoda find()</h2>
+    <p>
+      Dacă metoda <b>filter(cabllack)</b> este folosită pentru a găsi toate
+      elementele care satisfac o condiție, atunci metoda
+      <b>find(callback)</b> găsește și returnează primul element care se
+      potrivește condiției, după care iterația matricei se oprește.
+    </p>
+    <p>
+      <b
+        >array.find((element, index, array) => { // Corpul funcției callback
+        });</b
+      >
+    </p>
+    <ul>
+      <li>Nu modifică matricea inițială.</li>
+      <li>Iterează peste matricea inițială, element cu element.</li>
+      <li>
+        Returnează primul element care îndeplinește condiția, adică atunci când
+        callback-ul returnează true.
+      </li>
+      <li>
+        Dacă niciun element nu satisface condiția , adică callback-ul returnează
+        false pentru toate elementele, metoda returnează undefined.
+      </li>
+    </ul>
+    <p>
+      Metoda <b>find()</b> este folosită cu un singur scop - găsirea unui
+      element după o valoare unică a proprietății. De exemplu: căutarea unui
+      utilizator după adresa electronică, a unei mașini după numărul de serie
+      sau a unei cărți după titlu.
+    </p>
+
+    <h2>Metoda findIndex()</h2>
+    <p>
+      Metoda <b>findIndex(callback)</b> este un înlocuitor modern pentru metoda
+      <b>indexOf()</b>. Ne permite să căutăm condiții mai complexe, nu doar
+      egalitatea. Este folosit, atât pentru căutarea într-o matrice de
+      primitive, cât și într-o matrice de obiecte.
+    </p>
+    <p>
+      <b
+        >array.findIndex((element, index, array) => { // Corpul funcției
+        callback });</b
+      >
+    </p>
+    <ul>
+      <li>Nu modifică matricea originală.</li>
+      <li>Iterează matricea inițială, element cu element.</li>
+      <li>
+        Returnează indexul primului element care îndeplinește condiția, atunci
+        când callback-ul returnează <b>true</b>.
+      </li>
+      <li>
+        Dacă niciun element nu se potrivește, adică callbackul returnează
+        <b>false</b> pentru toate elementele, metoda returnează <b>-1</b>.
+      </li>
+    </ul>
+
+    <h2>Metoda every() și some()</h2>
+
+    <h3>Metoda every()</h3>
+    <p>
+      Verifică dacă toate elementele unei matrice satisfac condiția funcției
+      callback. Returnează true sau false.
+    </p>
+    <p>
+      <b
+        >array.every((element, index, array) => { // Corpul funcției callback
+        });</b
+      >
+    </p>
+    <ul>
+      <li>Nu modifică matricea originală.</li>
+      <li>Iterează matricea inițială, element cu element.</li>
+      <li>
+        Returnează <b>true</b> dacă toate elementele matricei satisfac condiția.
+      </li>
+      <li>
+        Returnează <b>false</b> dacă cel puțin un element al matricei nu
+        satisface condiția.
+      </li>
+      <li>
+        Iterația matricei se oprește dacă apelul funcției returnează
+        <b>false</b>.
+      </li>
+    </ul>
+
+    <h3>Metoda some()</h3>
+    <p>
+      Verifică dacă cel puțin un element al matricei satisface condiția funcției
+      callback. Returnează <b>true</b> sau <b>false</b>.
+    </p>
+    <p>
+      <b
+        >array.some((element, index, array) => { // Corpul funcției callback
+        });</b
+      >
+    </p>
+    <ul>
+      <li>Nu modifică matricea originală.</li>
+      <li>Iterează matricea inițială element cu element.</li>
+      <li>
+        Returnează <b>true</b> dacă cel puțin un element al matricei satisface
+        condiția.
+      </li>
+      <li>
+        Returnează <b>false</b> dacă nici un element al matricei nu satisface
+        condiția.
+      </li>
+      <li>
+        Iterația matricei se oprește dacă apelul funcției returnează
+        <b>true</b>.
+      </li>
+    </ul>
+
+    <h3>Array of objects</h3>
+    <p>
+      Când lucrăm cu o serie de obiecte, se verifică valoarea unei proprietăți
+      din acele obiecte pentru a efectua sortarea sau verificarea lor. Spre
+      exemplu, există o serie de obiecte cu fructe. Trebuie să aflăm dacă toate
+      fructele sunt disponibile în magazin și dacă există cel puțin un fruct
+      care nu e disponibil, adică amount este 0.
+    </p>
+
+    <h2>Metoda reduce()</h2>
+    <p>
+      Metoda <b>reduce(callback, initialValue)</b> este folosită pentru a
+      procesa, secvenţial, fiecare element al matricei, salvând rezultatul
+      intermediar ca un acumulator. Este puțin mai greu de stăpânit decât
+      altele, dar rezultatul merită tot efortul.
+    </p>
+    <p>
+      <b
+        >array.reduce((previousValue, element, index, array) => { // Corpul
+        funcției callback }, initialValue);</b
+      >
+    </p>
+    <ul>
+      <li>Nu modifică matricea originală.</li>
+      <li>Iterează peste matricea originală, element cu element.</li>
+      <li>Poate returna orice.</li>
+      <li>Poate executa orice task.</li>
+    </ul>
+    <p>
+      Primul parametru al funcției callback (<b>previousValue</b>) este
+      acumulatorul, adică un rezultat intermediar. Valoarea pe care o returnează
+      funcția callback la iterația curentă va fi valoarea acestui parametru la
+      următoarea.
+    </p>
+    <p>
+      Al doilea argument pentru <b>reduce()</b> este o valoare inițială
+      opțională a acumulatorului - parametrul <b>initialValue</b>.
+    </p>
+    <p>
+      # În primul rând, metoda reduce() crează o variabilă acumulator internă și
+      <br />
+      # îi atribuie valoarea parametrului initialValue sau a primului element
+      <br />
+      # din matricea iterabilă dacă initialValue nu este setată. previousValue =
+      0 <br />
+
+      # În continuare, funcția callback este apelată pentru fiecare element al
+      matricei. <br />
+      # Valoarea actuală a parametrului previousValue este ceea ce funcția
+      callback a returnat <br />
+      # în ultima iterație. <br />
+      Iterația 1 -> previousValue = 0 -> number = 2 -> return 0 + 2 -> return 2
+      <br />
+      Iterația 2 -> previousValue = 2 -> number = 7 -> return 2 + 7 -> return 9
+      <br />
+      Iterația 3 -> previousValue = 9 -> number = 3 -> return 9 + 3 -> return 12
+      <br />
+      Iterația 4 -> previousValue = 12 -> number = 14 -> return 12 + 14 ->
+      return 26 <br />
+      Iterația 5 -> previousValue = 26 -> number = 6 -> return 26 + 6 -> return
+      32 <br />
+      <br />
+      # După ce întreaga matrice a fost iterată, metoda reduce() returnează
+      valoarea acumulatorului. <br />
+      Rezultat - 32
+    </p>
+    <p>
+      Metoda <b>reduce()</b> este folosită atunci când este necesar să se ia
+      "<b>multe</b>" și să se reducă la "<b>unul</b>". În viața de zi cu zi,
+      utilizarea acestei metode are loc în cazul utilizării numerelor.
+    </p>
+
+    <h3>Array of objects</h3>
+    <p>
+      Când se lucrează cu o matrice de obiecte, reducerea este efectuată prin
+      valoarea unei proprietăți. De exemplu, există o serie de studenți cu o
+      notă la testul final. Trebuie să obținem nota medie la acel test.
+    </p>
+
+    <h3>Advanced reduce</h3>
+    <p>
+      Să presupunem că avem următorul task: dintr-o serie de postări pe Twitter
+      ale unui utilizator, trebuie să calculăm suma tuturor aprecierilor. Putem
+      itera cu un <b>for</b> sau <b>forEach</b>. Fiecare dintre aceste soluții
+      va necesita cod suplimentar. Sau putem folosi <b>reduce</b>.
+    </p>
+
+    <p>
+      Observați proprietatea tags de pe fiecare postare? Continuând subiectul
+      reduce, vom aduna într-o matrice toate tag-urile care apar în postări.
+    </p>
+    <p>
+      După ce am colectat toate tag-urile din postări, ar fi bine să numărăm
+      numărul de tag-uri unice din matrice. Și din nou putem folosi
+      <b>reduce</b>.
+    </p>
+
+    <h2>Metoda sort()</h2>
+    <p>
+      Metoda sort() sortează elementele unei matrice, dar spre deosebire de
+      celelalte metode de iterație, sortează matricea originală.
+    </p>
+    <ul>
+      <li>Sortează și modifică matricea originală.</li>
+      <li>
+        Returnează matricea modificată, adică un link către cea originală, doar
+        că sortată.
+      </li>
+      <li>Sortează în ordine crescătoare, în mod implicit.</li>
+      <li>
+        Sortarea are loc prin transformarea valorilor într-un string și
+        compararea numerelor de ordin din tabelul Unicode.
+      </li>
+    </ul>
+    <p>O astfel de matrice de numere va fi sortată în ordine crescătoare.</p>
+    <p>
+      Deoarece valorile sunt transformate într-un string în mod implicit,
+      sortarea numerelor funcționează într-un mod neobișnuit. Prin urmare, în
+      exercițiul următor, ne vom uita la cum să setăm propria ordine de sortare.
+    </p>
+    <p>O matrice de string-uri este sortată alfabetic.</p>
+    <p>
+      În același timp, numărul de ordine al literelor cu majuscule este mai mic
+      decât numărul de ordine al literelor mici.
+    </p>
+    <p>
+      Datorită faptului că matricea originală este sortată, principiul purității
+      funcțiilor este încălcat și este imposibil să se realizeze, în mod comod,
+      mai multe colecții derivate, pe baza celei originale. De exemplu, creăm o
+      colecție sortată în ordine crescătoare și alta, în ordine descrescătoare.
+      Prin urmare, înainte de sortare, se face o copie completă a matricei
+      originale și o sortează deja.
+    </p>
+
+    <h3>Ordinea de sortare "custom" a numerelor</h3>
+    <p>
+      Pentru a specifica ordinea de sortare, trebuie să transmitem o funcție
+      <b>callback</b> cu doi parametri <b>sort(compareFunction)</b>. Aceasta va
+      fi o funcție de comparare, ordinea de sortare depinzând de rezultatul
+      acesteia. Metoda <b>sort()</b> o va apela pentru două elemente arbitrare.
+    </p>
+    <p><b>array.sort((a, b) => { // Corpul funcției callback });</b></p>
+    <ul>
+      <li>a - primul element pentru a fi comparat.</li>
+      <li>b - al doilea element pentru a fi comparat.</li>
+    </ul>
+    <p>
+      Dacă apelul <b>compareFunction(a, b)</b> returnează orice valoare
+      negativă, adică <b>a</b> este mai mic decât <b>b</b>, sortarea va pune
+      <b>a</b> înainte de <b>b</b>. Asta este o sortare crescătoare.
+    </p>
+    <p>
+      Dacă apelul <b>compareFunction(a, b)</b> returnează orice valoare pozitivă
+      mai mare decât zero, adică <b>b</b> este mai mare decât <b>a</b>, sortarea
+      va pune <b>b</b> înainte de <b>a</b>. Acesta este o sortare
+      descrescătoare.
+    </p>
+    <p>
+      Dacă apelul <b>compareFunction(a, b)</b> returnează 0, sortarea va lăsa
+      <b>a</b> și <b>b</b>
+      neschimbate unul față de celălalt, dar le va sorta în raport cu toate
+      celelalte elemente. Dar nu contează rezultatul, dacă ordinea lor reciprocă
+      nu contează.
+    </p>
+
+    <h3>Ordinea de sortare "custom" pentru string-uri</h3>
+    <p>
+      Pentru a sorta șirurile alfabetic, crescător sau descrescător, se
+      utilizează metoda <b>localeCompare()</b>.
+    </p>
+    <p><b>firstString.localeCompare(secondString)</b></p>
+    <p>
+      Metoda se apelează pe șirul care trebuie comparat <b>(firstString)</b> cu
+      cel transmis ca argument <b>(secondString)</b>.
+    </p>
+    <p>
+      "a".localeCompare("b"); // -1 <br />
+      "b".localeCompare("a"); // 1 <br />
+      "a".localeCompare("a"); // 0 <br />
+      "b".localeCompare("b"); // 0
+    </p>
+    <ul>
+      <li>
+        Returnează o valoare negativă dacă <b>firstString</b> trebuie să fie
+        înainte de <b>secondString</b>.
+      </li>
+      <li>
+        Returnează o valoare pozitivă mai mare decât zero dacă
+        <b>firstString</b> ar trebui să fie după
+        <p><b></b></p>
+        .
+      </li>
+      <li>Dacă șirurile sunt egale, se returnează zero.</li>
+    </ul>
+    <p>
+      Acest lucru este util atunci când sortați șiruri, deoarece metoda sort()
+      așteaptă aceleași valori de la funcția callback.
+    </p>
+
+    <h3>Sortarea obiectelor</h3>
+    <p>
+      Când lucrăm cu o matrice de obiecte, sortarea este efectuată după valoarea
+      numerică sau a unui șir dintr-o oarecare proprietate. De exemplu, există
+      un grup de studenți cu punctaje la test. Este necesar să sortăm matricea
+      de obiecte în ordine descrescătoare, în funcție de numărul de puncte și de
+      numele elevului.
+    </p>
+
+    <h2>Înlănțuirea metodelor</h2>
+    <p>
+      Avem o serie de obiecte cu numele studenților, punctajul obținut și
+      cursurile frecventate de fiecare.
+    </p>
+    <p>
+      Trebuie să obținem o listă cu numele studenților, sortate în ordine
+      crescătoare, în funcție de punctajul obținut. Pentru a face acest lucru,
+      sortăm o copie a matricei, folosind metoda sort(), după care folosim
+      metoda map(), pentru a crea o matrice cu valori din proprietatea name, din
+      matricea sortată.
+    </p>
+    <p>
+      Există, totuși, o problemă în codul de mai sus. Și anume, faptul că avem
+      variabile intermediare după fiecare operație, cu excepția celei finale.
+      Variabila <b>sortedByAscendingScore</b> este de prisos și este necesară
+      doar pentru a stoca un rezultat intermediar.
+    </p>
+    <p>
+      Putem scăpa de astfel de variabile, grupând apelurile metodei în lanț.
+      Fiecare metodă va executa rezultatul celei anterioare.
+    </p>
+    <ol>
+      <li>Creăm o copie a matricei inițiale, înainte de a sorta.</li>
+      <li>Apelăm metoda <b>sort()</b> peste copia creată.</li>
+      <li>
+        Aplicăm metoda <b>map()</b> peste rezultatul metodei <b>sort()</b>.
+      </li>
+      <li>
+        Variabilei <b>names</b> i se atribuie rezultatul metodei <b>map()</b>.
+      </li>
+    </ol>
+    <p>
+      Să obținem o listă sortată alfabetic cu cursurile frecventate de studenți
+      care nu sunt repetate.
+    </p>
+    <ol>
+      <li>
+        Apelăm metoda <b>flatMap()</b> peste matricea inițială și creăm o
+        matrice aplatizată a tuturor cursurilor.
+      </li>
+      <li>
+        Aplicăm metoda <b>filter()</b> asupra rezultatul metodei
+        <b>flatMap()</b> pentru a filtra elementele unice.
+      </li>
+      <li>Peste rezultatul funcției <b>filter()</b>, apelăm <b>sort()</b>.</li>
+      <li>
+        Variabilei uniqueSortedCourses i se atribuie rezultatul metodei
+        <b>sort()</b>.
+      </li>
+    </ol>
+    <p>
+      Un lanț de metode poate avea orice lungime, dar, de obicei, nu mai mult de
+      2-3 operații. În primul rând, metodele de iterație sunt folosite pentru
+      operații relativ simple, pe o colecție. În al doilea rând, fiecare apel de
+      metodă este o iterație suplimentară a matricei, care poate afecta
+      performanța dacă este vorba de un lanț cu mai multe metode.
+    </p>
 
     <script src="./js/index8.js"></script>
   </body>

@@ -7,8 +7,262 @@
   </head>
   <body>
     <h1>Modulul 4 - Tema 7 - Callback și funcţia arrow</h1>
-    <a href=""><b>Lectie video</b></a>
+    <a href="" , target="_blank"><b>Lectie video</b></a>
     <h2>Funcții callback</h2>
+    <p>
+      Funcțiile nu diferă de numere, șiruri de caractere sau matrici - sunt doar
+      un tip de date special (obiect de ordin superior), valoarea căreia poate
+      fi stocată într-o variabilă sau transmisă ca argument unei alte funcții.
+    </p>
+    <p>
+      În primul log, apelăm funcția greet folosind paranteze și rezultatul
+      execuției acesteia este afișat în consolă. În cel de-al doilea log, este
+      transmisă o <b>referință la funcție</b>, nu rezultatul apelului (nu există
+      paranteze rotunde), așa că doar corpul acesteia este afișat în consolă.
+      Asta înseamnă că o funcție poate fi atribuită unei variabile sau transmisă
+      ca argument unei alte funcții.
+    </p>
+    <p>
+      <b>Funcția callback (callback function)</b> - este o funcție care este
+      transmisă ca argument unei alte funcții, care la rândul său apelează
+      funcția primită.
+    </p>
+    <p>
+      <b>Higher Order Function (HOF) </b>- o funcție care ia alte funcții ca
+      parametri sau returnează o altă funcție ca rezultat.
+    </p>
+    <p>
+      Am parsat o referință la funcția <b>greet</b> ca argument, deci va fi
+      atribuită parametrului <b>callback</b> și apelată în interiorul funcției
+      <b>registerGuest</b> prin intermediul parantezelor rotunde. Putem atribui
+      orice denumire parametrului pentru <b>callback</b>, important e să reținem
+      faptul că acel argument va fi o funcție.
+    </p>
+
+    <h3>Inline callback</h3>
+    <p>
+      Dacă funcția callback este scurtă și trebuie transmisă doar o dată ca
+      argument, atunci poate fi declarată direct la apelarea funcției căreia îi
+      transmitem callback-ul. O astfel de funcție va fi disponibilă doar ca
+      valoare a parametrului și nicăieri altundeva în cod.
+    </p>
+
+    <h3>Several callbacks</h3>
+    <p>
+      O funcție poate accepta un număr nelimitat de callback-uri. De exemplu, să
+      ne imaginăm că scriem logica de acceptare a apelului telefonic. Programul
+      trebuie să pornească robotul telefonic dacă abonatul nu este disponibil
+      sau în caz contrar să conecteze apelul. Disponibilitatea abonatului va fi
+      simulată de un generator de numere aleatorii, astfel încât să poată fi
+      obținute rezultate diferite la diferite apeluri de funcție.
+    </p>
+    <p>
+      Problema la această abordare este că funcția <b>processCall</b> face prea
+      multe și leagă verificarea disponibilității abonatului de două acțiuni
+      predefinite. Ce ar fi dacă pe viitor, în loc de robot, va fi necesar să
+      lăsați o hologramă?
+    </p>
+    <p>
+      Am putea scrie o funcție astfel încât să returneze o anumită valoare și
+      apoi, pe baza rezultatului execuției ei, să facem verificări și să
+      executăm codul necesar.
+    </p>
+    <p>
+      Să refactorizăm funcția astfel încât să accepte două callback-uri:
+      <b>onAvailable</b> și <b>onNotAvailable</b> și să le apeleze condiționat.
+    </p>
+    <p>
+      Callback-urile sunt folosite pentru a procesa acțiunile utilizatorului pe
+      o pagină, atunci când se procesează cereri către server sau se execută
+      funcții necunoscute inițial. Defapt acesta-i și scopul lor - sunt funcții
+      destinate unei execuției amânate.
+    </p>
+
+    <h3>Abstractizarea repetiției</h3>
+    <p>
+      <b>Abstractizarea</b> - ascunde detaliile de implementare. Ne permite să
+      gândim la sarcini la un nivel superior (abstract). Funcțiile sunt o
+      modalitate bună de a implementa abstractizarea.
+    </p>
+    <p>
+      De exemplu, un script efectuează o anumită acțiune de un anumit număr de
+      ori. Putem scrie o buclă <b>for</b> pentru aceasta.
+    </p>
+    <p>
+      Putem oare abstractiza de «a face ceva de N ori» ca funcție? - răspunsul e
+      da, să scriem o funcție care apelează console.log() de N ori.
+    </p>
+    <p>
+      Dar dacă vrem să facem altceva decât doar să înregistrăm niște numere?
+      Deoarece «fă ceva» poate fi gândit ca o funcție, iar funcțiile sunt doar
+      valori, putem parsa o acțiune în calitate de argument.
+    </p>
+
+    <h2>Metoda forEach</h2>
+    <p>
+      Este o metodă de iterare care este utilizată în locul buclei <b>for</b> și
+      <b>for...of</b> atunci când lucrăm cu o colecție de date.
+    </p>
+    <ul>
+      <li>Iterează prin matrice element cu element.</li>
+      <li>
+        Apelează o funcție de tip callback pentru fiecare element al matricei.
+      </li>
+      <li>Nu returnează nimic.</li>
+    </ul>
+    <p>
+      Argumentele pentru funcția callback este valoarea elementului curent
+      <b>element</b>, indexul său <b>index</b> și <b>matricea</b> originală în
+      sine. Putem declara doar acei parametri care sunt necesari, cel mai adesea
+      acesta este doar un element, cel mai important este să nu uităm de ordinea
+      lor.
+    </p>
+    <p>
+      Singurul caz în care se folosesc buclele <b>for</b> sau
+      <b>for...of</b> este atunci când iterația asupra matricei trebuie
+      întreruptă în urmă unei condiții de tip if. Nu puteți întrerupe execuția
+      metodei forEach, acesta iterează matricea mereu până la sfârșit.
+    </p>
+
+    <h2>Arrow functions</h2>
+    <p>
+      <b>Arrow functions</b> sau <b>funcțiile săgeată</b> au o sintaxă mai
+      scurtă, mai concisă, ceea ce reduce cantitatea de cod, mai ales atunci
+      când funcția este mică sau dacă este folosită în calitate de callback.
+    </p>
+    <p>
+      Toate funcțiile de acest tip sunt create ca <b>function expression</b>,
+      iar dacă funcția nu este anonimă, atunci trebuie să fie atribuită unei
+      variabile.
+    </p>
+    <p>
+      Keyword-ul <b>function</b> nu este folosit, în schimb urmează imediat
+      declararea parametrilor, urmată de simbolul <b>=></b> și corpul funcției.
+    </p>
+    <p>
+      Dacă sunt mai mulți parametri, aceștia vor fi separați prin virgulă în
+      paranteze rotunde, între semnul egal <b>=</b> și săgeată <b>=></b>.
+    </p>
+    <p>
+      Dacă există un singur parametru, declararea acestuia poate fi fără
+      paranteze.
+    </p>
+    <p>
+      Dacă nu există parametri, atunci trebuie obligatoriu să existe paranteze
+      rotunde goale.
+    </p>
+
+    <h3>Implicit return</h3>
+    <p>
+      Într-o funcție arrow, simbolul <b>=></b> este urmat de corpul său. Aici
+      pot fi două opțiuni: <b>cu acolade sau fără</b>.
+    </p>
+    <p>
+      Dacă există acolade și funcția trebuie să returneze o valoare, atunci
+      trebuie să punem în mod explicit return. Acesta se numește întoarcere
+      explicită (<b>explicit return</b>). Sintaxa de genu este utilizată dacă
+      corpul funcției trebuie să execute alte instrucțiuni pe lângă cea de
+      returnare a unei valori.
+    </p>
+    <p>
+      Dacă nu există acolade, atunci este returnat direct rezultatul expresiei
+      după săgeată =>. Aceasta se mai numește și returnare implicită (<b>
+        implicit return </b
+      >). Următorul exemplu va returna rezultatul expresiei de adunare a
+      parametrilor a, b și c.
+    </p>
+    <p>
+      Sintaxa de returnare implicită reduce «<b>spațiul folosit</b>» declarării
+      unei funcții, însă este potrivită doar atunci când nu trebuie să fie
+      executate instrucțiuni suplimentare în corpul funcției, cu excepția
+      returnării unei valori.
+    </p>
+    <p>
+      Dacă nu există acolade, atunci este returnat direct rezultatul expresiei
+      după săgeată <b>=></b>. Aceasta se mai numește și returnare implicită
+      (implicit return). Următorul exemplu va returna rezultatul expresiei de
+      adunare a parametrilor <b>a, b și c</b>.
+    </p>
+    <p>
+      Sintaxa de returnare implicită reduce «<b>spațiul folosit</b>» declarării
+      unei funcții, însă este potrivită doar atunci când nu trebuie să fie
+      executate instrucțiuni suplimentare în corpul funcției, cu excepția
+      returnării unei valori.
+    </p>
+
+    <h3>Pseudo array arguments</h3>
+    <p>
+      Funcțiile <b>arrow</b> nu au o variabilă locală <b>arguments</b> care să
+      conțină toate argumentele. Dacă este necesar să colectați toate
+      argumentele într-o matrice, se folosește operatorul <b>rest</b>.
+    </p>
+
+    <h3>Funcții arrow în calitate de callback</h3>
+    <p>
+      Funcțiile arrow anonime se potrivesc perfect în calitate de callback
+      pentru a itera o matrice folosind metodele sale din cauza sintaxei de
+      declarație mai scurte, mai ales dacă nu aveți nevoie de un corp de
+      funcție.
+    </p>
+    <p>
+      Callback arrow function poate fi, de asemenea, declarată separat și
+      transmisă doar o referință la aceasta. Acest lucru merită făcut dacă o
+      funcție este utilizată în mai multe locuri din cod.
+    </p>
+
+    <h2>Paradigme de programare</h2>
+
+    <h3>Programare imperativă</h3>
+    <p>
+      Folosește afirmații care schimbă starea unui program. Un program imperativ
+      constă în comenzi pe care computerul le poate efectua și se concentrează
+      pe descrierea modului în care funcționează un program.
+    </p>
+    <p>
+      Stilul de programare imperativ este acel tip de stil care oferă mașinii un
+      set de instrucțiuni bine detaliate pentru realizarea unei sarcini. De
+      exemplu, bucla for, care oferă instrucțiuni precise pentru iterare,
+      indicilor dintr-o matrice.
+    </p>
+    <p>
+      Putem face o analogie cu rețeta de gătit. O rețetă este un set de
+      instrucțiuni, definit pas cu pas, pentru a obține rezultatul dorit.
+    </p>
+
+    <p>Programare declarativă</p>
+    <p>
+      Descrie ceea ce dorim să obținem ca rezultat, nu cum să o facem. Ordinea
+      executării și metoda de realizare nu este importantă.
+    </p>
+    <p>
+      Când scriem cod HTML, în mod declarativ, folosind tag-uri și atribute,
+      descriem ceea ce dorim să obținem ca rezultat. Browserul citește acest cod
+      și efectuează toate operațiunile necesare pentru a crea elemente HTML și a
+      le plasa în pagină.
+    </p>
+    <p>
+      Putem face o analogie cu meniul unui restaurant. Acesta este un set
+      declarativ de tipuri de mâncare ce pot fi comandate, ale căror detalii de
+      preparare și servire sunt ascunse.
+    </p>
+    <p>
+      Descrierea declarativă a problemei este mai vizuală și mai ușor de
+      formulat. Spunem ce vrem să facem, apelând o metodă sau o funcție, iar
+      implementarea ei folosește cel mai probabil cod imperativ, care este
+      ascuns în interior și nu îngreunează înțelegerea codului principal.
+    </p>
+
+    <h3>Imperativ vs Declarativ</h3>
+    <p>
+      Să înțelegem diferența dintre cele două, printr-un exemplu de bază, și
+      anume, filtrarea unei colecții de date.
+    </p>
+    <p>
+      Metoda <b>filter()</b> ascunde logica de iterație a colecției și apelează
+      funcția callback pe care o parsăm pentru a fi executată pentru fiecare
+      element, returnând o matrice de elemente care se potrivesc criteriilor.
+    </p>
+
     <script src="./js/index7.js"></script>
   </body>
 </html>
