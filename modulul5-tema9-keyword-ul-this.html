@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modulul 5 Tema 9 Keyword-ul this</title>
+  </head>
+  <body>
+    <h1>Modulul 5 - Tema 9 - Keyword-ul this</h1>
+    <a href="https://youtu.be/_i9ESNIVvUQ" , target="_blank"
+      ><b>Lectie video</b></a
+    >
+
+    <h2>Contextul de execuție a unei funcții</h2>
+    <p>
+      Keyword-ul <b>this</b> este unul dintre cele mai confuze concepte din
+      JavaScript pentru începători, asta-i clar. Deseori, aceștia pun la
+      întâmplare această sintaxă, până când codul funcționează.
+    </p>
+    <p>Contextul în JavaScript este similar cu contextul dintr-o propoziție:</p>
+    <ul>
+      <li>
+        <b>Vasile</b> aleargă rapid pentru că <b>Vasile</b> încearcă să prindă
+        trenul.
+      </li>
+      <li>
+        <b>Vasile</b> aleargă rapid pentru că <b>el</b> încearcă să prindă
+        trenul.
+      </li>
+    </ul>
+    <p>
+      A două propoziție este mai concisă. Subiectul propoziției este
+      <b>Vasile</b>, iar subiectul propoziției este tot <b>el</b>, deoarece
+      <b>el</b> este punctul central în acel moment particular al propoziției.
+      La întrebarea "cine?" răspunsul va fi <b>Vasile</b>.
+    </p>
+    <p>
+      În programare, exact ca-n exemplul de mai sus, un obiect poate fi
+      subiectul actual de execuție al unei funcții.
+    </p>
+    <p>
+      Accesarea unei proprietăți a obiectului în cadrul propriilor metode,
+      folosind numele obiectului respectiv, este similară cu utilizarea
+      <b>Vasile</b>, în loc de pronumele personal <b>el</b>.
+    </p>
+    <p>
+      În cadrul funcțiilor, putem folosi keywordu-ul <b>this</b>. În timpul
+      execuției unei funcții, <b>this</b> este setat ca o referință la obiect în
+      contextul căruia a fost apelat. Astfel, în corpul funcției, putem accesa
+      proprietățile și metodele acelui obiect.
+    </p>
+    <p>Să preluăm un exemplu cu o colecție de cărți.</p>
+    <p>
+      Metodele <b>getAuthors</b> și <b>addAuthor</b> sunt funcții (metode a
+      obiectului) care sunt apelate în contextul obiectului <b>bookShelf</b>. În
+      timpul execuției lor, o referință la obiectul <b>bookShelf</b> va fi
+      creată în keywordu-ul <b>this</b> și astfel putem accesa proprietățile și
+      metodele acelui obiect folosind sintaxa this.
+    </p>
+
+    <h2>Keywordul this - reguli de definire</h2>
+    Există o singură regulă de urmat la folosirea keyword-ului <b>this</b> -
+    valoarea contextului de execuție din interiorul unei funcții (mai puțin la
+    funcția arrow) este determinată <b>nu la momentul creării acesteia</b>, ci
+    <b>la momentul apelării</b>. Adică, valoarea lui <b>this</b> este
+    determinată de cel care apelează funcția, nu de locul în care a fost
+    declarată.
+
+    <h3>this în global scope</h3>
+    <p>
+      În <b>scope-ul global</b>, dacă un script JavaScript nu rulează în
+      <b>strict mode</b>, <b>this</b> se va referi la obiectul global
+      <b>window</b>. În <b>strict mode</b>, valoarea lui <b>this</b> va fi
+      <b>undefined</b>.
+    </p>
+
+    <h3>this în metoda unui obiect</h3>
+    <p>
+      Dacă funcția a fost apelată ca o metodă a unui obiect, atunci contextul
+      execuției va fi obiectul din care face parte metoda.
+    </p>
+    <p>Să ne uităm la un exemplu mai complex pentru a înțelege mai bine.</p>
+    <ul>
+      <li>
+        Pentru început, să creăm o funcție în <b>scope-ul global</b> și să o
+        apelăm.
+      </li>
+      <li>
+        După care, o vom atribui ca proprietate, unui obiect și o vom apela ca
+        metodă a acelui obiect.
+      </li>
+    </ul>
+
+    <h3>this în funcțiile callback</h3>
+    <p>
+      La parsarea funcțiilor <b>callback</b> către o metodă dintr-un obiect,
+      contextul nu se salvează. Un <b>callback</b> este o referință la o
+      <b>metodă</b> care este atribuită ca <b>valoare</b> unui <b>parametru</b>.
+    </p>
+    <p><b>BINE DE ȘTIUT </b></p>
+    <p>
+      Soluția la această problemă este discutată în secțiunea despre
+      <b>metoda bind() și metodele unui obiect</b>.
+    </p>
+
+    <h3>this în funcția arrow</h3>
+    <p>
+      Funcțiile săgeată nu au propriul context <b>this</b>. Spre deosebire de
+      funcțiile obișnuite, în funcția <b>arrow</b> nu se poate modifica valoarea
+      lui <b>this</b> după ce a fost declarată.
+    </p>
+    <p><b>BINE DE ȘTIUT </b></p>
+    <p>
+      Contextul din interiorul funcției <b>arrow</b> este determinat de
+      <b>locul unde este declarată funcția</b> și
+      <b>nu de locul unde este apelată</b>. Sintaxa <b>this</b> în acest caz,
+      face referință la contextul funcției părinte.
+    </p>
+    <p>
+      Funcția arrow ignoră prezența <b>modulului strict</b>. Dacă s-a salvat
+      <b>contextul global</b>, atunci <b>this</b> va conține o referință la
+      obiectul global, <b>window</b>, indiferent dacă scriptul este executat în
+      <b>use strict</b> sau nu.
+    </p>
+    <p>
+      Restricționând funcțiile <b>arrow</b> la un context constant,
+      <b>JavaScript engine</b> poate să le optimizeze mai bine, spre deosebire
+      de funcțiile normale a căror context <b>this</b> poate fi modificat.
+    </p>
+    <p>
+      Exemplul următor nu este folosit în practică, dar arată perfect cum
+      funcționează contextul de execuție în funcțiile arrow. Acesta este preluat
+      de la părinte.
+    </p>
+
+    <h2>Metodele unei funcții</h2>
+    <p>
+      Există situații în care o funcție trebuie apelată în contextul unui
+      obiect, în timp ce acea funcție nu este o metodă a obiectului . Pentru a
+      face acest lucru, funcțiile au niște metode default ca: <b>call</b>,
+      <b>apply</b> și <b>bind</b>.
+    </p>
+
+    <h3>Metoda call()</h3>
+    <p><b>foo.call(obj, arg1, arg2, ...)</b></p>
+    <p>
+      Metoda <b>call</b> va apela funcția <b>foo</b>, astfel încât,
+      <b>this</b> va face referință la obiectul <b>obj</b> și va parsa
+      <b>parametrii arg1, arg2,</b> etc.
+    </p>
+
+    <h3>Metoda apply</h3>
+    <p>
+      Metoda <b>apply</b> este similară cu metoda <b>call</b>, cu excepția
+      faptului că primește ca parametri, <b>un array cu parametri</b> și nu o
+      enumerare a parametrilor.
+    </p>
+    <p>
+      <b
+        >foo.call(obj, arg1, arg2, ...) <br />
+
+        foo.apply(obj, [arg1, arg2, ...])</b
+      >
+    </p>
+    <p>
+      Metoda <b>apply</b> va apela funcția <b>foo</b>, astfel încât,
+      <b>this</b> va face referință la obiectul <b>obj</b> și-i va transmite
+      toți parametrii sub forma unei <b>matrice de parametri</b>.
+    </p>
+
+    <h3>Metoda bind()</h3>
+    <p>
+      Metodele <b>call</b> și <b>apply</b> apelează funcția momentan. Dar în
+      cazul funcției <b>callback</b>, când este necesar să-i păstrăm contextul
+      și să nu o apelăm imediat, folosim metoda <b>bind</b>.
+    </p>
+    <p>
+      Metoda <b>bind</b> creează și returnează o <b>copie</b> a funcției foo cu
+      contextul salvat la obiectul <b>obj</b> și argumentele
+      <b>arg1, arg2</b> etc. Rezultă o copie a funcției care poate fi transmisă
+      oriunde și poate fi apelată oricând.
+    </p>
+
+    <h3>bind() și metodele unui obiect</h3>
+    <p>
+      La parsarea unei funcții <b>calback</b> către o <b>metodă</b> a unui
+      <b>obiect</b>, contextul nu este păstrat. Un <b>callback</b> este o
+      referință la <b>metodă</b>, care este atribuită ca <b>valoare</b> a unui
+      <b>parametru</b>.
+    </p>
+    <p>
+      In <b>use strict</b>, valoarea lui <b>this</b> în metoda
+      <b>getFullName</b>, atunci când este apelată ca un callback
+      <b>callback()</b>, va fi <b>undefined</b>. La accesarea proprietăților
+      <b>firstName</b> și <b>lastName</b> va rezulta o eroare, deoarece
+      <b>undefined</b> nu este un obiect.
+    </p>
+    <p>
+      Metoda <b>bind</b> este folosită pentru a specifica <b>contextul</b>,
+      atunci când se transmit <b>metodele</b> unui obiect ca funcții de tip
+      <b>callback</b>. Să transmitem ca <b>callback</b> <b>nu</b> metoda
+      <b>originală</b> getFullName, <b>ci copia</b> sa, cu
+      <b>contextul</b> legat de obiectul <b>customer</b>.
+    </p>
+
+    <script src="./js/index9.js"></script>
+  </body>
+</html>
+<b></b>
