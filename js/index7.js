@@ -756,57 +756,39 @@ The withdraw method raises onError if amount is greater than TRANSACTION_LIMIT o
 
 */
 
-const account = {
-  balance: 100,
-  TRANSACTION_LIMIT: 1000,
+const account = { balance: 100, TRANSACTION_LIMIT: 1000 };
 
-  withdraw(amount, onSuccess, onError) {
-    if (amount > this.TRANSACTION_LIMIT) {
-      return onError(
-        `Suma ${amount} este mai mare decat suma ${this.TRANSACTION_LIMIT}, limita de retragere zilnica !`
-      );
-    } else if (amount > this.balance) {
-      return onError(
-        `Suma ${amount} este mai mare decat balanta contului Dvs. ${this.balance} si nu se poate procesa retragerea !`
-      );
-    }
-
-    this.balance -= amount;
-    return onSuccess(amount);
-  },
-
-  deposit(amount, onSuccess, onError) {
-    if (amount > this.TRANSACTION_LIMIT) {
-      return onError(
-        `Suma ${amount} este mai mare decat suma ${this.TRANSACTION_LIMIT}, limita de depunere zilnica si nu se poate procesa depunerea !`
-      );
-    } else if (amount <= 0) {
-      return onError(
-        `Suma ${amount} este necorespunzatoare si nu se poate procesa depunerea ! Incercati sa depuneti sume mai mari decat 0(zero) !`
-      );
-    }
-
-    this.balance += amount;
-    return onSuccess(amount);
-  },
+const withdraw = (amount, onSuccess, onError) => {
+  if (amount > account.TRANSACTION_LIMIT || amount > account.balance) {
+    onError(amount);
+    return;
+  }
+  onSuccess(amount);
 };
 
-onSuccess = (amount) => {
-  console.log(
-    `Succes ! Suma ${amount} este procesata, balanta contului Dvs este ${account.balance}`
-  );
+const deposit = (amount, onSuccess, onError) => {
+  if (
+    amount > account.TRANSACTION_LIMIT ||
+    amount < account.TRANSACTION_LIMIT ||
+    amount === 0
+  ) {
+    onError(amount);
+    return;
+  }
+  onSuccess(amount);
 };
 
-onError = (declaration) => {
-  console.log(`Eroare !  ${declaration}`);
+const onSuccess = (amount) => {
+  console.log(`Succes suma ${amount} este corecta`);
 };
 
-account.withdraw(100, onSuccess, onError);
-account.deposit(1000, onSuccess, onError);
-account.deposit(10000, onSuccess, onError);
-account.deposit(100.24, onSuccess, onError);
-account.deposit(0, onSuccess, onError);
-account.deposit(-150, onSuccess, onError);
+const onError = (amount) => {
+  console.log(`Eroare suma ${amount} este gresita`);
+};
 
-account.withdraw(1100, onSuccess, onError);
-account.withdraw(900.38, onSuccess, onError);
+withdraw(2000, onSuccess, onError);
+withdraw(100, onSuccess, onError);
+deposit(1000, onSuccess, onError);
+deposit(10000, onSuccess, onError);
+deposit(100, onSuccess, onError);
+deposit(0, onSuccess, onError);
