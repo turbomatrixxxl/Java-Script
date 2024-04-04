@@ -22,7 +22,7 @@ console.log(`---------        Exercitii tema optional `);
 // - exercitiul-1 -
 console.log(`- exercitiul-1 -`);
 
-// ------     Exercitii tema     ------
+// ------     Exercitii autoverificare 3     ------
 console.log(`---------        Exercitii autoverificare 3        ---------`);
 
 // - exercitiul-1 -

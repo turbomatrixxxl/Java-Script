@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modulul 6 Tema 11 DOM</title>
+    <link rel="stylesheet" href="./css/index11.css" />
+  </head>
+  <body>
+    <h1>Modulul 6 - Tema 11 - DOM</h1>
+    <a href="https://youtu.be/xP1l2GFC-iM" , target="_blank"
+      ><b>Lectie video</b></a
+    >
+
+    <h2>Document Object Model</h2>
+    <p>
+      Când lucrăm cu browserul, funcționalitatea disponibilă pentru dezvoltarea
+      unei pagini web este constituită din mai multe module, deoarece
+      JavaScript, în sine, nu are instrumente pentru a interacționa cu
+      browserul.
+    </p>
+    <p>
+      <b>Document Object Model</b> - o interfață independentă de orice limbaj de
+      programare, concepută pentru a lucra cu un document HTML. Conține un set
+      de proprietăți și metode care ne permit să căutăm, creăm și să ștergem
+      elemente, să răspundem la acțiunile utilizatorului și multe altele.
+    </p>
+    <p>
+      <b>DOM</b>-ul este o reflectare a documentului <b>HTML</b> - o structură
+      arborescentă în care fiecare nod este un obiect <b>JavaScript</b> cu
+      proprietăți și metode din acel document <b>HTML</b>. Fiecare element din
+      document: antetul, linkul, paragraful și chiar întregul document sunt
+      părți din <b>DOM</b>-ul acelui document, astfel încât toate pot fi
+      modificate din cod <b>JavaScript</b>.
+    </p>
+    <p>
+      <b>Browser Object Model</b> - o interfață independentă de orice limbaj de
+      programare, concepută pentru a lucra cu tab-ul browser-ului. Conține un
+      set de proprietăți și metode care ne permit să accesăm direct tab-ul
+      curent, precum și o serie de funcții ale browserului care includ
+      utilizarea istoricului de navigație, locația și multe altele.
+    </p>
+
+    <h3>HTML-document și DOM</h3>
+    <p>
+      Conform modelului DOM, fiecare tag formează un element-nod separat, iar
+      fiecare bucată de text este un element de text. Un document HTML este un
+      arbore ierarhic în care fiecare element (cu excepția rădăcinii) are un
+      singur părinte, adică elementul în care se află. Acest arbore este format
+      în urma unei structuri stricte a tag-urilor și elementelor de text.
+    </p>
+    <p>
+      Pentru a afișa un document HTML, browserul îl convertește mai întâi
+      într-un format pe care îl înțelege - DOM. Motorul browserului are o bucată
+      specială de cod care preia această funcție de convertire a unui document
+      HTML în DOM, și anume - <b>HTML-parser</b>.
+    </p>
+    <p>
+      În HTML se definește relația părinte-copil dintre elemente. În DOM,
+      obiectele sunt legate într-o structură de date arborescentă.
+    </p>
+    <p>
+      Browserul construiește DOM-ul în mod dinamic,. De îndată ce sosesc primele
+      fragmente de cod, începe să analizeze HTML-ul, adăugând noduri la
+      structura arborescentă.
+    </p>
+    <p>
+      După ce arborele DOM este construit, putem găsi elemente în el, folosind
+      JavaScript, și să efectuăm acțiuni cu acestea, deoarece fiecare element
+      are o interfață cu multe proprietăți și metode.
+    </p>
+
+    <h3>DOM-tree</h3>
+    Putem vizualiza arborele unui document HTML, folosind acest link
+    <a href="https://software.hixie.ch/utilities/js/live-dom-viewer/"
+      >generator de arbore DOM</a
+    >.
+    <p>Există două tipuri de noduri în acest arbore.</p>
+    <ul>
+      <li>
+        <b>Element node</b> - sunt formate din tag-uri, în mod natural unele
+        elemente sunt imbricate unul în altul. Structura arborelui este formată
+        doar din acestea.
+      </li>
+      <li>
+        <b>Text node</b> - se formează ca text în interiorul elementelor. Un nod
+        text conține doar o linie de text și nu poate avea copii, adică se află
+        întotdeauna la cel mai de jos nivel al ierarhiei. Spațiile și
+        întreruperile de rând sunt, de asemenea, noduri de text.
+      </li>
+    </ul>
+    <p>
+      <b>BINE DE ȘTIUT</b> <br />
+      Există excepții de la această regulă: spațiile dinaintea head sunt
+      ignorate, iar orice conținut după body nu creează un element, ci browserul
+      îl cuprinde la sfârșitul body-ului.
+    </p>
+
+    <h2>Navigarea prin DOM</h2>
+    <p>
+      DOM-ul oferă o gamă largă de opțiuni atunci când lucrăm cu un element și
+      conținutul acestuia, dar pentru a face acest lucru, trebuie mai întâi să-l
+      accesăm. Accesul la DOM începe cu obiectul document, iar de la el putem
+      ajunge la oricare dintre elemente.
+    </p>
+    <p>
+      <b>BINE DE ȘTIUT</b> <br />
+      document face parte din obiectul global <b>window</b> și este disponibil
+      din <b>script</b> atunci când este executat în <b>browser</b>, similar cu
+      <b>alert, console.log, prompt</b>, etc.
+    </p>
+    <p>
+      Elementele din arborele DOM au o relație ierarhică. Termeni ca strămoș
+      (<b>ancestor</b>), descendent (<b>descendant</b>), părinte
+      (<b>parent</b>), copil (<b>child</b>) și frate (<b>sibling</b>) sunt
+      folosiți pentru a descrie relațiile dintre elemente.
+    </p>
+    <ul>
+      <li>Elementul cel mai de sus se numește root node.</li>
+      <li>
+        Fiecare element, cu excepția elementului rădăcină, are doar un singur
+        părinte.
+      </li>
+      <li>Un element poate avea un număr nelimitat de copii.</li>
+      <li>Frații sunt acele elemente care au părintele comun.</li>
+      <li>
+        Un element copil este acel element care se află direct în interiorul
+        celui actual.
+      </li>
+      <li>
+        Descendenți - toate elementele care se află în interiorul celui actual,
+        împreună cu copiii lor, copiii copiilor și așa mai departe. Într-un
+        cuvânt - tot subarborele.
+      </li>
+    </ul>
+    <p>
+      Pentru a naviga într-o astfel de ierarhie, elementele au următoarele
+      proprietăți.
+    </p>
+    <ul>
+      <li><b>elem.parentNode</b> - va selecta părintele elementului elem.</li>
+      <li>
+        <b>elem.childNodes</b> - pseudo-array ce stochează toate elementele
+        copii, inclusiv elementele text.
+      </li>
+      <li>
+        <b>elem.children</b> - pseudo-array ce stochează doar nod-elementele
+        copii.
+      </li>
+      <li>
+        <b>elem.firstChild</b> - va selecta primul element copil din elem,
+        inclusiv nodurile text.
+      </li>
+      <li>
+        <b>elem.firstElementChild</b> - va selecta primul nod element copil din
+        elem.
+      </li>
+      <li>
+        <b>elem.lastChild</b> - va selecta ultimul element copil din elem,
+        inclusiv nodurile text.
+      </li>
+      <li>
+        e<b>lem.lastElementChild</b> - va selecta ultimul nod element copil din
+        elem.
+      </li>
+      <li>
+        <b>elem.previousSibling</b> - va selecta elementul "din stânga" lui elem
+        (vecinul său anterior).
+      </li>
+      <li>
+        <b>elem.previousElementSibling</b> - va selecta elementul nod "din
+        stânga" lui elem (vecinul său anterior).
+      </li>
+      <li>
+        <b>elem.nextSibling</b> - va selecta elementul "din dreapta" lui elem
+        (următorul său vecin).
+      </li>
+      <li>
+        <b>elem.nextElementSibling</b> - va selecta elementul nod "din dreapta"
+        lui elem (următorul său vecin).
+      </li>
+    </ul>
+    <p>
+      Deschideți acest exemplu într-o fereastră separată și uitați-vă la
+      mesajele din consola devTools.
+    </p>
+    <p>Exemplul 1</p>
+
+    <div>
+      <ul class="list">
+        <li>First item</li>
+        <li>Second item</li>
+        <li>Third item</li>
+        <li>Fourth item</li>
+        <li>Fifth item</li>
+      </ul>
+    </div>
+
+    <p>
+      <b>BINE DE ȘTIU</b> <br />T Colecțiile DOM precum childNodes și children
+      sunt <b>pseudo-arrays</b> (NodeList) fiindcă nu au majoritatea metodelor
+      specifice matricelor.
+    </p>
+
+    <h2>Localizarea elementelor</h2>
+    <p>
+      Deci, știm deja că un element DOM este un obiect cu proprietăți și metode.
+      Este timpul să aflăm cum să găsim rapid un element cu ajutorul unui
+      selector CSS. Grupul de metode <b>elem.querySelector</b>* este standardul
+      modern pentru a găsi elementele arborelui. Ele permit să găsim un element
+      sau un grup de elemente printr-un selector CSS de orice complexitate.
+    </p>
+    <p><b>element.querySelector(selector);</b></p>
+    <p>
+      Se folosește atunci când este necesar să se găsească un singur element,
+      cel mai adesea un element unic.
+    </p>
+    <ul>
+      <li>
+        Returnează primul element găsit în element, care se potrivește cu
+        selectorul CSS selector.
+      </li>
+      <li>Dacă nu găsește nimic, returnează null.</li>
+    </ul>
+    <p><b>element.querySelectorAll(selector);</b></p>
+    <p>
+      Este folosit atunci când trebuie să găsim o colecție de elemente. Obținem
+      o matrice cu referințe la elementele cu același selector. De exemplu,
+      toate elementele dintr-o listă cu clasa menu-item.
+    </p>
+    <ul>
+      <li>
+        Returnează un pseudo-array cu toate elementele găsite în element, care
+        se potrivesc cu selectorul CSS selector.
+      </li>
+      <li>Dacă nu găsește nimic, returnează null.</li>
+    </ul>
+    <p>
+      Deschideți acest exemplu într-o fereastră separată și uitați-vă la
+      mesajele din consola devTools.
+    </p>
+
+    <p>Exemplul 1</p>
+
+    <ul id="menu" class="menu">
+      <li class="menu-item">home</li>
+      <li class="menu-item">about</li>
+      <li class="menu-item">gallery</li>
+      <li>blog</li>
+    </ul>
+
+    <h2>Proprietăți și atribute</h2>
+    <p>
+      În timpul construcției arborelui DOM, unele atribute HTML standard devin
+      proprietăți ale elementelor. Să ne uităm la câteva proprietăți frecvent
+      utilizate.
+    </p>
+    <ul>
+      <li>
+        <b>value</b> - conține textul curent al unui element dintr-un formular.
+      </li>
+      <li>
+        <b>checked</b> - stochează starea unei casete checkbox sau a unui buton
+        radio.
+      </li>
+      <li><b>name</b> - stochează valoarea specificată în atributul name.</li>
+      <li>
+        <b>src</b> - calea către sursa imaginii din tagul <b>&ltimg /&gt</b>.
+      </li>
+    </ul>
+
+    <img
+      class="image"
+      src="https://picsum.photos/id/9/320/240"
+      alt="A laptop"
+      width="300" />
+
+    <h3>Proprietatea textContent</h3>
+    <p>
+      <b>elem.textContent</b> returnează conținutul textului din interiorul
+      elementului. Este disponibil pentru citit. Indiferent de ceea ce este
+      transmis în textContent, datele vor fi întotdeauna stocate ca text.
+    </p>
+
+    <p>Exemplul 1</p>
+
+    <article class="article">
+      <h2 class="article-title">Welcome to Hawaii!</h2>
+      <p class="article-text">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident
+        quaerat nemo veritatis quasi eius eum aliquid, nobis dolore nisi, magnam
+        eaque iusto, necessitatibus atque laborum quam tempora ducimus dicta
+        ipsam.
+      </p>
+    </article>
+
+    <h3>Proprietatea classList</h3>
+    <p>
+      Proprietatea <b>classList</b> stochează un obiect cu metode pentru
+      utilizarea claselor de elemente.
+    </p>
+    <ul>
+      <li>
+        <b>elem.classList.contains(cls)</b> - returnează <b>true</b> sau
+        <b>false</b>, dacă elementul are clasa <b>cls</b>.
+      </li>
+      <li>
+        <b>elem.classList.add(cls)</b> - adaugă clasa <b>cls</b> la lista de
+        clase a elementului.
+      </li>
+      <li>
+        <b>elem.classList.remove(cls)</b> - șterge clasa <b>cls</b> din lista de
+        clase a elementului.
+      </li>
+      <li>
+        <b>elem.classList.toggle(cls)</b> - dacă nu există clasa <b>cls</b>,
+        atunci o adaugă, iar dacă există, dimpotrivă, o șterge.
+      </li>
+      <li>
+        <b>elem.classList.replace(oldClass, newClass)</b> - înlocuiește clasa
+        existentă <b>oldClass</b> cu una nouă <b>newClass</b>.
+      </li>
+    </ul>
+
+    <p>Exemplul 1</p>
+
+    <a class="link is-active" href="">A random link</a>
+
+    <h3>Proprietatea style</h3>
+    <p>
+      Este folosit pentru a citi și a modifica stilurile inline. Returnează un
+      obiect <b>CSSStyleDeclaration</b> care conține o listă cu toate
+      proprietățile definite, numai în stilurile inline ale elementului, nu și
+      întregul <b>CSS</b>. Proprietățile returnate sunt transformate în
+      camelCase, adică background-color devine element.style.backgroundColor.
+    </p>
+
+    <p>Exemplul 1</p>
+
+    <button class="btn">button</button>
+
+    <p>
+      <b>BINE DE ȘTIUT</b> <br />
+      În practică, stilurile unui element se stabilesc prin adăugarea de clase
+      CSS. Proprietatea style este folosită pentru a adăuga un stil dinamic,
+      spre exemplu, în timpul animației.
+    </p>
+
+    <h3>Atributele</h3>
+    <p>
+      Elementele DOM corespund cu tag-urile HTML care au atribute de tip text.
+      Atributele sunt accesate folosind metode standard. Aceste metode operează
+      cu valori care se află în HTML.
+    </p>
+    <ul>
+      <li>
+        <b>elem.hasAttribute(name)</b> - verifică prezența unui atribut,
+        returnează <b>true</b> sau <b>false</b>.
+      </li>
+      <li>
+        <b>elem.getAttribute(name)</b> - primește valoarea atributului și o
+        returnează.
+      </li>
+      <li><b>elem.setAttribute(name, value)</b> - setează un atribut.</li>
+      <li><b>elem.removeAttribute(name)</b> - elimină un atribut.</li>
+      <li>
+        <b>elem.attributes</b> - este o proprietate, returnează un obiect cu
+        toate atributele elementului.
+      </li>
+    </ul>
+
+    <p>Exemplul 1</p>
+
+    <img
+      class="image0"
+      src="https://picsum.photos/id/15/320/240"
+      alt="Rocks and waterfall"
+      width="300" />
+
+    <h3>data attributes</h3>
+    <p>
+      Permite să adăugăm un atribut pe un tag și să-i obținem valoarea acestuia
+      în JavaScript. Această caracteristică este utilizată pentru a reduce din
+      cantitatea de cod, cum ar fi conectarea datelor cu un markup printr-un
+      identificator unic sau specificarea unui tip de acțiune pentru un buton.
+    </p>
+    <p>
+      Pentru a obține valoarea unui <b>data-attribute</b>, utilizați
+      proprietatea <b>dataset</b>, urmată de numele atributului. Adică, data-
+      este eliminată, iar restul numelui este scris ca numele proprietății
+      obiectului.
+    </p>
+
+    <p>Exemplul 1</p>
+
+    <button type="button" data-action="save">Save</button>
+    <button type="button" data-action="close">Close</button>
+
+    <h2>Crearea și ștergerea elementelor</h2>
+    <p>
+      <b>DOM API</b> permite nu doar selectarea sau modificarea celor existente,
+      ci și ștergerea lor, precum și crearea de noi elemente și apoi adăugarea
+      lor în document.
+    </p>
+
+    <h3>Creare</h3>
+    <p><b>document.createElement(<b>tagName</b>);</b></p>
+    <p>
+      Creează un element numit tagName și returnează o referință la acesta, ca
+      rezultat al execuției sale. <b>tagName</b> este un string care indică
+      tipul de element ce trebuie creat. Elementul este creat în memorie,
+      nefiind, încă prezent în DOM.
+    </p>
+
+    <h3>Adăugare</h3>
+    <p>
+      Pentru ca elementul creat să fie afișat pe pagină, acesta trebuie adăugat
+      la unul deja existent, în arborele DOM. Să presupunem că adăugăm un
+      element unui anumit element. Hai să vedem prin ce metode putem face asta!
+    </p>
+    <ul>
+      <li>
+        <b>element.append(el1, el2, ...)</b> - adaugă unul sau mai multe
+        elemente după toți copiii elementului element.
+      </li>
+      <li>
+        <b>element.prepend(el1, el2, ...)</b> - adaugă unul sau mai multe
+        elemente înaintea tuturor copiilor elementului element.
+      </li>
+      <li>
+        <b>element.after(el1, el2, ...)</b> - adaugă unul sau mai multe elemente
+        după elementul <b>element</b>.
+      </li>
+      <li>
+        <b>element.before(el1, el2, ...)</b> - adaugă unul sau mai multe
+        elemente înaintea elementului <b>element</b>.
+      </li>
+    </ul>
+    <p>
+      În toate aceste metode, <b>el</b> sunt elemente sau stringuri, în orice
+      combinație posibilă sau număr.
+    </p>
+
+    <p>Exemplul 1</p>
+
+    <div class="container">
+      <ul class="usernames">
+        <li>Mango</li>
+      </ul>
+    </div>
+
+    <p>
+      <b>BINE DE ȘTIUT</b> <br />
+      Dacă elementul care trebuie inserat este deja în DOM, atunci acesta este
+      eliminat din vechea locație și adăugat la cel nou. De aici reiesă o regulă
+      - același element nu poate fi în două locuri în același timp.
+    </p>
+
+    <h3>Eliminare</h3>
+    <p><b>elem.remove();</b></p>
+    <p>
+      Metoda <b>remove()</b> este folosită pentru a elimina un element. Această
+      metodă este apelată direct pe elementul elem.
+    </p>
+
+    <p>Exemplul 1</p>
+
+    <article class="article0">
+      <h2 class="title0">Article title</h2>
+      <p class="text0">
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolore, ipsa
+        quibusdam! Praesentium accusantium fugiat distinctio quidem minima fugit
+        eos, veniam, nam laboriosam deleniti nisi qui neque explicabo
+        perspiciatis, consectetur non.
+      </p>
+      <a class="link0" href="">Read more</a>
+    </article>
+
+    <h3>Optimizarea DOM-ului</h3>
+    <p>
+      Browserele moderne încearcă să optimizeze procesul de randare a paginii,
+      fără intervenția programatorului. Cu toate acestea, schimbarea arborelui
+      DOM este o operație costisitoare, așa că ar trebui să încercăm să
+      minimizăm numărul de accesări pe arborele DOM.
+    </p>
+    <p>
+      <b>Repaint</b> - apare atunci când modificările noastre au afectat
+      stilurile legate de aspectul unui element, dar nu și geometria. De
+      exemplu: opacity, background-color, visibility și outline. Browserul
+      re-randează elementul cu noul stil. Se verifică și vizibilitatea altor
+      elemente, unul sau mai multe pot fi ascunse sub aspectul modificat.
+    </p>
+    <p>
+      <b>Reflow</b> - apare atunci când modificările afectează conținutul,
+      structura documentului sau poziția elementelor. Se recalculează
+      poziționarea și dimensiunile, ceea ce duce la redesenarea unei părți sau a
+      întregului document. Redimensionarea unui container părinte va afecta toți
+      copiii și strămoșii săi. Are un impact semnificativ asupra performanței,
+      mult mai mare decât o are <b>repaint</b>.
+    </p>
+    <p>
+      Toate operațiunile de mai sus blochează browserul. Pagina nu poate efectua
+      nicio altă operație, în timp ce <b>reflow</b> sau <b>repaint</b> sunt în
+      desfășurare. Cauzele pot fi:
+    </p>
+    <ul>
+      <li>
+        Manipularea DOM-ului (adăugarea, eliminarea, schimbarea, rearanjarea
+        elementelor)
+      </li>
+      <li>Modificarea conținutului</li>
+      <li>Calcularea sau modificarea proprietăților de CSS</li>
+      <li>Adăugarea și eliminarea claselor de stil</li>
+      <li>Manipulări cu atributul <b>class</b></li>
+      <li>Manipularea ferestrei browserului (redimensionare, defilare)</li>
+      <li>Activarea pseudoclaselor (de ex. :hover)</li>
+    </ul>
+
+    <h2>Proprietatea innerHTML</h2>
+    <p>
+      O altă modalitate de a crea elemente în DOM este să utilizăm string-uri în
+      care punem taguri și lăsăm browserul să facă treaba grea. Această abordare
+      are atât avantaje, cât și dezavantaje.
+    </p>
+
+    <h3>Citirea</h3>
+    <p>
+      Proprietatea <b>innerHTML</b> stochează conținutul elementului, inclusiv
+      tag-urile, sub forma unui șir. Valoarea returnată este întotdeauna un cod
+      HTML valid.
+    </p>
+
+    <p>Exemplul 1</p>
+
+    <article class="article1">
+      <h2 class="title1">Article title</h2>
+      <p class="text1">
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolore, ipsa
+        quibusdam! <strong>Praesentium</strong> accusantium fugiat distinctio
+        quidem minima fugit eos, veniam, nam laboriosam deleniti nisi qui neque
+        explicabo perspiciatis, consectetur non.
+      </p>
+      <a class="link1" href="">Read more</a>
+    </article>
+
+    <h3>Modificarea</h3>
+    <p>
+      Proprietatea innerHTML este folosită atât pentru a citi o valoare, cât și
+      pentru a o modifica. Dacă-i parsăm un string cu tag-uri HTML, atunci
+      browserul le va transforma în elemente valide și le va adăuga în arborele
+      DOM în timp ce analizează string-ul.
+    </p>
+
+    <p>Exemplul 1</p>
+
+    <article class="article2">
+      <h2 class="title2">Article title</h2>
+      <p class="text2">
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolore, ipsa
+        quibusdam! <strong>Praesentium</strong> accusantium fugiat distinctio
+        quidem minima fugit eos, veniam, nam laboriosam deleniti nisi qui neque
+        explicabo perspiciatis, consectetur non.
+      </p>
+      <a class="link2" href="">Read more</a>
+    </article>
+
+    <p>
+      <b>BINE DE ȘTIUT</b> <br />
+      Dacă proprietatea innerHTML este setată la un șir gol, atunci conținutul
+      elementului va fi șters. Acesta este un mod simplu și rapid de a șterge
+      tot conținutul.
+    </p>
+    <p>
+      Folosind această abordare, spre deosebire de
+      <b>document.createElement()</b>, nu obținem o referință la elementul DOM
+      creat. Acesta este primul pas către crearea de șabloane - crearea unei
+      cantități mari, de același tip de markup, dar cu date diferite. De
+      exemplu, ca în lista de products dintr-un magazin online etc.
+    </p>
+    <p>
+      Un markup unic (șablon) este creat dintr-o matrice de date. Trucul este să
+      iterăm prin această matrice și să compunem un string cu tag-uri HTML, pe
+      care apoi le scriem în innerHTML.
+    </p>
+
+    <p>Exemplul 2</p>
+
+    <section class="sec">
+      <h2>Popular technologies</h2>
+      <ul class="list3"></ul>
+    </section>
+
+    <h3>Adăugarea</h3>
+    <p>
+      Schimbarea elem.innerHTML va elimina complet și va recrea toți copiii
+      elementului elem. Dacă elementul inițial nu este gol, atunci vor exista
+      costuri suplimentare pentru serializarea markup-ului deja existent, iar
+      asta nu-i bine deloc.
+    </p>
+
+    <p>Exemplul 1</p>
+
+    <article class="article3">
+      <h2>Article title</h2>
+    </article>
+
+    <p>
+      <b>BINE DE ȘTIUT</b> <br />
+      Utilizați proprietatea elem.innerHTML pentru a adăuga numai atunci când
+      elementul elem este gol sau dacă doriți să înlocuiți complet conținutul
+      acestuia.
+    </p>
+
+    <h3>Metoda insertAdjacentHTML()</h3>
+    <p>
+      Este o metodă modernă pentru adăugarea unui string cu tag-uri HTML
+      înainte, după sau în interiorul unui element. Rezolvă problema de la
+      <b>innerHTML</b> legată de serializarea conținutului unui element atunci
+      când se adaugă un markup nou la unul existent.
+    </p>
+    <p><b>elem.insertAdjacentHTML(position, string);</b></p>
+    <p>
+      Argumentul position este un string ce specifică poziția relativă a
+      elementului elem. Ia una dintre cele patru valori.
+    </p>
+    <ul>
+      <li>"<b>beforebegin</b>" - înaintea lui elem</li>
+      <li>
+        "<b>afterbegin</b>" - înăuntrul lui elem, în fața tuturor copiilor săi
+      </li>
+      <li>"<b>beforeend</b>" - înăuntrul lui elem, după toți copiii</li>
+      <li>"<b>afterend</b>" - după elem</li>
+    </ul>
+
+    <p>Exemplul 1</p>
+
+    <ul class="list4">
+      <li class="list4-item">HTML</li>
+      <li class="list4-item">CSS</li>
+      <li class="list4-item">JavaScript</li>
+    </ul>
+
+    <p>
+      <b>BINE DE ȘTIUT</b> <br />
+      "<b>beforebegin</b>" și "<b>afterend</b>" funcționează numai dacă elem
+      este deja în arborele DOM.
+    </p>
+
+    <h2>Conectarea scripturilor</h2>
+    <p>
+      Încărcarea și executarea scriptului specificat, în tagul &ltscript&gt,
+      fără niciun atribut, blochează procesarea documentelor HTML și construirea
+      DOM, asta fiind o problemă.
+    </p>
+    <p>&ltscript src="path-to-script.js"&gt&lt/script&gt</p>
+    '
+    <p>
+      Când analizatorul întâlnește un astfel de tag, procesarea documentului
+      HTML este suspendată și începe încărcarea fișierului cu scripturi,
+      specificat în atributul src. Odată încărcat, scriptul este executat
+      înainte ca procesarea HTML să se reia. Acesta se numește
+      <b>script "blocker"</b>.
+    </p>
+    <p>
+      Atributele <b>defer</b> și <b>async</b> au fost introduse pentru a oferi
+      programatorilor mai mult control asupra modului în care sunt încărcate
+      scripturile și asupra momentului când sunt executate.
+    </p>
+
+    <h3>Atributul defer</h3>
+    <p>&ltscript defer src="path-to-script.js"&gt&lt/script&gt</p>
+    <p>
+      Atributul defer spune browserului să descarce fișierul cu scripturi pe
+      fundal, în timp ce procesează documentul HTML și construiește DOM.
+      Scriptul va fi executat numai după ce documentul HTML a fost procesat și
+      DOM-ul a fost construit. Astfel de scripturi nu blochează construcția
+      arborelui DOM și garantează că vor fi executate în ordinea în care sunt
+      specificate în documentul HTML.
+    </p>
+
+    <h3>Atributul async</h3>
+    <p>&ltscript async src="path-to-script.js"&gt&lt/script&gt</p>
+    <p>
+      Adăugarea unui script cu atributul async nu blochează construcția DOM, dar
+      este executat imediat ce este încărcat. Concluzionăm de aici faptul că
+      astfel de scripturi pot bloca construcția DOM-ului și sunt executate
+      într-o ordine întâmplătoare.
+    </p>
+
+    <h2>Cristi Socaci</h2>
+    <section class="cristi">
+      <ul id="lista">
+        <li class="list5-item">item1</li>
+        <li class="list5-item">item2</li>
+        <li class="list5-item">item3</li>
+      </ul>
+
+      <a id="facebook" href="https://facebook.com" data-asd="asdd">Facebook</a>
+      <img id="img" src="" alt="" width="500" />
+      <div id="innerHTML"></div>
+    </section>
+
+    <script src="./js/index11.js"></script>
+  </body>
+</html>

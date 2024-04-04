@@ -1,0 +1,102 @@
+body {
+  margin: 24px;
+  font-family: sans-serif;
+}
+
+.usernames li {
+  padding: 8px;
+  border: 2px dashed tomato;
+  text-transform: uppercase;
+}
+
+.usernames li:not(:last-child) {
+  margin-bottom: 12px;
+}
+
+.accent {
+  color: tomato;
+  text-decoration: underline;
+}
+
+.sec {
+  padding: 16px;
+}
+
+.list3 {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.list3-item {
+  padding: 8px;
+  border-width: 2px;
+  border-style: dashed;
+}
+
+.list3-item:nth-child(even) {
+  border-color: tomato;
+  background-color: yellow;
+}
+
+.list3-item:nth-child(odd) {
+  border-color: blueviolet;
+  background-color: yellowgreen;
+}
+
+.list3-item:not(:last-child) {
+  margin-bottom: 8px;
+}
+
+.article3 {
+  max-width: 320px;
+}
+
+.article3-text {
+  color: tomato;
+}
+
+.list4 {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.list4-item {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  border-width: 2px;
+  border-style: dashed;
+}
+
+.list4-item.new::before {
+  content: "";
+  width: 12px;
+  height: 12px;
+  margin-right: 18px;
+  border-radius: 50%;
+  background-color: green;
+}
+
+.list4-item:nth-child(even) {
+  border-color: rgb(255, 237, 71);
+}
+
+.list4-item:nth-child(odd) {
+  border-color: rgb(43, 86, 226);
+}
+
+.list4-item:not(:last-child) {
+  margin-bottom: 8px;
+}
+
+.list5-item {
+  background-color: aquamarine;
+  border: 1px solid brown;
+  color: blue;
+}
+
+.list-item-special {
+  background-color: gold;
+}

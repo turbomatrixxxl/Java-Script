@@ -1018,7 +1018,7 @@ value of the `price` property depending on the discount passed.
 console.log(`-Example 2 - Map method-`);
 
 const makeCarsWithDiscount = (cars, discount) => {
-  return cars.map((x) => x.price - discount * x.price);
+  return [...cars].map((x) => x.price - discount * x.price);
 };
 
 console.table(makeCarsWithDiscount(cars, 0.2));
@@ -1189,7 +1189,7 @@ const getSortedCarsOnSale = (cars) => {
 
 console.table(getSortedCarsOnSale(cars));
 
-// ------     Exercitii autoverificare 3     ------
+// ------     Exercitii autoverificare 4     ------
 console.log(`---------        Exercitii autoverificare 3        ---------`);
 
 // - exercitiul-1 -
