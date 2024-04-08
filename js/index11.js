@@ -355,26 +355,293 @@ const markup4 = newTechnologies4
 list4.insertAdjacentHTML("beforeend", markup4);
 list4.insertAdjacentHTML("beforebegin", "<h2>Popular technologies</h2>");
 
-// ---   spread: transmiterea argumentelor   ---
-console.log(`---   spread: transmiterea argumentelor   ---`);
-
-// - exemplu 1 -
-console.log(`- exemplu 1 -`);
-
 // ------     Cristi Socaci     ------
 console.log(`---------        Cristi Socaci        ---------`);
 
-// -----  exercitiu 1 generare string aleatoriu  ----
-console.log("-----  exercitiu 1 generare string aleatoriu  ----");
+const lista = document.querySelector("#lista");
 
-// ------     Exercitii tema optional     ------
-console.log(`---------        Exercitii tema optional `);
+console.log("------------------ ierarhia dom -----------------");
 
-// - exercitiul-1 -
-console.log(`- exercitiul-1 -`);
+console.log(`-children (returneaza doar html = un array cu toti copiii) -`);
+console.log(lista.children);
 
-// ------     Exercitii tema     ------
-console.log(`---------        Exercitii autoverificare 3        ---------`);
+console.log(
+  `-childNodes (returneaza si "text" = un array cu "text" si copiii intre "text") -`
+);
+console.log(lista.childNodes);
 
-// - exercitiul-1 -
-console.log(`- exercitiul-1 -`);
+console.log(lista.firstElementChild); // lista.children[0]
+console.log(lista.lastElementChild); // lista.children[lista.length - 1]
+
+console.log(`-firstChild si lastChild returneaza "text"-`);
+console.log(lista.firstChild); // lista.childNodes[0]
+console.log(lista.lastChild); // lista.childNodes[lista.length - 1]
+
+console.log(`-firstElementChild si lastElementChild returneaza html-`);
+console.log(lista.firstElementChild); //lista.children[0]
+console.log(lista.lastElementChild); //lista.children[lista.length - 1]
+
+const secondListItem = lista.children[1];
+
+console.log(`-previousElementSibling si nextElementSibling returneaza html-`);
+console.log(secondListItem.previousElementSibling); // lista.children[0]
+console.log(secondListItem.nextElementSibling); // lista.children[2]
+
+console.log(`-previousSibling si nextSibling returneaza "text"-`);
+console.log(secondListItem.previousSibling); // lista.childNodes[0]
+console.log(secondListItem.nextSibling); // lista.childNodes[2]
+
+console.log(`-parentNode returneaza parintele html-`);
+console.log(secondListItem.parentNode);
+
+console.log("------------------querySelector-------------------");
+
+const list5 = document.querySelector("#lista");
+console.log(list5);
+
+console.log(`metoda 1`);
+const listElements = document.querySelectorAll(".list5-item");
+console.log(listElements);
+
+console.log(`metoda 2`);
+const listElements1 = document.querySelectorAll("#lista li");
+console.log(listElements1);
+
+console.log(`metoda 3`);
+const listElements2 = document.querySelectorAll("#lista>li");
+console.log(listElements2);
+
+console.log(`metoda 4`);
+const listElements3 = document.querySelector("#lista").children;
+console.log(listElements3);
+
+console.log(
+  `-deoarece querySelector  returneaza array => folosim metode array pe el de ex. for(let i...)-`
+);
+for (let index = 0; index < listElements3.length; index++) {
+  console.log(listElements3[index]);
+}
+
+console.log(
+  `-deoarece querySelector  returneaza array => folosim metode array pe el de ex. forEach-`
+);
+
+listElements1.forEach((x) => {
+  console.log(x);
+});
+
+console.log(
+  `-!!! mai exista si functia getElementBy...() getElementBySelection() este important !!!-`
+);
+console.log(document.getElementById("lista"));
+
+console.log("-------------------textContent----------------");
+
+const firstListElement = list5.firstElementChild;
+
+console.log(firstListElement.textContent);
+
+firstListElement.textContent = "item from js";
+
+console.log("-------------------classList----------------");
+
+console.log(`-classList = clasele-`);
+console.log(firstListElement.classList);
+
+console.log(`-classList.contains("") = true/false-`);
+console.log(firstListElement.classList.contains("list5-item"));
+console.log(firstListElement.classList.contains("item-list"));
+
+console.log(`-classList.add("")-`);
+firstListElement.classList.add("list-item-special", "list0");
+
+console.log(firstListElement.classList);
+
+console.log(`-classList.remove("")-`);
+firstListElement.classList.remove("list0");
+console.log(firstListElement.classList);
+
+console.log(`-classList.replace("")-`);
+firstListElement.classList.replace("list5-item", "list1-item-special");
+console.log(firstListElement.classList);
+
+console.log(`-classList.toggle("")-part 1 -`);
+firstListElement.classList.toggle("list-item-special");
+console.log(firstListElement.classList);
+
+console.log(`-classList.toggle("")-part 2 -`);
+firstListElement.classList.toggle("list-item-special");
+firstListElement.classList.toggle("list1-item-special");
+firstListElement.classList.toggle("list5-item");
+console.log(firstListElement.classList);
+
+console.log("----------------style-----------------");
+
+firstListElement.style.color = "red";
+firstListElement.style.fontSize = "20px";
+console.log(firstListElement);
+
+console.log("----------------attributes------------");
+
+const facebook = document.querySelector("#facebook");
+
+console.log(facebook);
+
+console.log(`-elem.attributes-`);
+console.log(facebook.attributes);
+
+console.log(`-elem.hasAttribute("...") => true/false -`);
+console.log(facebook.hasAttribute("href"));
+console.log(facebook.hasAttribute("src"));
+
+console.log(`-elem.setAttribute("...")modifica un atribut-`);
+facebook.setAttribute("href", "https://instagram.com");
+
+console.log(`-elem.setAttribute("...")+elem.getAttribute("...")-`);
+console.log(
+  `-!!! Atentie data-name nu poate fi returnat cu elem.getAttribute("..."), ci doar cu elem.dataset["name"] sau elem.dataset.name -`
+);
+console.log(facebook.getAttribute("href"));
+
+console.log(`-elem.removeAttribute("...")-`);
+console.log(facebook.hasAttribute("data-asd"));
+console.log(facebook.hasAttribute(["data-asd"]));
+facebook.removeAttribute(["data-asd"]);
+
+console.log(facebook.attributes);
+
+console.log(`-elem.setAttribute("name", "value")-`);
+console.log(
+  `-pentru elem.setAttribute("data-name", "value" se returneaza pe html data-name = "value" iar pe consola "name": "value" -`
+);
+facebook.setAttribute("data-testid", "mytestid");
+console.log(facebook.attributes);
+console.log(facebook.dataset);
+
+console.log(
+  `-elem.dataset sau pe particular elem.dataset["name"] sau elem.dataset.name-`
+);
+console.log(facebook.dataset);
+console.log(facebook.dataset["testid"]);
+console.log(facebook.dataset.testid);
+
+console.log("------------- create/delete elements ------------");
+
+console.log(`-Exemplul 2-`);
+
+console.log(`-document.createElement("...")-`);
+const item4 = document.createElement("li");
+item4.textContent = "item4";
+console.log(item4);
+const item0 = document.createElement("li");
+item0.textContent = "item0";
+console.log(item0);
+
+// add as child
+console.log(`add as child`);
+lista0.append(item4);
+lista0.prepend(item0);
+console.log(lista0);
+
+const divelem = document.createElement("div");
+divelem.textContent = "this is a div";
+const divelem0 = document.createElement("div");
+divelem0.textContent = "this is a div0";
+
+// add as sibling
+const ex2 = document.querySelector(".ex2");
+console.log(`add as sibling`);
+lista0.after(divelem);
+lista0.before(divelem0);
+console.log(ex2);
+
+// remove
+console.log(`remove`);
+const facebook0 = document.querySelector("#facebook0");
+facebook0.remove();
+console.log(ex2);
+
+const ex1 = document.querySelector("#ex1");
+facebook.remove();
+console.log(ex1);
+
+console.log("------------ innerHTML ------------------");
+
+console.log(
+  `console.log(elem.innerHTML) = arata in consola continutul html al elem`
+);
+console.log(lista.innerHTML);
+
+console.log(
+  `console.log(elem.innerText) = arata in consola continutul text al elem`
+);
+console.log(lista.innerHTML);
+
+const innerHTMLDiv = document.querySelector("#innerHTML");
+
+console.log(
+  `elem.innerText = "$}data{"/"string" modifica continutul text al elem`
+);
+const data = prompt("Enter data here:");
+
+innerHTMLDiv.innerText = `${data}`;
+console.log(innerHTMLDiv.innerText);
+
+console.log(`cuprins initial`);
+
+console.log(`array nou declarat`);
+const l = [
+  "1",
+  "2",
+  '<a href="https://facebook.com" target="_blank">Press here</a>',
+];
+console.log(l);
+
+console.log(`cuprins inlocuit cu array(metoda reduce)`);
+lista00.innerHTML = l.reduce((acc, x) => {
+  acc += `<li>${x}</li>`;
+  return acc;
+}, "");
+console.log(lista00);
+
+console.log(`cuprins adaugat cu array(metoda map)`);
+console.log(`array nou creat din "l"`);
+lista001 = l.map((x) => {
+  return `<li>${x}</li>`;
+});
+
+console.log(lista001);
+console.log(
+  `cuprins adaugat cu array-ul nou creat(metoda for(let i..)+elem.insertAdjacentHTML("position", element))`
+);
+for (let index = 0; index < lista001.length; index++) {
+  const element = lista001[index];
+  lista00.insertAdjacentHTML("beforeend", element);
+}
+
+console.log(lista00);
+
+console.log(
+  `cuprins adaugat cu array-ul nou creat(metoda forEach()+elem.insertAdjacentHTML("position", element))`
+);
+lista001.forEach((element) => lista00.insertAdjacentHTML("beforeend", element));
+
+console.log(lista00);
+
+const ex20 = document.querySelector(".ex20");
+
+// add as child
+console.log(
+  `add as child cu insertAdjacentHTML("afterbegin"/"beforeend", element(function)/"html element")`
+);
+lista00.insertAdjacentHTML("afterbegin", "<li>item0</li>");
+lista00.insertAdjacentHTML("beforeend", "<li>item4</li>");
+console.log(ex20);
+
+// add as sibling
+console.log(
+  `add as child cu insertAdjacentHTML("beforebegin"/"afterend", element(function)/"html element")`
+);
+lista00.insertAdjacentHTML("beforebegin", "<div>div0</div>");
+lista00.insertAdjacentHTML("afterend", "<div>div1</div>");
+console.log(ex20);

@@ -4,10 +4,428 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Modulul 6 Tema 12 Events</title>
+    <link
+      rel="stylesheet"
+      href="./css/index12.css
+    " />
+    <link
+      rel="stylesheet"
+      href="./css/index.css
+  " />
   </head>
   <body>
     <h1>Modulul 6 - Tema 12 - Events</h1>
-    <a href="" , target="_blank"><b>Lectie video</b></a>
+    <a href="https://youtu.be/RTiGB_DafL0" , target="_blank"
+      ><b>Lectie video</b></a
+    >
+
+    <h2>Events</h2>
+    <p>
+      Un eveniment este un semnal de la browser că s-a întâmplat ceva pe pagina
+      web. Evenimentele sunt folosite pentru a răspunde la acțiunile
+      utilizatorului și pentru a executa codul asociat unui anumit eveniment.
+      Există multe tipuri de evenimente: mouse, tastatură, elemente de formular,
+      încărcare de imagini, clipboard, animație CSS, redimensionarea ferestrei
+      și multe altele.
+    </p>
+    <p>
+      O singură acțiune poate declanșa mai multe evenimente. De exemplu, un
+      click apelează mai întâi <b>mousedown</b>, apoi <b>mouseup</b> și
+      <b>click</b>. În cazurile în care o acțiune generează mai multe
+      evenimente, ordinea acestora este fixă. Adică, handlerii de evenimente vor
+      fi apelați în ordinea: <b>mousedown</b> → <b>mouseup</b> → <b>click</b>.
+    </p>
+    <p>
+      Pentru ca un element să răspundă la acțiunile utilizatorului, trebuie să
+      existe un handler. O funcție care va fi apelată imediat ce evenimentul a
+      avut loc.
+    </p>
+
+    <h3>Metoda addEventListener()</h3>
+    <p>Adaugă un event listener pe element.</p>
+    <p><b>element.addEventListener(event, handler, options); </b></p>
+    <ul>
+      <li>
+        <b>event</b> - numele evenimentului de tip string, de exemplu
+        "<b>click</b>".
+      </li>
+      <li>
+        <b>handler</b> - funcția callback care va fi apelată atunci când are loc
+        evenimentul.
+      </li>
+      <li><b>options</b> - este un obiect opțional cu parametri extinși.</li>
+    </ul>
+
+    <p><b>Exemplu 1</b></p>
+
+    <button class="my-button" type="button">click me</button>
+
+    <p>
+      Pentru callback putem (și e preferabil) să utilizăm o funcție separată și
+      să transmitem doar o referință la aceasta. Funcția declarată cu un nume
+      îmbunătățește lizibilitatea codului.
+    </p>
+
+    <p><b>Exemplu 2</b></p>
+
+    <button id="my-button" type="button">click me more</button>
+
+    <p>
+      Un element poate avea un număr nelimitat de handlere de evenimente, chiar
+      și evenimente de același tip. Funcțiile callback vor fi apelate în ordinea
+      în care au fost înregistrate în cod.
+    </p>
+
+    <p><b>Exemplu 3</b></p>
+
+    <div class="div0">
+      <button id="single" class="btn">SINGLE CALLBACK</button>
+      <hr />
+      <button id="multiple" class="btn">MULTIPLE CALLBACKS</button>
+    </div>
+
+    <h3>Metoda removeEventListener()</h3>
+    <p>
+      Elimină handler-ul de evenimente dintr-un element. Argumentele sunt
+      similare cu metoda addEventListener().
+    </p>
+    <p><b>element.removeEventListener(event, handler, options);</b></p>
+    <p>
+      Pentru a șterge, trebuie să transmitem o referință fix la funcția callback
+      care a fost atribuită în addEventListener(). În acest caz, funcțiile sunt
+      transmise doar în funcție de nume (referință).
+    </p>
+
+    <p><b>Exemplu 1</b></p>
+
+    <div class="div1">
+      <div class="div2">
+        <button class="btn js-add">Add Listener</button>
+        <button class="btn js-remove">Remove Listener</button>
+      </div>
+      <p><button class="btn target-btn">Click me</button></p>
+    </div>
+
+    <h3>Keyword-ul this</h3>
+    <p>
+      Dacă callback-ul este o funcție care folosește <b>this</b>, în mod
+      implicit, contextul din interiorul ei se va referi la elementul DOM de
+      care se agăță handler-ul.
+    </p>
+
+    <p><b>Exemplu 1</b></p>
+
+    <button class="js-btn">"This" button</button>
+
+    <h2>Event object</h2>
+    <p>
+      Pentru a gestiona un eveniment, nu este suficient să știm doar că este un
+      click sau o apăsare a tastei, pot fi necesare detalii. De exemplu,
+      valoarea curentă a câmpului de text, elementul pe care a avut loc
+      evenimentul, metodele încorporate și multe altele.
+    </p>
+    <p>
+      Fiecare eveniment este un obiect care conține informații despre detaliile
+      evenimentului și este transmis automat ca prim argument către handler-ul
+      de evenimente. Toate evenimentele sunt derivate din clasa de bază
+      <b>Event</b>.
+    </p>
+    <p>
+      <b
+        >const handleClick = event => { <br />
+        console.log(event); <br />
+        }; <br />
+        <br />
+        button.addEventListener("click", handleClick);</b
+      >
+    </p>
+    <p>
+      Parametrul <b>event</b> este, de fapt, un event object care este transmis
+      automat ca prim argument la apelarea funcției callback. Îl putem numi cum
+      dorim, dar de obicei este declarat ca e, <b>evt</b> sau <b>eveniment</b>.
+    </p>
+    <p>Câteva proprietăți ale obiectului eveniment:</p>
+    <ul>
+      <li><b>event.type</b> - tipul evenimentului.</li>
+      <li>
+        <b>event.currentTarget</b> - elementul pe care este executat handlerul
+        de evenimente.
+      </li>
+    </ul>
+
+    <p><b>Exemplu 1</b></p>
+
+    <button type="button" class="btn1">Event object</button>
+
+    <h3>Acțiuni implicite ale browserului</h3>
+    <p>
+      Uneori se declanșează acțiuni implicite încorporate în browser ca răspuns
+      la un anumit tip de eveniment. De exemplu, dând click pe un link - se
+      inițiază o tranziție la o nouă adresă specificată în href, iar trimiterea
+      unui formular reîncarcă pagina. Cel mai des, acest comportament este
+      nedorit și ar trebui să fie anulat.
+    </p>
+    <p>
+      Pentru a anula acțiunea implicită a browserului asupra event object-ului,
+      există o metodă standard care se numește <b>preventDefault()</b>.
+    </p>
+
+    <p><b>Exemplu 1</b></p>
+
+    <form class="register-form" autocomplete="off">
+      <input type="text" name="username" placeholder="Username" />
+      <input type="password" name="password" placeholder="Password" />
+      <button type="submit">Register</button>
+    </form>
+
+    <h2>Keyboard event</h2>
+    <p>
+      Există două evenimente principale de la tastatură: <b>keydown</b> și
+      <b>keyup</b>. Spre deosebire de altele, evenimentele de la tastatură sunt
+      gestionate pe document, nu pe un anumit element. Event object-ul de la
+      tastatură derivă din clasa de bază <b>KeyboardEvent</b>.
+    </p>
+
+    <p><b>Exemplu 1</b></p>
+
+    <button id="key" type="button">
+      Apasa orice buton al tastaturii si verifica pe consola
+    </button>
+    <p>
+      Când o tastă este apăsată, prim dată apare <b>keydown</b>, urmat de
+      <b>keyup</b> la final. În practică, doar evenimentul <b>keydown</b> este
+      gestionat, deoarece se întâmplă mai repede decât <b>keyup</b> și
+      utilizatorul vede rezultatul apăsării mai devreme. Evenimentele
+      <b>keydown</b> și <b>keyup</b> se declanșează atunci când este apăsată
+      orice tastă, inclusiv tastele de serviciu (<b>
+        Ctrl, Shift, Alt, Escape
+      </b>
+      și altele).
+    </p>
+    <p>
+      <b>BINE DE ȘTIUT</b> <br />
+      Înainte se folosea un alt eveniment de la tastatură - <b>keypress</b>.
+      Multe bloguri îl pot folosi în continuare, dar atenție - este depășit și
+      prin urmare, suportul pentru acest event în noile browsere se poate opri
+      în orice moment.
+    </p>
+
+    <h3>Proprietatea key și code</h3>
+    <p>
+      Proprietatea <b>key</b> returnează simbolul generat în urma apăsării
+      tastei, ținând cont de starea tastelor modificatoare, cum ar fi
+      <b>Shift</b>, precum și de limba curentă. Proprietatea
+      <b>code</b> returnează codul tastei de pe tastatură și nu depinde de limba
+      curentă.
+    </p>
+
+    <p><b>Exemplu 1</b></p>
+
+    <button id="type" type="button">
+      Apasa orice buton al tastaturii si verifica pe consola
+    </button>
+    <p>
+      Focalizați pe fereastra din exemplul de mai jos și dând click pe ea, veți
+      vedea că handler-ul de evenimente de la tastatură se află pe elementul
+      document. Tastați orice și vedeți rezultatul.
+    </p>
+
+    <p><b>Exemplu 2</b></p>
+
+    <form action="" autocomplete="off" class="pad">
+      <input type="text" class="inp" />
+    </form>
+    <div class="div4">
+      <button type="button" class="js-clear">Clear output</button>
+      <div class="log-list"></div>
+    </div>
+
+    <h3>Taste modificatoare</h3>
+    <p>
+      Pentru a procesa o combinație de taste, de exemplu <b>Ctrl + s</b> sau
+      oricare alta, event object-ul are proprietăți ca
+      <b>ctrlKey, altKey, shiftkey și metaKey</b> care stochează o valoare
+      booleană ce indică dacă tasta modificatoare a fost apăsată sau nu.
+    </p>
+
+    <p><b>Exemplu 1</b></p>
+
+    <button class="but">
+      Dati click aici si apasati tastele <b>Ctrl + s</b> si urmariti rezultatul
+      in consola
+    </button>
+    <p>
+      Unele combinații de taste pot intra în conflict cu comportamentul implicit
+      al browserului. De exemplu, <b>Ctrl + d</b> sau <b>Command + d</b> creează
+      un marcaj. Ar trebui să încercați să proiectați sistemul de combinare a
+      tastelor pentru pagina web, în așa fel încât, să nu intersecteze cu
+      acțiunile încorporate în browser. Dar, în cazuri extreme, comportamentul
+      implicit poate fi anulat, apelând metoda <b>event.preventDefault()</b>.
+    </p>
+    <p>
+      <b>BINE DE ȘTIUT</b> <br />
+      Nu cu mult timp în urmă, în locul proprietăților <b>key</b> și
+      <b>code</b>, se folosea proprietatea <b>keyCode</b>. Multe bloguri îl pot
+      folosi în continuare, dar aveți grijă - este depreciat,
+      <b>nu</b> utilizați proprietatea <b>keyCode</b>.
+    </p>
+
+    <h2>Form events</h2>
+
+    <h3>Evenimentul de submit</h3>
+    <p>
+      Trimiterea formularului are loc la apăsarea butonului cu atributul
+      <b>type="submit"</b> sau la apăsarea tastei <b>Enter</b>. Evenimentul
+      <b>submit</b> poate fi folosit pentru a valida un formular înainte de a-l
+      trimite, deoarece există multe proprietăți utile, asociate elementelor de
+      formular pe obiectul eveniment. Trimiterea formularului reîncarcă pagina,
+      așa că, să nu uităm să înlocuim acțiunea implicită cu ajutorul metodei
+      <b>preventDefault()</b>.
+    </p>
+
+    <p><b>Exemplu 1</b></p>
+
+    <div class="div5">
+      <form class="form0" autocomplete="off">
+        <div class="div6">
+          <input type="text" name="login0" placeholder="Login" />
+          <input type="password" name="password0" placeholder="Password" />
+        </div>
+        <button class="btn1" type="submit">Register</button>
+      </form>
+    </div>
+
+    <p>
+      <b>BINE DE ȘTIUT</b> <br />
+      Proprietatea <b>elements</b> de la elementul DOM - <b>formular</b>,
+      conține un obiect cu referințe la toate elementele sale care au un atribut
+      name. Prin urmare, în exemplul următor, obținem valoarea câmpurilor,
+      accesând <b>login.value</b> și <b>password.value</b>.
+    </p>
+
+    <h3>Evenimentul de change</h3>
+    <p>
+      Apare după ce un element din formular s-a schimbat. Pentru câmpurile de
+      <b>text sau textarea</b>, evenimentul nu va avea loc la fiecare
+      introducere de caractere, ci la pierderea focalizării, ceea ce nu este
+      întotdeauna convenabil. De exemplu, în timp ce tastați ceva în câmpul de
+      text, nu există niciun eveniment, dar de îndată ce focalizarea dispare,
+      evenimentul <b>change</b> se va declanșa. Pentru alte elemente, cum ar fi
+      <b> select, casetele de selectare și butoanele radio </b>, evenimentul
+      <b>change</b> se declanșează imediat când o valoare este selectată.
+    </p>
+
+    <p><b>Exemplu 1</b></p>
+
+    <div class="div7">
+      <p>Selected option text: <span class="text-output">none</span></p>
+      <p></p>
+      <p>Selected option value: <span class="value-output">none</span></p>
+      <p>
+        <select class="pizza-select">
+          <option value="four_meats">Four Meats</option>
+          <option value="royal_cheese">Royal Cheese</option>
+          <option value="vegetarian">Vegetarian</option>
+          <option value="smoked_salmon">Smoked Salmon</option>
+        </select>
+      </p>
+    </div>
+
+    <p>
+      <b>BINE DE ȘTIUT</b> <br />
+      Îndreptați-vă atenția către proprietățile utile atunci când lucrați cu
+      elementul <b>&ltselect&gt</b> din exemplul mai sus. Încercați să
+      înțelegeți ce este stocat în proprietățile <b>value</b>,
+      <b>selectedIndex</b> și <b>options</b>.
+    </p>
+
+    <h3>Evenimentul de input</h3>
+    <p>
+      Apare numai pe câmpurile de <b>text și textarea</b> și este creat de
+      fiecare dată când valoarea elementului se schimbă, fără a aștepta
+      pierderea focalizării. În practică, input este cel mai important eveniment
+      atunci când vorbim de folosirea câmpurilor de text dintr-un formular.
+    </p>
+
+    <p><b>Exemplu 1</b></p>
+
+    <div class="div8">
+      <input type="text" class="text-input" />
+      <p>Text field value: <span class="output"></span></p>
+    </div>
+
+    <h3>Evenimentul de focus și blur</h3>
+    <p>
+      Un element primește <b>focus</b> când se dă un <b>click</b> sau la tasta
+      <b>Tab</b>. Momentul primirii focalizării și pierderii acesteia este
+      foarte important, deoarece atunci când o primim putem încărca date pentru
+      autocomplete și avem ocazia de a urmări modificările etc. Când focalizarea
+      dispare, putem verifica datele introduse.
+    </p>
+    <p>
+      Când un element este focalizat, evenimentul de <b>focus</b> se
+      declanșează, iar când focalizarea dispare, spre exemplu, momentul în care
+      utilizatorul dă <b>click</b> în altă parte a ecranului, evenimentul
+      <b>blur</b> se declanșează. Putem activa sau anula focalizarea, în mod
+      programatic, apelând metodele <b>focus()</b> și <b>blur()</b> pentru
+      elementul dorit.
+    </p>
+
+    <p><b>Exemplu 1</b></p>
+
+    <div class="div9">
+      <button type="button" data-action="set">Set focus to input</button>
+      <button type="button" data-action="remove">
+        Remove focus from input
+      </button>
+      <br /><br />
+      <input type="text" class="text-input4" />
+    </div>
+
+    <p>
+      Focalizarea nu poate fi pe două sau mai multe elemente din pagină, iar
+      elementul de focalizare curentă este disponibil cu
+      <b>document.activeElement</b>.
+    </p>
+
+    <p><b>Exemplu 2</b></p>
+    <h4>document.activeElement</h4>
+
+    <p>Select some text from one of the text areas below:</p>
+
+    <form>
+      <textarea name="ta-example-one" id="ta-example-one" rows="7" cols="40">
+This is Text Area One. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tincidunt, lorem a porttitor molestie, odio nibh iaculis libero, et accumsan nunc orci eu dui.</textarea
+      >
+      <textarea name="ta-example-two" id="ta-example-two" rows="7" cols="40">
+This is Text Area Two. Fusce ullamcorper, nisl ac porttitor adipiscing, urna orci egestas libero, ut accumsan orci lacus laoreet diam. Morbi sed euismod diam.</textarea
+      >
+    </form>
+
+    <p>Active element ID: <em id="output-element"></em></p>
+    <p>Selected text: <em id="output-text"></em></p>
+
+    <h2>Cristi Socaci</h2>
+
+    <div id="mydiv">
+      <button id="mybutton" type="button">press here</button>
+    </div>
+
+    <form autocomplete="off" id="myform">
+      <input type="text" name="login1" placeholder="login" />
+      <input type="password" name="password1" placeholder="password" />
+      <button type="submit">Submit</button>
+
+      <select id="myselect">
+        <option value="four_meats">Four Meats</option>
+        <option value="royal_cheese">Royal Cheese</option>
+        <option value="vegetarian">Vegetarian</option>
+        <option value="smoked_salmon">Smoked Salmon</option>
+      </select>
+    </form>
+    <p class="myspan"></p>
+
+    <div id="div0"><button>Press</button></div>
 
     <script src="./js/index12.js"></script>
   </body>

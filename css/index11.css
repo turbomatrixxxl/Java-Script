@@ -92,9 +92,19 @@ body {
 }
 
 .list5-item {
+  height: 20px;
+  padding: 3px;
   background-color: aquamarine;
-  border: 1px solid brown;
-  color: blue;
+  border: 3px dotted rgb(68, 0, 255);
+  color: rgb(20, 189, 34);
+}
+
+.list5-item:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+#lista {
+  background-color: rgb(223, 221, 204);
 }
 
 .list-item-special {
