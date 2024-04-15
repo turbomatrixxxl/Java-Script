@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modulul7-Tema 13-Event Delegation</title>
+    <link rel="stylesheet" href="./css/index13.css" />
+    <link rel="stylesheet" href="./css/index.css" />
+  </head>
+  <body>
+    <h1>Modulul 7 - Tema 13 - Event Delegation</h1>
+    <a href="" , target="_blank"><b>Lectie video</b></a>
+
+    <h2>Event propagation</h2>
+    <p>
+      Event propagation este un termen folosit pentru a descrie ciclul de viață
+      al unui eveniment și cuprinde trei etape: <b>capturing</b>,
+      <b>targeting</b>, și <b>bubbling</b>. În practică, doar faza de
+      <b>bubbling</b> se folosește, în cele mai multe cazuri.
+    </p>
+    <p>Când are loc un eveniment, acesta trece prin trei faze obligatorii:</p>
+    <ul>
+      <li>
+        <b>Capturing phase</b> - evenimentul începe pe <b>window</b> și trece
+        prin toate elementele copii, până la cel mai îndepărtat element țintă pe
+        care a avut loc acțiunea, cum ar fi un <b>click</b>.
+      </li>
+      <li>
+        <b>Target phase</b> - evenimentul a ajuns pe elementul țintă. Acest pas
+        include doar notificarea elementului în care se specifică faptul că a
+        avut loc o acțiune asupra acestuia.
+      </li>
+      <li>
+        <b>Bubbling phase</b> - faza finală. Evenimentul se întoarce de la cel
+        mai îndepărtat element țintă, prin toate elementele, până la
+        <b>window</b>.
+      </li>
+    </ul>
+    <p>
+      <b>BINE DE ȘTIUT</b> <br />
+      Propagarea este adesea folosită incorect ca sinonim pentru etapa de
+      <b>bubbling</b>. De fiecare dată când are loc un eveniment, acesta se
+      propagă.
+    </p>
+
+    <h2>Event Bubbling</h2>
+    <p>
+      Când are loc un eveniment, handlerii se declanșează, inițial, asupra
+      elementului, în sine, iar apoi, asupra părintelui său, ulterior și mai
+      deasupra și tot așa - în sus, în lanț. Acest proces se numește
+      <b>event bubbling</b>, fiindcă evenimentele se ridică de la elementul
+      interior, în sus, prin toți părinții, până la window, la fel ca o bulă de
+      aer în apă.
+    </p>
+    <p>
+      Să ne uităm la un exemplu, pentru a fi mai clar. Există trei tag-uri
+      &ltdiv&gt cu handler de click pe fiecare dintre ele.
+    </p>
+
+    <p>
+      Faza de bubbling asigură faptul că atunci când dăm <b>click</b> pe #<b
+        >descendant</b
+      >
+      va apela și handler-ul de <b>click</b>, dacă există, mai întâi pe
+      #<b>descendant</b>, apoi pe elementul #<b>child</b>, apoi pe elementul #<b
+        >parent</b
+      >
+      și așa mai departe, până la <b>window</b>. Prin urmare, dacă dăm click pe
+      #<b>descendant</b> în exemplu, alertele pentru
+      <b>descendant → child → parent</b> vor fi afișate într-o succesiune.
+    </p>
+
+    <p>Exemplul 1</p>
+
+    <div id="parent">
+      Parent
+      <div id="child">
+        Child
+        <div id="descendant">Descendant</div>
+      </div>
+    </div>
+
+    <p>
+      <b>BINE DE ȘTIUT</b> <br />
+      Prin intermediul fazei de bubbling, aproape toate evenimentele apar, dar
+      spre exemplu evenimentele <b>focus</b> și <b>blur</b> nu, așa că există
+      analogiile lor de <b>focusin</b> și <b>focusout</b>.
+    </p>
+
+    <h3>Proprietatea event.target</h3>
+    <p>
+      Indiferent de locul unde am prins evenimentul în timpul fazei sale de
+      bubbling, putem afla oricând și exact unde a început. Cel mai profund
+      element care declanșează un eveniment se numește element țintă sau sursă
+      și este disponibil ca <b>event.target</b>.
+    </p>
+    <ul>
+      <li>
+        <b>event.target</b> - este o referință la elementul sursă pe care a avut
+        loc evenimentul și e nemodificat în timpul procesului de bubbling.
+      </li>
+      <li>
+        <b>event.currentTarget</b> - este o referință la elementul actual la
+        care a ajuns procesul de bubbling. Handlerul de evenimente se execută la
+        momentul respectiv, pe acesta.
+      </li>
+    </ul>
+    <p>
+      Dacă un handler de evenimente este înregistrat pe elementul poziționat cel
+      mai sus, atunci va prinde toate <b>click</b>-urile din interior, deoarece
+      evenimentele vor ajunge până la acel element. Deschideți consola din
+      exemplul următor și dați <b>click</b> aleatoriu. <b>event.target</b> este
+      întotdeauna elementul inițial (și cel mai profund) pe care a fost dat
+      <b>click</b>-ul, iar<b> event.currentTarget</b> nu se modifică.
+    </p>
+
+    <p>Exemplul 1</p>
+
+    <div id="parent0">
+      Parent
+      <div id="child0">
+        Child
+        <div id="descendant0">Descendant</div>
+      </div>
+    </div>
+
+    <h3>Încetarea fazei de bubbling</h3>
+    <p>
+      În mod normal, evenimentul va ajunge până la elementul window, apelând
+      toți handlerii din calea sa. Dar, orice handler de mijloc poate decide
+      dacă evenimentul este procesat complet și poate opri procesul de bubbling,
+      apelând metoda <b>stopPropagation()</b>.
+    </p>
+
+    <p>Exemplul 1</p>
+
+    <div id="parent1">
+      Parent
+      <div id="child1">
+        Child
+        <div id="descendant1">Descendant</div>
+      </div>
+    </div>
+    <p>
+      Dacă un element are mai mulți handleri pentru un eveniment și chiar dacă
+      procesul de bubbling se oprește, toți vor fi executați. Adică, metoda
+      <b>stopPropagation()</b> împiedică doar evenimentul să progreseze mai
+      departe. Dacă este necesar să opriți complet procesarea evenimentului, se
+      folosește metoda <b>stopImmediatePropagation()</b>. Nu numai că previne
+      faza de bubbling, ci și oprește procesarea evenimentelor pe elementul
+      curent.
+    </p>
+    <p>
+      <b>BINE DE ȘTIUT</b> <br />
+      Nu este indicat să folosim procesul de bubbling fără un anumit motiv.
+      Încetarea acestui proces poate crea propriile capcane, care apoi trebuie
+      ocolite. De exemplu, procesul de analitică folosește
+      <b>bubbling</b> pentru a urmări evenimentele dintr-o pagină.
+    </p>
+
+    <h2>Event delegation</h2>
+    <p>
+      Faza de <b>bubbling</b> ne permite să implementăm unul dintre cele mai
+      utile trucuri - delegarea evenimentului. Constă în faptul că, dacă există
+      un grup de elemente ale căror evenimente trebuie procesate în același mod,
+      atunci un <b>handler</b> este adăugat la părintele lor comun, în loc să
+      fie adăugat câte un handler la fiecare element. Folosind proprietatea
+      <b>event.target</b>, putem obține un link către elementul țintă, putem
+      înțelege pe ce copil a avut loc evenimentul și îl putem procesa
+      corespunzător.
+    </p>
+    <p>
+      Pentru a înțelege mai bine ce este <b>delegation</b>, să ne uităm la un
+      exemplu. Vom crea un element &ltdiv&gt, îi adăugăm un număr de butoane, de
+      exemplu 100, și înregistrăm un handler de evenimente "<b>click</b>",
+      pentru fiecare dintre ele, cu funcția <b>handleButtonClick</b>.
+    </p>
+    <p>
+      Problema este că avem o sută de handler-uri de evenimente care îndeplinesc
+      aceeași funcție. Dar, ce ar fi dacă mutăm toți handlerii pe un element
+      părinte comun, și anume, &ltdiv&gt?
+    </p>
+    <p>
+      Acum există un singur handler de evenimente "click" și browserul nu
+      trebuie să păstreze o sută de handleri diferiți în memorie. Adică,
+      conceptul de delegare se reduce la următorii trei pași simpli:
+    </p>
+    <ol>
+      <li>
+        Determinăm strămoșul comun al grupului de elemente pentru a urmări
+        evenimentele.
+      </li>
+      <li>Înregistrăm pe acel element părinte un handler de evenimente.</li>
+      <li>
+        În handler, utilizăm event.target pentru a selecta elementul țintă.
+      </li>
+    </ol>
+    <p>
+      Această abordare simplifică inițializarea handleri-lor pentru elementele
+      de același tip. Putem adăuga, elimina sau modifica elemente, fără a fi
+      nevoie să adăugăm sau să eliminăm manual handlerele de evenimente.
+    </p>
+
+    <h3>Paleta de culori</h3>
+    <p>
+      Vom realiza o paletă de culori cu posibilitatea de a selecta o culoare cu
+      un <b>click</b> și de a o afișa, ulterior. În loc să atribuim un handler
+      fiecărui element al paletei, în care pot fi foarte multe, vom agăța un
+      handler de părintele comun <b>div.color-palette</b>. În handlerul de
+      evenimente pentru <b>click</b>, folosim <b>event.target</b> pentru a
+      obține elementul pe care a avut loc evenimentul și culoarea asociată
+      acestuia, pe care o vom stoca în atributul <b>dată-color</b>.
+    </p>
+
+    <p>Exemplul 1</p>
+
+    <div class="body">
+      <p class="output">Selected color: -</p>
+      <div class="color-palette"></div>
+    </div>
+
+    <h2>Cristi Socaci</h2>
+
+    <p>Exemplul 1</p>
+
+    <div id="mydiv" style="background-color: darkred">
+      <button id="mybutton">Press</button>
+    </div>
+
+    <p>Exercitiul 1- Cristi's Color Palette</p>
+
+    <p id="color-output" class="output">Selected color: -</p>
+    <div class="criscolor-palette">
+      <button>asd</button>
+    </div>
+
+    <p>Exercitiul 2- My Color Palette</p>
+
+    <h2 class="myh">PUSH A RANDOM COLOR...</h2>
+    <p class="myoutput">Selected color: <span id="myspan">-</span></p>
+    <div class="mycolor-palette"></div>
+
+    <p>Exercitiul 3- task 10 tema 1 js</p>
+
+    <div id="controls">
+      <input id="control-input" type="number" min="1" max="100" step="1" />
+      <span id="error-message"></span>
+      <button type="button" data-create>Create</button>
+      <button type="button" data-destroy>Destroy</button>
+    </div>
+
+    <div id="boxes"></div>
+
+    <script src="./js/index13.js"></script>
+  </body>
+</html>

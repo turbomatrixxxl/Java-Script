@@ -11,6 +11,7 @@ console.log(`---   Metoda addEventListener()   ---`);
 console.log(`- exemplu 1 (functia callback inclusa in addEventListener) -`);
 
 const button = document.querySelector(".my-button");
+button.style.cssText = `color: red;`;
 button.style.padding = "10px";
 button.style.backgroundColor = "teal";
 button.style.fontSize = "24px";
@@ -268,7 +269,9 @@ function logMessage({ type, key, code }) {
   }
   if (keypressCounter > 5) {
     return console.log(
-      `Numbers of tryout is ${keypressCounter} ! You reached maximum output please press "Clear output" button`
+      `Numbers of tryout is ${
+        keypressCounter - 1
+      } ! You reached maximum output please press "Clear output" button`
     );
   }
   return;
@@ -391,11 +394,11 @@ removeFocusBtn.addEventListener("click", () => {
 });
 
 textInput4.addEventListener("focus", () => {
-  textInput4.value = "This input has focus";
+  textInput4.setAttribute("placeholder", "This input has focus");
 });
 
 textInput4.addEventListener("blur", () => {
-  textInput4.value = "";
+  textInput4.setAttribute("placeholder", "This input has no focus");
 });
 
 // - exemplu 2 -
@@ -451,6 +454,8 @@ const obj = {
   },
 };
 
+mybutton.addEventListener("click", obj.increment);
+
 mybutton.addEventListener("click", obj.increment.bind(obj));
 
 console.log("----------------mouse events -------------------");
@@ -497,8 +502,8 @@ mydiv.addEventListener("keydown", (event) => {
   if (event.code === "KeyS" && (event.ctrlKey || event.metaKey)) {
     console.log("s");
   }
-  // console.log(event.altKey);
-  // console.log(event.shiftKey);
+  console.log(event.altKey);
+  console.log(event.shiftKey);
 });
 
 console.log(`---  Forms  ---`);

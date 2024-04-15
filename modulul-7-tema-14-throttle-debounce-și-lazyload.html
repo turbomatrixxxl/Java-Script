@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modulul 7-Tema 14-throttle/debounce și lazyload</title>
+
+    <link rel="stylesheet" href="./css/index14.css" />
+    <link rel="stylesheet" href="./css/index.css" />
+  </head>
+  <body>
+    <h1>Modulul 7 - Tema 14 - throttle/debounce și lazyload</h1>
+    <a href="" , target="_blank"><b>Lectie video</b></a>
+
+    <h2>Throttle și Debounce</h2>
+    <p>
+      Deseori trebuie să gestionăm redimensionarea ferestrei, scroll-ul,
+      mișcarea mouse-ului sau introducerea textului de către utilizator.
+      Sortarea colecției și redarea rezultatelor, animarea elementelor,
+      manipularea arborelui DOM și așa mai departe îmbunătățesc UX-ul (user
+      experience), însă, încarcă browser-ul, datorită faptului că handlerele de
+      evenimente se apelează prea des. Astfel de evenimente mai sunt numite și
+      "<b>chatty events</b>".
+    </p>
+    <p>
+      De exemplu, prin intermediul evenimentului de scroll, putem apela
+      aproximativ 30 de evenimente pe secundă, iar swipe-ul într-un smartphone
+      poate provoca până la 100 de evenimente pe secundă. Dacă gestionarea
+      evenimentelor la scroll reprezintă acțiuni complicate și manipulări DOM,
+      cu siguranță vor exista și probleme de performanță.
+    </p>
+
+    <p>Exemplul 1</p>
+
+    <p class="cta">Scroll me</p>
+
+    <div class="body">
+      <div class="event-counter">
+        <div class="box">
+          <p>Number of scroll events</p>
+          <span class="output">0</span>
+        </div>
+      </div>
+    </div>
+
+    <p>
+      Throttle și Debounce - sunt două tehnici similare, cu o singură diferență
+      la comportamentul de recepție. Cu ajutorul acestora, putem controla de
+      câte ori permitem executarea unei funcții, în timp. Vom folosi
+      implementarea lor în biblioteca: <a href="https://lodash.com/">Lodash</a>.
+    </p>
+
+    <h3>Conectarea bibliotecii</h3>
+    <p>
+      <b>CDN (Content Delivery Network)</b> - este o infrastructură de rețea,
+      distribuită geografic, care oferă livrare rapidă de conținut
+      utilizatorilor de servicii web. Serverele incluse în CDN sunt localizate
+      geografic, astfel încât, timpul de răspuns pentru utilizatorii
+      site-ului/serviciului să fie minim.
+    </p>
+    <p>
+      Să conectăm biblioteca <a href="https://lodash.com/">Lodash</a> la
+      proiectul nostru, prin CDN. Pentru a face acest lucru, vom utiliza
+      serviciul
+      <a href="https://cdnjs.com/libraries/lodash.js">cdnjs.com</a>cdnjs.com și
+      o să adăugăm un link către scriptul bibliotecii, la sfârșitul documentului
+      HTML, așa cum e specificat în exemplu.
+    </p>
+    <p>
+      Acum putem accesa biblioteca în scriptul nostru. Când bibliotecile sunt
+      conectate prin <b>CDN</b> la proiectul nostru, pe obiectul
+      <b>window </b> este adăugată o proprietate care stochează ceea ce oferă
+      biblioteca. Numele acestei proprietăți este unic pentru fiecare bibliotecă
+      și este descris în documentație. Pentru <b>Lodash</b>, acesta este
+      caracterul de underscore <b>_</b>.
+    </p>
+    <p>
+      <b>Atentie !!!</b> <br />
+      Librariile au atribut <b>async</b> deoarece vrem sa ruleze imediat ce s-au
+      incarcat in browser si dupa aceea sa ruleze restul DOM-ului, pe cand
+      <b>scriptul</b> nostru are atribut <b>defer</b> pentru a se incarca
+      deodata cu celelalte dar va rula dupa incarcarea completa a DOM-ului
+    </p>
+
+    <p>Exemplul 1</p>
+
+    <p class="con">
+      Pentru a verifica, folosim metoda
+      <a href="https://lodash.com/docs/4.17.15#add">add</a>, care adună pur și
+      simplu două numere.
+    </p>
+
+    <h3>Throttle</h3>
+    <p>
+      Technica de <b>throttle</b> controlează de câte ori o funcție poate fi
+      apelată într-o perioadă de timp. Adică permite ca o funcție să fie apelată
+      nu mai mult de o dată la fiecare N milisecunde, garantând execuția ei
+      regulată.
+    </p>
+    <p>
+      Folosind <b>throttle</b>, nu avem control asupra frecvenței cu care
+      browserul va declanșa evenimentul. Preluăm doar controlul asupra
+      frecvenței de execuție a funcției de gestionare a evenimentelor.
+    </p>
+
+    <p>Exemplul 1 (pentru consola)</p>
+
+    <p>
+      <b>
+        document.addEventListener( <br />
+        "scroll", <br />
+        _.throttle(() => { <br />
+        console.log("Scroll handler call every 2000ms"); <br />
+        }, 2000) <br />
+        );
+      </b>
+    </p>
+
+    <p>
+      Implementarea bibliotecii <b>Lodash</b> așteaptă, ca prim argument, o
+      funcție ce va fi "încetinită", iar al doilea parametru - numărul de
+      milisecunde.
+    </p>
+
+    <p>Exemplul 2</p>
+
+    <div class="body0">
+      <p class="cta0">Scroll me</p>
+
+      <div class="event0-counter">
+        <div class="box0">
+          <p>No timing function</p>
+          <span class="output vanilla">0</span>
+        </div>
+
+        <div class="box0">
+          <p>Throttled</p>
+          <span class="output throttled">0</span>
+        </div>
+      </div>
+    </div>
+
+    <h3>Debounce</h3>
+    <p>
+      Tehnica <b>debounce</b> asigură că funcția va fi apelată numai dacă există
+      o pauză de <b>N</b> milisecunde între evenimente. De exemplu, în timp ce
+      utilizatorul îndeplinește scroll-ul unei pagini, funcția nu va fi apelată,
+      dar de îndată ce se oprește, funcția va fi apelată după 300 de
+      milisecunde. Dacă derularea se reia înainte de 300 de milisecunde după
+      pauză, funcția nu va mai fi apelată.
+    </p>
+    <p>
+      Folosind <b>debounce</b> nu controlăm cât de des browserul va declanșa
+      evenimentele, doar preluăm controlul asupra frecvenței de execuție a
+      funcției handler de pe un eveniment.
+    </p>
+
+    <p>Exemplul 1 (pentru consola)</p>
+
+    <p>
+      <b>
+        document.addEventListener( <br />
+        "scroll", <br />
+        _.debounce(() => { <br />
+        console.log("Scroll handler call after 3000ms pause"); <br />
+        }, 3000) <br />
+        );
+      </b>
+    </p>
+    <p>
+      Implementarea <b>bibliotecii Lodash</b> așteaptă o funcție ca prim
+      argument și un număr de milisecunde ca al doilea. Returnează o nouă
+      funcție pentru a fi transmisă handler-ului de eveniment.
+    </p>
+
+    <p>Exemplul 2</p>
+
+    <p class="cta">Scroll me</p>
+
+    <div class="body1">
+      <div class="event1-counter">
+        <div class="box1">
+          <p>No timing function</p>
+          <span class="output1 vanilla1">0</span>
+        </div>
+        <div class="box1">
+          <p>Throttled</p>
+          <span class="output1 throttled1">0</span>
+        </div>
+        <div class="box1">
+          <p>Debounced</p>
+          <span class="output1 debounced1">0</span>
+        </div>
+      </div>
+    </div>
+
+    <h3>Modurile metodei debounce</h3>
+    <p>
+      În mod implicit, metoda debounce funcționează într-un mod în care funcția
+      este apelată după N milisecunde după o pauză între fluxurile de
+      evenimente. Acest mod se numește <b>trailing edge</b> (la sfârșit). Există
+      situații când funcția trebuie apelată imediat după primul eveniment din
+      flux și apoi să ignore toate evenimentele ulterioare până când există o
+      pauză între ele, de exemplu, de 300 de milisecunde. La începutul
+      următorului flux de evenimente, acest comportament se repetă. Acest mod se
+      numește <b>leading edge</b> (la început).
+    </p>
+    <p>
+      Metodei debounce din biblioteca Lodash i se poate transmite un al treilea
+      parametru opțional - un obiect care are două proprietăți
+      <b>leading (implicit false)</b> și <b>trailing (implicit adevărat)</b>.
+      Aceste setări schimbă modul și indică dacă funcția ar trebui să ruleze la
+      începutul fluxului de evenimente sau la sfârșit după o pauză.
+    </p>
+
+    <p>Exemplul 1 (pentru consola)</p>
+
+    <p>
+      document.addEventListener( <br />
+      "scroll", <br />
+      _.debounce( <br />
+      () => { <br />
+      console.log("Scroll handler call on every event stream start"); <br />
+      }, <br />
+      300, <br />
+      { <br />
+      leading: true, <br />
+      trailing: false, <br />
+      } <br />
+      ) <br />
+      );
+    </p>
+    <p>
+      În practică, modulul leading poate fi folosit, de exemplu, atunci când
+      este necesar să se efectueze funcția de trimitere a unei cereri către
+      server la primul <b>click</b> pe buton, iar apoi să se ignore toate
+      clickurile ulterioare până la o pauză. Exemplul următor implementează
+      debounce în ambele moduri pentru evenimentul de <b>scroll</b>.
+    </p>
+
+    <p>Exemplul 2</p>
+
+    <div class="body2">
+      <p class="cta2">Scroll me</p>
+
+      <div class="container2">
+        <div class="box2">
+          <p>No timing function</p>
+          <span class="output2 vanilla2">0</span>
+        </div>
+
+        <div class="box2">
+          <p>Throttled</p>
+          <span class="output2 throttled2">0</span>
+        </div>
+
+        <div class="box2">
+          <p>Trailing debounce</p>
+          <span class="output2 trailing2">0</span>
+        </div>
+
+        <div class="box2">
+          <p>Leading debounce</p>
+          <span class="output2 leading2">0</span>
+        </div>
+      </div>
+    </div>
+
+    <h2>Lazy load</h2>
+    <p>
+      Paginile web conțin un număr mare de imagini, care măresc dimensiunea
+      paginilor și afectează viteza de încărcare a acestora. Majoritatea
+      imaginilor sunt situate dupa limitele primului ecran (<b>below the fold</b
+      >), astfel încât utilizatorul le va vedea numai după derularea paginii.
+      Aceasta înseamnă că este posibil să încărcați ceva care utilizatorul nu va
+      va vedea niciodată, dar va cheltui timp și, eventual, bani. Descărcarea
+      conținutului necritic consumă bateria dispozitivului mobil și alte resurse
+      de sistem.
+    </p>
+    <p>
+      Termenii «<b>above the fold</b>» și «<b>below the fold</b>» provin din
+      perioada pre-digitală. Dacă ați cumpărat vreodată un ziar de la un chioșc,
+      acestea sunt de obicei pliate în jumătate, astfel încât trecătorii să-l
+      vadă doar jumătate din prima pagină. Dacă nu le place ceea ce văd, vor
+      trece și vânzările vor scădea. De aceea este atât de important să plasăm
+      cel mai interesant conținut în partea de sus a paginii.
+    </p>
+    <p>
+      <b>Lazy-loading</b> este o tehnică care întârzie încărcarea resurselor
+      <b>necritice</b> în timpul încărcării paginii. În schimb, aceste resurse
+      <b>non-critice</b> sunt încărcate numai atunci când este nevoie. Acest
+      lucru reduce greutatea inițială a resurselor care trebuie încărcate pentru
+      a afișa pagina și utilizarea resurselor de sistem, scade timpul necesar
+      pentru încărcare și apoi randare. Toate acestea au un efect bun asupra
+      performanței.
+    </p>
+    <p>
+      Probabil ați văzut deja încărcarea încetinită "<b>lazy</b>" în acțiune.
+      Arată cam așa:
+    </p>
+    <ul>
+      <li>
+        Ajungi pe o pagină și începi să o descoperi în timp ce citești
+        conținutul.
+      </li>
+      <li>La un moment dat, ajungi la o imagine default(substituent).</li>
+      <li>Imaginea substituent este brusc înlocuită cu imaginea reală.</li>
+    </ul>
+
+    <h3>Atributul loading</h3>
+    <p>
+      În trecut, programatorii trebuiau să se bazeze doar pe capacitățile
+      <b>JavaScript</b>. Browserele moderne pot face acest lucru și fără el,
+      dar, din păcate, nu toate. Atributul HTML <b>loading</b> al tag-ului
+      <img /> este acceptat nativ în toate browserele moderne, cu excepția
+      <b>Safari</b> și permite browserului să întârzie încărcarea imaginilor în
+      afara ecranului până când utilizatorul ajunge la ele.
+    </p>
+    <p>
+      <b
+        >&ltimg src="my-image.jpg" loading="lazy" alt="Image description"
+        /&gt</b
+      >
+    </p>
+    <p>Acceptă trei valori:</p>
+    <ul>
+      <li><b>lazy</b> - browserul va încărca imaginea încetinită.</li>
+      <li>
+        <b>eager</b> - imaginea va fi încărcată cât mai curând posibil, adică
+        fără încărcare încetinită.
+      </li>
+      <li>
+        <b>auto</b> - browserul determină dacă să efectueze încărcare încetinită
+        sau nu.
+      </li>
+    </ul>
+    <p>
+      Nu avem de unde să cunoaștem sau să modificăm comportamentul și timpul de
+      încărcare încetinită a imaginilor de către browser. Important e că
+      browserul va încărca imaginile cu puțin timp înainte ca acestea să intre
+      în fereastra de vizualizare.
+    </p>
+    <p>
+      Deschideți tab-ul <b>Network</b> din <b>devTools</b> și selectați filtrul
+      <b>Img</b> pentru a afișa numai imaginile încărcate. După aceea,
+      parcurgeți exemplul și urmăriți cum vor fi încărcate imaginile off-screen
+      ale pisicilor. Browserele care acceptă atributul loading vor încărca
+      încetinit imaginile, în timp ce browserele fără suport vor încărca toate
+      imaginile simultan.
+    </p>
+
+    <p>Exemplul 1</p>
+
+    <div class="body3">
+      <img
+        src="https://images.pexels.com/photos/1056251/pexels-photo-1056251.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=960"
+        loading="lazy"
+        alt="Close-Up Photography of Sleeping Tabby Cat"
+        width="960" />
+      <p>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ad fugiat,
+        error quisquam alias eaque officia cum quasi enim libero a molestiae
+        repudiandae repellat deserunt debitis deleniti vel accusantium. Aut enim
+        doloremque ullam quibusdam consequatur in repellendus beatae? Aspernatur
+        sequi fugit vero provident ea perspiciatis eos officia non reiciendis
+        adipisci ipsa, nemo, similique, molestias rerum totam debitis nulla a
+        iure inventore! Eum, voluptatem, sit corrupti at molestiae rerum nulla
+        ratione optio est alias perspiciatis quas. Aliquam libero placeat,
+        distinctio unde deleniti minus commodi at maiores officiis doloremque
+        quae voluptates quia aliquid doloribus, vero aspernatur, aperiam
+        corrupti dicta eligendi rerum? In, voluptate.
+      </p>
+      <img
+        src="https://images.pexels.com/photos/2558605/pexels-photo-2558605.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=960"
+        loading="lazy"
+        alt="Photo of Grey Tabby Kitten Lying Down"
+        width="960" />
+      <p>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ad fugiat,
+        error quisquam alias eaque officia cum quasi enim libero a molestiae
+        repudiandae repellat deserunt debitis deleniti vel accusantium. Aut enim
+        doloremque ullam quibusdam consequatur in repellendus beatae? Aspernatur
+        sequi fugit vero provident ea perspiciatis eos officia non reiciendis
+        adipisci ipsa, nemo, similique, molestias rerum totam debitis nulla a
+        iure inventore! Eum, voluptatem, sit corrupti at molestiae rerum nulla
+        ratione optio est alias perspiciatis quas. Aliquam libero placeat,
+        distinctio unde deleniti minus commodi at maiores officiis doloremque
+        quae voluptates quia aliquid doloribus, vero aspernatur, aperiam
+        corrupti dicta eligendi rerum? In, voluptate.
+      </p>
+      <img
+        src="https://images.pexels.com/photos/1440403/pexels-photo-1440403.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=960"
+        loading="lazy"
+        alt="Orange Kitten"
+        width="960" />
+      <p>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ad fugiat,
+        error quisquam alias eaque officia cum quasi enim libero a molestiae
+        repudiandae repellat deserunt debitis deleniti vel accusantium. Aut enim
+        doloremque ullam quibusdam consequatur in repellendus beatae? Aspernatur
+        sequi fugit vero provident ea perspiciatis eos officia non reiciendis
+        adipisci ipsa, nemo, similique, molestias rerum totam debitis nulla a
+        iure inventore! Eum, voluptatem, sit corrupti at molestiae rerum nulla
+        ratione optio est alias perspiciatis quas. Aliquam libero placeat,
+        distinctio unde deleniti minus commodi at maiores officiis doloremque
+        quae voluptates quia aliquid doloribus, vero aspernatur, aperiam
+        corrupti dicta eligendi rerum? In, voluptate.
+      </p>
+      <img
+        src="https://images.pexels.com/photos/2817421/pexels-photo-2817421.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=960"
+        loading="lazy"
+        alt="Photo of Tabby Cat Sleeping On Chair"
+        width="960" />
+      <p>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ad fugiat,
+        error quisquam alias eaque officia cum quasi enim libero a molestiae
+        repudiandae repellat deserunt debitis deleniti vel accusantium. Aut enim
+        doloremque ullam quibusdam consequatur in repellendus beatae? Aspernatur
+        sequi fugit vero provident ea perspiciatis eos officia non reiciendis
+        adipisci ipsa, nemo, similique, molestias rerum totam debitis nulla a
+        iure inventore! Eum, voluptatem, sit corrupti at molestiae rerum nulla
+        ratione optio est alias perspiciatis quas. Aliquam libero placeat,
+        distinctio unde deleniti minus commodi at maiores officiis doloremque
+        quae voluptates quia aliquid doloribus, vero aspernatur, aperiam
+        corrupti dicta eligendi rerum? In, voluptate.
+      </p>
+      <img
+        src="https://images.pexels.com/photos/617278/pexels-photo-617278.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=960"
+        loading="lazy"
+        alt="Brown Cat With Green Eyes"
+        width="960" />
+      <p>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ad fugiat,
+        error quisquam alias eaque officia cum quasi enim libero a molestiae
+        repudiandae repellat deserunt debitis deleniti vel accusantium. Aut enim
+        doloremque ullam quibusdam consequatur in repellendus beatae? Aspernatur
+        sequi fugit vero provident ea perspiciatis eos officia non reiciendis
+        adipisci ipsa, nemo, similique, molestias rerum totam debitis nulla a
+        iure inventore! Eum, voluptatem, sit corrupti at molestiae rerum nulla
+        ratione optio est alias perspiciatis quas. Aliquam libero placeat,
+        distinctio unde deleniti minus commodi at maiores officiis doloremque
+        quae voluptates quia aliquid doloribus, vero aspernatur, aperiam
+        corrupti dicta eligendi rerum? In, voluptate.
+      </p>
+      <img
+        src="https://images.pexels.com/photos/3635550/pexels-photo-3635550.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=960"
+        loading="lazy"
+        alt="Close-up Photo of Grey and Brown Cat"
+        width="960" />
+      <p>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ad fugiat,
+        error quisquam alias eaque officia cum quasi enim libero a molestiae
+        repudiandae repellat deserunt debitis deleniti vel accusantium. Aut enim
+        doloremque ullam quibusdam consequatur in repellendus beatae? Aspernatur
+        sequi fugit vero provident ea perspiciatis eos officia non reiciendis
+        adipisci ipsa, nemo, similique, molestias rerum totam debitis nulla a
+        iure inventore! Eum, voluptatem, sit corrupti at molestiae rerum nulla
+        ratione optio est alias perspiciatis quas. Aliquam libero placeat,
+        distinctio unde deleniti minus commodi at maiores officiis doloremque
+        quae voluptates quia aliquid doloribus, vero aspernatur, aperiam
+        corrupti dicta eligendi rerum? In, voluptate.
+      </p>
+      <img
+        src="https://images.pexels.com/photos/57416/cat-sweet-kitty-animals-57416.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=960"
+        loading="lazy"
+        alt="Close-Up Photo of Yellow and White Cat"
+        width="960" />
+      <p>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ad fugiat,
+        error quisquam alias eaque officia cum quasi enim libero a molestiae
+        repudiandae repellat deserunt debitis deleniti vel accusantium. Aut enim
+        doloremque ullam quibusdam consequatur in repellendus beatae? Aspernatur
+        sequi fugit vero provident ea perspiciatis eos officia non reiciendis
+        adipisci ipsa, nemo, similique, molestias rerum totam debitis nulla a
+        iure inventore! Eum, voluptatem, sit corrupti at molestiae rerum nulla
+        ratione optio est alias perspiciatis quas. Aliquam libero placeat,
+        distinctio unde deleniti minus commodi at maiores officiis doloremque
+        quae voluptates quia aliquid doloribus, vero aspernatur, aperiam
+        corrupti dicta eligendi rerum? In, voluptate.
+      </p>
+    </div>
+
+    <p>Librăria lazysizes</p>
+    <p>
+      Pentru a asigura compatibilitatea între browsere, adică compatibilitatea
+      cu browserele mai vechi sau cu cele care nu o acceptă încă în mod nativ,
+      pot fi utilizate o serie de librării JavaScript existente. Unele dintre
+      cele mai populare sunt:
+      <a href="https://afarkas.github.io/lazysizes/index.html">lazysizes</a>,
+      <a href="https://www.andreaverlicchi.eu/vanilla-lazyload/"
+        >vanilla-lazyload</a
+      >
+      și <a href="https://apoorv.pro/lozad.js/">lozad.js</a>. Alegerea unei
+      biblioteci se reduce la un set de oportunități disponibile, dar și la
+      preferințele personale. Vom analiza biblioteca
+      <a href="https://afarkas.github.io/lazysizes/index.html">lazysizes</a>.
+    </p>
+    <p>
+      <b>BINE DE ȘTIUT</b> <br />
+      Suportul nativ este mai bun și mai performant decât utilizarea
+      librăriilor, dar garantează că funcționează în toate browserele și poate
+      oferi funcții avansate de încărcare încetinită care nu sunt încă incluse
+      ca standard.
+    </p>
+    <p>
+      Primul lucru de făcut este să includem biblioteca în proiect folosind
+      serviciul <a href="https://cdnjs.com/libraries/lazysizes">cdnjs.com</a>.
+      Tag-ul cu link-ul către script va fi adăugat la sfârșitul lui &ltbody&gt,
+      la fel cum am făcut pentru biblioteca <b>Lodash</b>.
+    </p>
+    <p>
+      <b>BINE DE ȘTIUT</b> <br />
+      Librăria <b>lazysizes</b> se autoinițializează atunci când este încărcată
+      pagina. Adică, pentru utilizarea ei în JavaScript, nu trebuie să facem
+      nimic. Lista completă a caracteristicilor sale o găsim la
+      <a href="https://afarkas.github.io/lazysizes/index.html">documentație</a>.
+    </p>
+    <p>
+      Pentru toate imaginile care trebuie să fie lazyloaded, setăm
+      <b>clasa lazyload</b> și înlocuim atributul <b>src</b> cu <b>data-src</b>.
+      Acest lucru este necesar pentru ca biblioteca lazysizes să funcționeze
+      corect.
+    </p>
+    <p>
+      <b>
+        &ltimg class="lazyload" data-src="path/to/my-image.jpg" alt="Generic
+        alt" /&gt
+      </b>
+    </p>
+    <p>
+      În timp ce imaginea se încarcă putem afișa un substituent de calitate
+      scăzută . Această tehnică se numește
+      <b>LQIP (Low Quality Image Placeholder)</b>. Există multe opțiuni pentru
+      implementarea <b>LQIP</b>, dar pentru început va fi suficient să afișăm un
+      singur substituent standard pentru toate imaginile. Pentru a face acest
+      lucru, adăugam atributul <b>src</b> a cărui valoare va fi un link către
+      acea imagine de substituent.
+    </p>
+    <p>
+      <b
+        >&ltimg class="lazyload" src="path/to/lqip-placeholder.jpg"
+        data-src="path/to/my-image.jpg" alt="Generic alt" /&gt</b
+      >
+    </p>
+    <p>
+      Când imaginea este încărcată, biblioteca <b>lazysizes</b> adaugă clasa
+      <b>lazyloaded</b> pe element. Acesta poate fi folosit pentru a aplica
+      efecte CSS pe măsură ce imaginea se încarcă.
+    </p>
+    <p>
+      <b>
+        .blur-up { <br />
+        filter: blur(5px); <br />
+        transition: filter 400ms; <br />
+        } <br />
+        <br />
+        .blur-up.lazyloaded { <br />
+        filter: blur(0); <br />
+        }
+      </b>
+    </p>
+    <p>
+      După declararea stilurilor, adăugăm clasa <b>blur-up</b> pe tag-ul &ltimg
+      /&gt.
+    </p>
+    <p>
+      <b
+        >&ltimg <br />
+        class="lazyload blur-up" <br />
+        src="path/to/lqip-placeholder.jpg" <br />
+        data-src="path/to/my-image.jpg" <br />
+        alt="Generic alt" <br />
+        /&gt</b
+      >
+    </p>
+    <p>
+      Să aplicăm toți acești pași pe un exemplu real, adăugând suport pentru
+      toate browserele pentru încărcarea încetinită a imaginilor pe site-ul
+      nostru cu pisici. Acum chiar și Safari va încărca încetinit imaginile.
+    </p>
+
+    <p>Exemplul 1</p>
+
+    <div class="body3">
+      <img
+        class="lazyload blur-up"
+        src="https://via.placeholder.com/960"
+        data-src="https://images.pexels.com/photos/1056251/pexels-photo-1056251.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=960"
+        alt="Close-Up Photography of Sleeping Tabby Cat"
+        width="960" />
+      <p>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ad fugiat,
+        error quisquam alias eaque officia cum quasi enim libero a molestiae
+        repudiandae repellat deserunt debitis deleniti vel accusantium. Aut enim
+        doloremque ullam quibusdam consequatur in repellendus beatae? Aspernatur
+        sequi fugit vero provident ea perspiciatis eos officia non reiciendis
+        adipisci ipsa, nemo, similique, molestias rerum totam debitis nulla a
+        iure inventore! Eum, voluptatem, sit corrupti at molestiae rerum nulla
+        ratione optio est alias perspiciatis quas. Aliquam libero placeat,
+        distinctio unde deleniti minus commodi at maiores officiis doloremque
+        quae voluptates quia aliquid doloribus, vero aspernatur, aperiam
+        corrupti dicta eligendi rerum? In, voluptate.
+      </p>
+      <img
+        class="lazyload blur-up"
+        src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+        data-src="https://images.pexels.com/photos/2558605/pexels-photo-2558605.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=960"
+        alt="Photo of Grey Tabby Kitten Lying Down"
+        width="960" />
+      <p>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ad fugiat,
+        error quisquam alias eaque officia cum quasi enim libero a molestiae
+        repudiandae repellat deserunt debitis deleniti vel accusantium. Aut enim
+        doloremque ullam quibusdam consequatur in repellendus beatae? Aspernatur
+        sequi fugit vero provident ea perspiciatis eos officia non reiciendis
+        adipisci ipsa, nemo, similique, molestias rerum totam debitis nulla a
+        iure inventore! Eum, voluptatem, sit corrupti at molestiae rerum nulla
+        ratione optio est alias perspiciatis quas. Aliquam libero placeat,
+        distinctio unde deleniti minus commodi at maiores officiis doloremque
+        quae voluptates quia aliquid doloribus, vero aspernatur, aperiam
+        corrupti dicta eligendi rerum? In, voluptate.
+      </p>
+      <img
+        class="lazyload blur-up"
+        src="https://via.placeholder.com/960"
+        data-src="https://images.pexels.com/photos/1440403/pexels-photo-1440403.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=960"
+        alt="Orange Kitten"
+        width="960" />
+      <p>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ad fugiat,
+        error quisquam alias eaque officia cum quasi enim libero a molestiae
+        repudiandae repellat deserunt debitis deleniti vel accusantium. Aut enim
+        doloremque ullam quibusdam consequatur in repellendus beatae? Aspernatur
+        sequi fugit vero provident ea perspiciatis eos officia non reiciendis
+        adipisci ipsa, nemo, similique, molestias rerum totam debitis nulla a
+        iure inventore! Eum, voluptatem, sit corrupti at molestiae rerum nulla
+        ratione optio est alias perspiciatis quas. Aliquam libero placeat,
+        distinctio unde deleniti minus commodi at maiores officiis doloremque
+        quae voluptates quia aliquid doloribus, vero aspernatur, aperiam
+        corrupti dicta eligendi rerum? In, voluptate.
+      </p>
+      <img
+        class="lazyload blur-up"
+        src="https://via.placeholder.com/960"
+        data-src="https://images.pexels.com/photos/2817421/pexels-photo-2817421.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=960"
+        alt="Photo of Tabby Cat Sleeping On Chair"
+        width="960" />
+      <p>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ad fugiat,
+        error quisquam alias eaque officia cum quasi enim libero a molestiae
+        repudiandae repellat deserunt debitis deleniti vel accusantium. Aut enim
+        doloremque ullam quibusdam consequatur in repellendus beatae? Aspernatur
+        sequi fugit vero provident ea perspiciatis eos officia non reiciendis
+        adipisci ipsa, nemo, similique, molestias rerum totam debitis nulla a
+        iure inventore! Eum, voluptatem, sit corrupti at molestiae rerum nulla
+        ratione optio est alias perspiciatis quas. Aliquam libero placeat,
+        distinctio unde deleniti minus commodi at maiores officiis doloremque
+        quae voluptates quia aliquid doloribus, vero aspernatur, aperiam
+        corrupti dicta eligendi rerum? In, voluptate.
+      </p>
+      <img
+        class="lazyload blur-up"
+        src="https://via.placeholder.com/960"
+        data-src="https://images.pexels.com/photos/617278/pexels-photo-617278.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=960"
+        alt="Brown Cat With Green Eyes"
+        width="960" />
+      <p>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ad fugiat,
+        error quisquam alias eaque officia cum quasi enim libero a molestiae
+        repudiandae repellat deserunt debitis deleniti vel accusantium. Aut enim
+        doloremque ullam quibusdam consequatur in repellendus beatae? Aspernatur
+        sequi fugit vero provident ea perspiciatis eos officia non reiciendis
+        adipisci ipsa, nemo, similique, molestias rerum totam debitis nulla a
+        iure inventore! Eum, voluptatem, sit corrupti at molestiae rerum nulla
+        ratione optio est alias perspiciatis quas. Aliquam libero placeat,
+        distinctio unde deleniti minus commodi at maiores officiis doloremque
+        quae voluptates quia aliquid doloribus, vero aspernatur, aperiam
+        corrupti dicta eligendi rerum? In, voluptate.
+      </p>
+      <img
+        class="lazyload blur-up"
+        src="https://via.placeholder.com/960"
+        data-src="https://images.pexels.com/photos/3635550/pexels-photo-3635550.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=960"
+        alt="Close-up Photo of Grey and Brown Cat"
+        width="960" />
+      <p>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ad fugiat,
+        error quisquam alias eaque officia cum quasi enim libero a molestiae
+        repudiandae repellat deserunt debitis deleniti vel accusantium. Aut enim
+        doloremque ullam quibusdam consequatur in repellendus beatae? Aspernatur
+        sequi fugit vero provident ea perspiciatis eos officia non reiciendis
+        adipisci ipsa, nemo, similique, molestias rerum totam debitis nulla a
+        iure inventore! Eum, voluptatem, sit corrupti at molestiae rerum nulla
+        ratione optio est alias perspiciatis quas. Aliquam libero placeat,
+        distinctio unde deleniti minus commodi at maiores officiis doloremque
+        quae voluptates quia aliquid doloribus, vero aspernatur, aperiam
+        corrupti dicta eligendi rerum? In, voluptate.
+      </p>
+      <img
+        class="lazyload blur-up"
+        src="https://via.placeholder.com/960"
+        data-src="https://images.pexels.com/photos/57416/cat-sweet-kitty-animals-57416.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=960"
+        alt="Close-Up Photo of Yellow and White Cat"
+        width="960" />
+      <p>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ad fugiat,
+        error quisquam alias eaque officia cum quasi enim libero a molestiae
+        repudiandae repellat deserunt debitis deleniti vel accusantium. Aut enim
+        doloremque ullam quibusdam consequatur in repellendus beatae? Aspernatur
+        sequi fugit vero provident ea perspiciatis eos officia non reiciendis
+        adipisci ipsa, nemo, similique, molestias rerum totam debitis nulla a
+        iure inventore! Eum, voluptatem, sit corrupti at molestiae rerum nulla
+        ratione optio est alias perspiciatis quas. Aliquam libero placeat,
+        distinctio unde deleniti minus commodi at maiores officiis doloremque
+        quae voluptates quia aliquid doloribus, vero aspernatur, aperiam
+        corrupti dicta eligendi rerum? In, voluptate.
+      </p>
+    </div>
+
+    <!-- Lodash library script file -->
+    <script
+      async
+      src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
+      integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"></script>
+    <!-- Lazysizes library script file -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js"
+      integrity="sha512-q583ppKrCRc7N5O0n2nzUiJ+suUv7Et1JGels4bXOaMFQcamPk9HjdUknZuuFjBNs7tsMuadge5k9RzdmO+1GQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"></script>
+    <!-- My script file -->
+    <script defer src="./js/index14.js"></script>
+  </body>
+</html>

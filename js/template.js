@@ -1,11 +1,11 @@
 // ------     Conspect     ------
 console.log(`---------        Conspect        ---------`);
 
-// -----     Pure function     -----
-console.log(`-------       Pure function       -------`);
+// -----     Pure     -----
+console.log(`-------       Pure       -------`);
 
-// ---   spread: transmiterea argumentelor   ---
-console.log(`---   spread: transmiterea argumentelor   ---`);
+// ---   spread   ---
+console.log(`---   spread   ---`);
 
 // - exemplu 1 -
 console.log(`- exemplu 1 -`);

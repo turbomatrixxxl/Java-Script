@@ -142,7 +142,7 @@
     <p>
       Parametrul <b>event</b> este, de fapt, un event object care este transmis
       automat ca prim argument la apelarea funcției callback. Îl putem numi cum
-      dorim, dar de obicei este declarat ca e, <b>evt</b> sau <b>eveniment</b>.
+      dorim, dar de obicei este declarat ca <b>e, evt</b> sau <b>eveniment</b>.
     </p>
     <p>Câteva proprietăți ale obiectului eveniment:</p>
     <ul>
@@ -157,7 +157,7 @@
 
     <button type="button" class="btn1">Event object</button>
 
-    <h3>Acțiuni implicite ale browserului</h3>
+    <h3>Acțiuni implicite ale browserului(elements si reset)</h3>
     <p>
       Uneori se declanșează acțiuni implicite încorporate în browser ca răspuns
       la un anumit tip de eveniment. De exemplu, dând click pe un link - se
@@ -303,7 +303,10 @@
       accesând <b>login.value</b> și <b>password.value</b>.
     </p>
 
-    <h3>Evenimentul de change</h3>
+    <h3>
+      Evenimentul de change(event.curentTarget.options,selectedIndex.text se
+      folosesc la "select")
+    </h3>
     <p>
       Apare după ce un element din formular s-a schimbat. Pentru câmpurile de
       <b>text sau textarea</b>, evenimentul nu va avea loc la fiecare
