@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modulul 8-Tema 16-Web Storage</title>
+
+    <link rel="stylesheet" href="./css/index.css" />
+  </head>
+  <body>
+    <h1>Modulul 8 - Tema 16 - Web Storage</h1>
+    <a href="" , target="_blank"><b>Lectie video</b></a>
+
+    <h2>JSON format</h2>
+    <p>
+      <b>JSON</b> (JavaScript Object Notation) - este un format de tip text
+      pentru reprezentare și schimb de date între aplicații. Sintaxa aceasta,
+      asemănătoare obiectelor, este foarte utilă, deoarece în acest format
+      datele vor fi primite și trimise către server, stocate în memoria locală,
+      etc.
+    </p>
+    <p>
+      <b>JSON</b> însă nu este un obiect, ci reprezentarea lui ca string. Mai
+      jos este un exemplu de fișier <b>JSON</b>. Sintaxa este similară cu cea a
+      unui obiect, cu excepția faptului că cheile și valorile sunt întotdeauna
+      între ghilimele duble. Valorile cheilor pot fi de tip
+      <b>string, number, object, array, boolean</b> și <b>null</b>.
+    </p>
+    <p><b>user.json </b></p>
+    <p>
+      <b
+        >{ "name": "Josh", <br />
+        "weight": 175, <br />
+        "age": 30, <br />
+        "eyecolor": "brown", <br />
+        "isHappy": true, <br />
+        "cars": ["Chevy", "Honda"], <br />
+        "favoriteBook": { <br />
+        "title": "The Last Kingdom", <br />
+        "author": "Bernard Cornwell", <br />
+        "rating": 8.38 <br />
+        } <br />
+        }</b
+      >
+    </p>
+    <p>
+      <b>Javascript</b> și <b>JSON</b> funcționează excelent împreună datorită
+      metodelor clasei <b>JSON</b> care convertesc un obiect
+      <b>JavaScript</b> în <b>JSON</b> și vice-versa.
+    </p>
+
+    <h3>Metoda JSON.stringify()</h3>
+    <p>
+      Preia o valoare și o convertește în <b>JSON</b>. Valoarea poate fi un
+      număr, boolean, null, o matrice sau un obiect. Șirurile de caractere sunt
+      deja <b>JSON</b> valide, deci, conversia lor nu are sens.
+    </p>
+
+    <p><b>Exemplul 1</b></p>
+    <p>Uitati-va pe consola...!</p>
+
+    <p>
+      Rezultatul apelului JSON.stringify(dog) este un JSON valid (șir) care
+      poate fi salvat într-un fișier sau transmis prin rețea.
+    </p>
+    <p>
+      Nu orice obiect JavaScript poate fi convertit unu-la-unu în JSON. De
+      exemplu, dacă un obiect are metode, atunci acestea vor fi ignorate în
+      timpul conversiei.
+    </p>
+
+    <p><b>Exemplul 2</b></p>
+    <p>Uitati-va pe consola...!</p>
+
+    <p>
+      Dacă încercăm să convertim o <b>funcție</b> în <b>JSON</b>, rezultatul va
+      fi <b>undefined</b>.
+    </p>
+
+    <p><b>Exemplul 3</b></p>
+    <p>Uitati-va pe consola...!</p>
+
+    <h3>Metoda JSON.parse()</h3>
+    <p>
+      Pentru a obține o valoare JavaScript validă din <b>JSON</b> putem folosi
+      metoda <b>parse</b>.
+    </p>
+    <p>
+      Este opusul lui <b>stringify</b>. Acum că <b>dog</b> este un obiect valid,
+      putem lucra cu el la fel cum am lucra cu oricare alt obiect.
+    </p>
+
+    <p><b>Exemplul 1</b></p>
+    <p>Uitati-va pe consola...!</p>
+
+    <h3>Prelucrarea erorilor</h3>
+    <p>
+      Dacă un <b>JSON</b> invalid este transmis metodelor clasei <b>JSON</b>,
+      acestea vor afișa o eroare și întregul script se va bloca. Pentru a evita
+      acest lucru, se folosește construcția <b>try...catch</b> care permite să
+      «prindem» și să procesăm erorile de execuție a scriptului.
+    </p>
+    <p>
+      <b
+        >try { <br />
+        // Code that may throw a runtime error <br />
+        } catch (error) { <br />
+        // Error handling <br />
+        }</b
+      >
+    </p>
+    <ol>
+      <li>Mai întâi codul din blocul <b>try</b> este executat.</li>
+      <li>
+        Dacă nu există erori, blocul <b>catch</b> este ignorat și se continuă
+        execuția codului.
+      </li>
+      <li>
+        Dacă apare o eroare în blocul <b>try</b>, execuția acestuia se oprește
+        și interpretorul trece la blocul <b>catch</b>.
+      </li>
+    </ol>
+    <p>
+      Variabila <b>error</b> este un obiect de eroare cu informații despre ceea
+      ce s-a întâmplat. Acest obiect are mai multe proprietăți utile:
+    </p>
+
+    <ul>
+      <li>
+        <b>name</b> - tipul erorii. La eroare de parsare aceasta va fi
+        <b>SyntaxError</b>.
+      </li>
+      <li><b>message</b> - un mesaj cu detaliile erorii.</li>
+      <li>
+        <b>stack</b> - stivă cu apelurile de funcții la momentul erorii. Folosit
+        pentru depanare.
+      </li>
+    </ul>
+
+    <p><b>Exemplul 1</b></p>
+    <p>Uitati-va pe consola...!</p>
+
+    <p>
+      <b
+        >// Script will crash during parse <br />
+        const data = JSON.parse("Well, this is awkward"); <br />
+        console.log("❌ You won't see this log");</b
+      >
+    </p>
+
+    <p>
+      Folosind construcția <b>try...catch</b>, putem gestiona această excepție,
+      astfel încât scriptul să continue să ruleze chiar dacă apare o eroare.
+    </p>
+
+    <p><b>Exemplul 2</b></p>
+    <p>Uitati-va pe consola...!</p>
+
+    <p>
+      Același lucru se va întâmpla și atunci când încercăm să parsăm un
+      <b>JSON</b> invalid, care poate proveni din <b>backend</b> sau poate fi
+      citit dintr-un fișier extern. În exemplul următor, proprietatea username
+      nu are ghilimele duble.
+    </p>
+
+    <p><b>Exemplul 3</b></p>
+    <p>Uitati-va pe consola...!</p>
+
+    <h3>Etapele de execuție a codului</h3>
+    <p>
+      În <b>JavaScript</b>, codul nu este executat imediat, ci întâi
+      <b>JS engine</b>-ul trebuie să citească codul și să afle dacă poate fi
+      executat.
+    </p>
+    <p>
+      <b>Compile time, evaluation time</b> - o faza de pregătire, înainte de a
+      executa codul, unde <b>JS engine</b>-ul caută erori de sintaxă. Adică,
+      codul nu este încă executat, ci este doar evaluat. Dacă această fază e
+      finalizată cu succes, putem spune că, cel puțin nu există erori de sintaxă
+      în cod și poate fi rulat.
+    </p>
+    <p>
+      <b>Runtime</b> - scriptul începe să se execute, sunt executate
+      instrucțiunile de apelare a funcțiilor și se evaluează expresiile
+      condițiilor, iar identificatorii necesari sunt căutați în scope-ul
+      corespunzător și așa mai departe.
+    </p>
+    <p>
+      Dacă această fază a fost finalizată cu succes, atunci scriptul a fost
+      scris fără erori evidente și a terminat execuția. În această fază, pot
+      apărea erori legate de proprietăți și variabile lipsă sau conversie a
+      tipurilor de date, adică ceva care se întâmplă doar în timpul execuției
+      codului.
+    </p>
+    <p>
+      Încercați să executați următorul cod. Deoarece am greșit și in loc de
+      const încercăm să declarăm variabila <b>value</b> cu keyword-ul
+      <b>cos</b>, o eroare de sintaxă va apărea în timpul fazei de compilare și
+      faza de execuție nici măcar nu va începe. În consolă vom vedea imediat un
+      mesaj de eroare.
+    </p>
+
+    <p><b>Exemplul 1</b></p>
+    <p>Uitati-va pe consola...!</p>
+
+    <p>
+      <b
+        >console.log('This message will not appear in the console'); <br />
+        <br />
+        cos value = 5;</b
+      >
+    </p>
+
+    <p>
+      <b>BINE DE ȘTIUT</b> <br />
+      <br />
+      Construcția <b>try...catch</b> prinde doar erorile care apar în timpul
+      execuției codului (erori de rulare). Așadar, codul trebuie să fie corect
+      din punct de vedere sintactic, altfel, faza de execuție pur și simplu nu
+      va începe. Erorile care apar în timpul fazei de evaluare se numesc
+      <b>erori de parsare</b>.
+    </p>
+
+    <p><b>Exemplul 2</b></p>
+    <p>Uitati-va pe consola...!</p>
+
+    <h2>Web Storage</h2>
+    <p>
+      De fiecare dată când schimbăm dark/light theme, vizionăm un videoclip,
+      adăugăm un produs în coș, deschidem sau închidem un sidebar, aplicațiile
+      web populare își amintesc starea interfeței și o restabilesc data viitoare
+      când vizităm site-ul.
+    </p>
+    <p>
+      În mod implicit, starea interfeței este stocată în memoria de tab a
+      browser-ului și se pierde atunci când aplicația web este închisă. Pentru a
+      evita acest lucru, este necesar să stocăm undeva date despre starea
+      interfeței. În acest caz, putem stoca informațiile despre starea
+      aplicației web pe computerul userului.
+    </p>
+
+    <h3>Web Storage API</h3>
+    <p>
+      <b>Web storage</b> e compus din <b>localStorage</b> și
+      <b>sessionStorage</b>. Oferă o modalitate ușoară de a stoca datele într-un
+      mod intuitiv ca perechi de <b>key:value</b>. Din punct de vedere tehnic,
+      în web storage pot fi scrise doar șiruri de caractere, dar aceasta nu este
+      o problemă dacă utilizăm metodele clasei <b>JSON</b> pentru a converti
+      tipurile complexe. Web storage nu stochează metode sau funcții, ci doar
+      date.
+    </p>
+    <p>
+      <b>localStorage</b> este unic pentru fiecare aplicație web și va fi
+      aceeași în toate tab-urile în care rulează aplicația web. Datele nu sunt
+      șterse chiar și atunci când se închide browserul sau opriți computerul.
+      Trebuie să folosim cod <b>JavaScript</b> pentru a le șterge.
+    </p>
+    <p>
+      <b>sessionStorage</b> este similară cu cea locală. Este, de asemenea,
+      unică pentru fiecare aplicație web, dar durata de viață a datelor stocate
+      este limitată de sesiunea din tab-ul browserului. De îndată ce
+      utilizatorul închide tab-ul sau browserul, datele sunt șterse. În
+      practică, acest tip de stocare este folosit mult mai rar.
+    </p>
+    <p>
+      <b>BINE DE ȘTIUT</b> <br />
+      <br />
+      Web storage <b>nu stochează</b> parole, numere de card bancar și
+      informații confidențiale. Dacă un script rău intenționat obține acces la o
+      pagină web, va citi aceste date fără probleme.
+    </p>
+
+    <h2>Local storage</h2>
+    <p>
+      Ne permite să stocăm date, fără termen de expirare, în formatul
+      <b>key:value</b> pe computerul utilizatorului și să le citim atunci când
+      utilizatorul vizitează din nou pagina. Stocarea locală și cea de sesiune
+      fac parte din browser, deci sunt disponibile ca proprietăți ale obiectului
+      <b>window</b>, au același set de proprietăți și metode și diferă doar în
+      comportament.
+    </p>
+    <ul>
+      <li>
+        <b>setItem(key, value)</b> - face o înregistrare nouă sau actualizează o
+        înregistrare existentă în storage.
+      </li>
+      <li>
+        <b>getItem(key)</b> - returnează o valoare din storage cu cheia key.
+      </li>
+      <li>
+        <b>removeItem(key)</b> - șterge înregistrarea cu cheia key din storage.
+      </li>
+      <li><b>clear()</b> - șterge complet toate înregistrările stocate.</li>
+      <li>
+        <b>length</b> - stochează numărul total de înregistrări din storage.
+      </li>
+    </ul>
+
+    <h3>Salvarea datelor</h3>
+    <p>
+      Folosind metoda <b>setItem(key, value)</b>, putem adăuga o nouă
+      înregistrare sub forma de <b>key:value</b>.
+    </p>
+    <p>
+      Dacă trebuie să stocăm altceva decât un șir, cum ar fi o matrice sau un
+      obiect, trebuie să îl convertim într-un șir, folosind metoda
+      <b>JSON.stringify()</b>.
+    </p>
+
+    <p><b>Exemplul 1</b></p>
+    <p>Uitati-va pe consola...!</p>
+
+    <h3>Citirea datelor</h3>
+    <p>
+      Metoda <b>getItem(key)</b> permite să citim o înregistrare cu cheia key.
+      Dacă nu există nimic cu acea cheie, metoda returnează <b>null</b>. Când
+      valoarea este un șir obișnuit, nu este nevoie să o parsăm.
+    </p>
+    <p>
+      În caz contrar, trebuie să parsăm valoarea, folosind metoda
+      <b>JSON.parse()</b>
+      pentru a obține date valide.
+    </p>
+
+    <p><b>Exemplul 1</b></p>
+    <p>Uitati-va pe consola...!</p>
+
+    <h3>Ștergerea datelor</h3>
+    <p>Metoda removeItem(key) șterge date deja existente cu cheia key.</p>
+
+    <p><b>Exemplul 1</b></p>
+    <p>Uitati-va pe consola...!</p>
+
+    <h3>Curățarea storage-ului</h3>
+    <p>
+      Operația de ștergere completă a spațiului de stocare este una periculoasă
+      deoarece poate afecta înregistrările realizate de alți programatori pentru
+      alte proiecte. Totuși, dacă doriți să o faceți, apelați metoda
+      <b>clear()</b>.
+    </p>
+
+    <p><b>Exemplul 1</b></p>
+    <p>Uitati-va pe consola...!</p>
+
+    <h2>Salvarea unui mesaj</h2>
+    <p>
+      Să creăm un formular pentru introducerea unui mesaj și să-l stocăm în
+      <b>localStorage</b> la trimitere. Schimbați valoarea în câmpul de text și
+      dați click pe butonul "<b>Save</b>". Textul din acel câmp se va schimba cu
+      textul introdus. Reîncărcați pagina și veți vedea același text, chiar dacă
+      încă nu ați introdus nimic. Când pagina se încarcă, luăm ultima valoare
+      salvată din <b>localStorage</b>. Inițial, nu există o astfel de
+      înregistrare în storage, așa că va fi afișat un șir gol.
+    </p>
+
+    <p><b>Exemplul 1</b></p>
+    <p>Uitati-va pe consola...!</p>
+
+    <form class="feedback-form">
+      <textarea name="message"></textarea>
+      <button type="submit">Send feedback</button>
+    </form>
+
+    <p>
+      Putem vizualiza conținutul la <b>web storage</b> în <b>devTools</b>,
+      <b>tab-ul Application</b>. De asemenea, putem șterge și adăuga manual
+      date. În practică, acesta este utilizat în timpul dezvoltării și depanării
+      aplicației.
+    </p>
+
+    <h2>Service pentru localStorage</h2>
+    <p>
+      Pentru a reduce cantitatea de cod repetitivă atunci când lucrăm cu
+      <b> web storage </b>, putem scrie un serviciu cu metode standard, cum ar
+      fi <b>save</b> și <b>load</b>. Aceste metode vor îndepărta codul repetitiv
+      de verificare a erorilor.
+    </p>
+    <p><b>storage.js </b></p>
+
+    <p><b>Exemplul 1</b></p>
+    <p>Uitati-va pe consola...!</p>
+
+    <p>
+      Acum putem adăuga și citi în siguranță înregistrări din local storage.
+      Încercați să adăugați metoda remove(key) pentru a șterge o singură
+      înregistrare. Este similară cu load(key) și save(key, value).
+    </p>
+
+    <script src="./js/index16.js"></script>
+  </body>
+</html>

@@ -10,7 +10,9 @@
   </head>
   <body>
     <h1>Modulul 7 - Tema 14 - throttle/debounce și lazyload</h1>
-    <a href="" , target="_blank"><b>Lectie video</b></a>
+    <a href="https://youtu.be/32fB9IPuUCM" , target="_blank"
+      ><b>Lectie video</b></a
+    >
 
     <h2>Throttle și Debounce</h2>
     <p>
@@ -717,9 +719,31 @@
       </p>
     </div>
 
+    <h2>Cristi Socaci</h2>
+    <p><b>Exemplu folosire regex in HTML (sintaxa "pattern")</b></p>
+    <p><b>&ltinput type="text" pattern="[a-z]"&gt</b></p>
+
+    <div class="mybody">
+      <p class="mycta">Mouse move</p>
+
+      <div class="myevent-counter">
+        <div class="mybox">
+          <p>Number of mouse move events</p>
+          <span id="no" class="output">0</span>
+        </div>
+        <div class="mybox">
+          <p>Number of mouse move events - throttle</p>
+          <span id="throttle" class="output">0</span>
+        </div>
+        <div class="mybox">
+          <p>Number of mouse move events - debounce</p>
+          <span id="debounce" class="output">0</span>
+        </div>
+      </div>
+    </div>
+
     <!-- Lodash library script file -->
     <script
-      async
       src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
       integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
       crossorigin="anonymous"
@@ -731,6 +755,6 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"></script>
     <!-- My script file -->
-    <script defer src="./js/index14.js"></script>
+    <script src="./js/index14.js"></script>
   </body>
 </html>

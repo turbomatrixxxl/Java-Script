@@ -190,17 +190,58 @@ console.log(`---   Atributul loading   ---`);
 // ---   Librăria lazysizes   ---
 console.log(`---   Librăria lazysizes   ---`);
 
-// -----     Throttle     -----
-console.log(`-------       Throttle       -------`);
-
-// ---   spread   ---
-console.log(`---   spread   ---`);
-
-// - exemplu 1 -
-console.log(`- exemplu 1 -`);
-
 // ------     Cristi Socaci     ------
 console.log(`---------        Cristi Socaci        ---------`);
+
+// -----  folosire Regex  ----
+console.log("-----  folosire Regex  ----");
+
+let regex = new RegExp(`[a-s]`);
+console.log(regex.test("e"));
+console.log(regex.test("z"));
+console.log(regex.test("1"));
+
+let regex0 = new RegExp(`^lesson [1-4]`);
+console.log(regex0.test("lesson 4"));
+console.log(regex0.test("lesson 9"));
+console.log(regex0.test("Lesson 4"));
+
+const outputNo = document.querySelector("#no");
+let noEvents = 0;
+
+document.addEventListener("mousemove", () => {
+  noEvents++;
+  outputNo.textContent = noEvents;
+});
+
+const outputThrottle = document.querySelector("#throttle");
+let throttleEvents = 0;
+const eventHandlerThrottle = () => {
+  throttleEvents++;
+  outputThrottle.textContent = throttleEvents;
+};
+
+const delayInMiliseconds = 300;
+document.addEventListener(
+  "mousemove",
+  _.throttle(eventHandlerThrottle, delayInMiliseconds)
+);
+
+const outputDebounce = document.querySelector("#debounce");
+let debounceEvents = 0;
+const eventHandlerDebounce = () => {
+  debounceEvents++;
+  outputDebounce.textContent = debounceEvents;
+};
+
+const options = {
+  leading: true,
+  trailing: false,
+};
+document.addEventListener(
+  "mousemove",
+  _.debounce(eventHandlerDebounce, delayInMiliseconds, options)
+);
 
 // -----  exercitiu 1 generare string aleatoriu  ----
 console.log("-----  exercitiu 1 generare string aleatoriu  ----");

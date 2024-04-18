@@ -1,0 +1,15 @@
+{
+  "name": "js",
+  "version": "1.0.0",
+  "description": "Lesson 15 node",
+  "main": "(index15.js)",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index15.js"
+  },
+  "author": "Radu Bogdan Naramzoiu <turbomatrixxxl@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "validator": "^13.11.0"
+  }
+}

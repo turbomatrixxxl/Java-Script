@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modulul 8-Tema 15-Code Modularity</title>
+
+    <link rel="stylesheet" href="./css/index.css" />
+  </head>
+  <body>
+    <h1>Modulul 8 - Tema 15 - Code Modularity</h1>
+    <a href="https://youtu.be/XvcbPsh8IJs" , target="_blank"
+      ><b>Lectie video</b></a
+    >
+
+    <h2>Node.js</h2>
+    <p>
+      <b>Node.js</b> - este un motor de rulare JavaScript care permite să rulăm
+      cod JS în afara unui browser web. Se bazează pe motorul JavaScript Google
+      V8 scris în C++, același ce e folosit pentru procesarea în Chrome.
+    </p>
+    <p>
+      Node.js a fost conceput inițial ca un limbaj pe partea de server pentru
+      aplicații, dar programatorii au început să-l folosească pentru a crea
+      instrumente care să ajute la automatizarea sarcinilor locale. Drept
+      urmare, un nou ecosistem de instrumente care a apărut în jurul
+      <b>Node.js</b> a condus la o transformare a procesului de dezvoltare
+      <b>front-end</b>.
+    </p>
+
+    <h3>Instalare</h3>
+    <p>
+      Pentru a instala cea mai recentă versiune stabilă, accesați
+      <a href="https://nodejs.org/en/">pagina oficială</a>, descărcați programul
+      de instalare <b>LTS</b> și urmăriți instrucțiunile. Există un ghid și
+      programe de instalare pentru toate sistemele de operare populare -
+      Windows, MacOS și Linux.
+    </p>
+    <p>
+      <b>BINE DE ȘTIUT</b> <br />
+      Utilizatorii Windows trebuie să bifeze căsuța pentru a instala toate
+      instrumentele suplimentare, cu excepția <b>Chocolatey</b>. Astfel, se va
+      instala <b>Python</b> și tot felul de pachete cu cod utilitar și
+      compilatoare auxiliare.
+    </p>
+    <p>
+      După instalare, comanda node va fi disponibilă în terminal. Pentru a
+      verifica dacă instalarea a fost cu succes, verificați versiunea, rulând
+      comanda <b>node</b> cu indicatorul version în consolă.
+    </p>
+    <p><b>node --version</b></p>
+
+    <h3>JavaScript în afara browserului</h3>
+    <p>
+      <b>Node.js</b> ne permite să executăm cod <b>JavaScript</b> în afara
+      browserului. Să deschidem orice terminal și să rulăm comanda <b>node</b>.
+      Va porni <b>REPL</b> (read-eval-print loop) - un runtime pentru a executa
+      cod <b>JS</b>. Să printăm ceva în consolă.
+    </p>
+    <p>
+      <b>BINE DE ȘTIUT</b> <br />
+      Pentru a ieși din <b>REPL</b>, apăsați <b>Ctrl + C pe Windows</b> și
+      Control + C pe MacOS.
+    </p>
+    <p>
+      Acum să creăm un folder <b>node-here</b> și în el fișierul
+      <b>index.js</b> cu codul pe care l-am scris în REPL. Pentru a începe,
+      trebuie să deschidem un terminal și să mergem în folderul
+      <b>node-here</b>, care conține <b>index.js</b>.
+    </p>
+    <p>
+      Acum în consolă rulăm fișierul folosind comanda <b>node index.js</b> și
+      obținem același rezultat - printarea mesajului direct din terminal.
+    </p>
+    <p>
+      Acesta este scopul acestui limbaj - capacitatea de a executa
+      <b>JavaScript</b> în afara browserului. În acest fel, putem scrie
+      aplicații întregi, cum ar fi partea de <b>backend</b> sau cod utilitar
+      independent de browser.
+    </p>
+
+    <h2>Node Package Manager</h2>
+    <p>
+      Pentru a folosi multitudinea de instrumente (sau pachete) Node.js, trebuie
+      să le instalăm și să le gestionăm. <b>NPM</b> (node package manager) -
+      manager de pachete Node.js. Instalează pachetele necesare și oferă o
+      interfață ușor de utilizat pentru utilizarea acestora.
+    </p>
+    <p>
+      Instalează pachetele necesare și oferă o interfață ușor de utilizat pentru
+      lucrul cu acestea.
+    </p>
+    <p><b>NPM</b> conține trei elemente principale:</p>
+    <ul>
+      <li>
+        <b>Website</b> <a href="https://www.npmjs.com/">npmjs.com</a> - este
+        folosit pentru a căuta și citi documentația unui pachet.
+      </li>
+      <li>
+        <b>Command line interface (CLI)</b> - se pornește din terminal și oferă
+        un set de comenzi pentru lucrul cu pachetele.
+      </li>
+      <li>
+        <b>Registry</b> - o bază de date publică cu instrumente de dezvoltare
+        soft (pachete).
+      </li>
+    </ul>
+    <p>
+      <b>Package</b> - o mică <b>bibliotecă JavaScript</b> care rezolvă o
+      problemă specifică. Pachetele sunt scrise de către programatori și
+      partajate cu comunitatea. Această abordare ne ajută mult, deoarece nu este
+      nevoie să "reinventăm roata", totul fiind deja inventat și înregistrat ca
+      package, gata de a fi doar folosite.
+    </p>
+    <p>
+      <b>BINE DE ȘTIUT</b> <br />
+      Pachetele abstractează implementarea funcționalității, oferind
+      programatorului o interfață ușor de utilizat. Acest lucru face codul mai
+      curat, mai lizibil și mai ușor de întreținut.
+    </p>
+
+    <h3>Comanda NPM</h3>
+    <p>
+      Să enumerăm și să detaliem câteva dintre comenzile principale pe care le
+      vom folosi în mod constant:
+    </p>
+    <ul>
+      <li>
+        <b>npm init</b> - inițializează npm în proiect și creează un fișier
+        <p><b></b></p>
+      </li>
+      <li>
+        <b>npm install</b> - instalează toate dependințele specificate în
+        <b>package.json</b>
+      </li>
+      <li>
+        <b>npm list --depth=0</b> - va afișa în terminal o listă de pachete
+        instalate local cu numărul versiunii, fără dependințe
+      </li>
+      <li>
+        <b>npm install [package-name]</b> - va instala pachetul local în
+        folderul <b>node_modules</b>
+      </li>
+      <li>
+        <b>npm uninstall [package-name]</b> - va dezinstala pachetul instalat
+        local și va actualiza <b>package.json</b>
+      </li>
+      <li>
+        <b>npm start</b> și <b>npm test</b> - va rula scriptul <b>start</b> sau
+        <b>test</b> situat în <b>package.json</b>
+      </li>
+      <li>
+        <b>npm run [custom-script]</b> - va rula un script custom situat în
+        <b>package.json</b>
+      </li>
+      <li>
+        <b>npm outdated</b> - este folosit pentru a căuta actualizări. Va
+        detecta versiunile compatibile în mod programatic
+      </li>
+      <li>
+        <b>npm update</b> - va actualiza toate pachetele la versiunea maximă
+        permisă
+      </li>
+    </ul>
+    <a href="https://docs.npmjs.com/">Documentație NPM </a>
+
+    <h3>Inițializarea unui proiect</h3>
+    <p>
+      Fiecare proiect începe cu crearea unui fișier <b>package.json</b> care
+      urmărește dependințele, conține informații necesare proiectului, permite
+      să scriem scripturi <b>npm</b> și servește ca instrucțiuni atunci când
+      creăm un nou proiect bazat pe setări deja gata făcute. Putem crea un
+      fișier <b>package.json</b> cu comanda de <b>npm init</b>, inițializând
+      astfel proiectul în folderul curent.
+    </p>
+    <p><b>npm init</b></p>
+    <p>
+      Vi se va solicita să introduceți numele proiectului, versiunea, descrierea
+      etc. Puteți apăsa <b>Enter</b> până când <b>package.json</b> este creat și
+      plasat în folderul proiectului. Pentru a nu apăsa <b>Enter</b>, sărind
+      peste câmpurile goale, putem folosia comanda <b>init</b> cu indicatorul
+      <b>--yes</b>. Steagul este o setare suplimentară pentru comandă.
+    </p>
+    <p><b>npm init --yes</b></p>
+    <p>
+      BINE DE ȘTIUT Fiecare steag are un alias - notația sa prescurtată. Aliasul
+      pentru steag-ul <b>--yes</b> este <b>-y</b>, deci npm <b>init --yes</b> și
+      npm <b>init -y</b> fac același lucru.
+    </p>
+    <p>
+      Un <b>package.json</b> va fi creat cu valori implicite. Pentru a seta
+      aceste valori, putem executa următoarele comenzi în terminal,
+      înlocuindu-le cu <b>numele</b> și adresa ta de <b>e-mail</b>.
+    </p>
+    <p>
+      <b
+        >npm config set init.author.name "YOUR_NAME" <br />
+        npm config set init.author.email "YOUR_EMAIL"</b
+      >
+    </p>
+    <p>
+      Putem edita, ulterior, manual fișierul <b>package.json</b> sau să rulăm
+      <b>npm init</b> din nou. Dacă deschideți <b>package.json</b> într-un
+      editor, va arăta cam așa. Sunt doar metadate despre proiect.
+    </p>
+    <p><b>package.json </b></p>
+    <p>
+      <b>
+        { <br />
+        "name": "node-here", <br />
+        "version": "1.0.0", <br />
+        "main": "index.js", <br />
+        "scripts": { <br />
+        "test": "echo \"Error: no test specified\" && exit 1" <br />
+        }, <br />
+        "author": "Alexander Repeta &ltmycoolemail@mail.com&gt", <br />
+        "license": "ISC", <br />
+        "keywords": [], <br />
+        "description": "" <br />
+        }
+      </b>
+    </p>
+
+    <h3>Scripturi npm</h3>
+    <p>
+      Scripturile permit să rulăm pachete instalate pentru execuție. Folosind
+      scripturi <b>npm</b>, putem crea sisteme întregi de colectare a
+      proiectului. Automatizăm lansarea lui <b>index.js</b>. Pentru a face acest
+      lucru, în fișierul <b>package.json</b>, în câmpul <b>scripts</b>, adăugăm
+      scriptul de start <b>start</b>.
+    </p>
+    <p><b>package.json </b></p>
+
+    <p>
+      <b
+        >{ <br />
+        "scripts": { <br />
+        "start": "node index.js" <br />
+        } <br />
+        }</b
+      >
+    </p>
+    <p>Acum putem porni proiectul rulând în terminal comanda npm start.</p>
+    <p>
+      npm start <b>ATENȚIE</b> <br />
+      <br />
+      Dacă creați un script cu alt nume decât <b>start</b> sau <b>test</b>,
+      acesta se va rula ca <b>npm run script-name</b> - nu uitați <b>run</b>.
+      Consultați și documentația -
+      <a href="https://docs.npmjs.com/cli/v10/using-npm/scripts"
+        ><b>How npm handles the "scripts" field</b></a
+      >.
+    </p>
+
+    <h3>Instalarea pachetelor</h3>
+    <p>
+      Una dintre oportunitățile pe care npm le oferă este instalarea pachetelor
+      care sunt extrase din <b>registry</b> și dezambalate în folderul
+      <b>node_modules</b> din rădăcina proiectului. Odată ce fișierul
+      <b>package.json</b> a fost creat, putem adăuga dependințe la proiect.
+    </p>
+    <p>
+      O dependință este un pachet npm care este utilizat la dezvoltarea unei
+      aplicații. Acestea sunt tot felul de utilități și biblioteci. Să instalăm
+      librăria
+      <a href="https://www.npmjs.com/package/validator"><b>validator.js</b></a>
+      pentru validarea șirurilor de caractere, cum ar fi atunci când
+      utilizatorul introduce date în câmpurile de formular.
+    </p>
+    <p><b>npm install validator</b></p>
+    <p>
+      NPM a descărcat librăria <b>validator</b> și l-a plasat în
+      <b>node_modules</b> - folderul în care vor locui toate dependințele
+      externe.
+    </p>
+    <p>
+      <b>ATENȚIE</b> <br />
+      <br />
+      Nu adăugați folderul <b>node_modules</b> la controlul versionării de cod,
+      pentru că toți programatorii vor avea propriul lor folder. Dacă utilizăm
+      <b>Git</b>, nu uitați să adăugați folderul <b>node_modules</b> la fișierul
+      <b>.gitignore</b>.
+    </p>
+    <p>
+      Observați fișierul <b>package-lock.json</b> generat, care este
+      <b>snapshot</b> al arborelui de dependență din proiect. Asigură faptul că
+      echipa de development utilizează aceleași versiuni de dependențe.
+      <b>NPM</b> îl actualizează automat atunci când adaugă, elimină și
+      actualizează pachete.
+    </p>
+    <p>
+      <b>package.json</b> are o nouă dependență în câmpul <b>dependencies</b>.
+      Asta înseamnă că versiunea <b>11.1.0</b> pentru validator a fost instalată
+      ca dependență și este gata de funcționare. Pachetele sunt actualizate
+      constant, chiar dacă ați putea avea o versiune diferită.
+    </p>
+    <p><b>package.json </b></p>
+    <p>
+      <b
+        >{ <br />
+        "dependencies": { <br />
+        "validator": "^11.1.0" <br />
+        } }</b
+      >
+    </p>
+    <p>
+      Pentru a obține interfața pachetului în codul <b>Node.js</b>, trebuie să
+      apelați funcția <b>require("module-name")</b>, trecând numele modulului
+      fără a specifica calea ca argument - asta se numește import absolut .
+      Calea nu este necesară, deoarece, în mod implicit, modulul va fi căutat în
+      folderul <b>node_modules</b>. Ca urmare a execuției sale, funcția va
+      returna interfața modulului - o funcție sau un obiect cu metode, în
+      funcție de pachet.
+    </p>
+    <p><b>index.js </b></p>
+    <p>
+      <b
+        >const validator = require("validator"); <br />
+        <br />
+        const validateEmail = email => { <br />
+        return validator.isEmail(email); <br />
+        }; <br />
+        <br />
+        console.log( <br />
+        "Is mango@mail.com a valid email?: ", <br />
+        validateEmail("mango@mail.com") <br />
+        ); <br />
+        <br />
+        console.log( <br />
+        "Is Mangozedog.com a valid email?: ", <br />
+        validateEmail("Mangozedog.com") <br />
+        );</b
+      >
+    </p>
+    <p>Iată ce obținem dacă rulăm npm start în terminal:</p>
+    <p>
+      <b
+        >Is mango@mail.com a valid email?: true <br />
+        Is Mangozedog.com a valid email?: false</b
+      >
+    </p>
+
+    <h3>Ștergerea pachetelor</h3>
+    <p>
+      Să presupunem că versiunea validator instalată în exemplul anterior
+      cauzează probleme de compatibilitate. Putem elimina acest pachet și
+      instala o versiune mai veche.
+    </p>
+
+    <p><b>npm uninstall validator</b></p>
+
+    <h3>Instalarea unei versiuni specifice a unui pachet</h3>
+    <p>
+      Acum să instalăm versiunea dorită de validator. În comanda de instalare,
+      numărul versiunii este specificat după caracterul <b>@</b>.
+    </p>
+    <p><b>npm install validator@1.0.0</b></p>
+    <p>
+      <b>BINE DE ȘTIUT</b> <br />
+      <br />
+      Instalarea pachetelor cu versiuni specifice este utilizată în proiectele
+      comerciale pentru a se asigura că baza de cod funcționează și că este
+      posibilă asistența pe termen lung. Puteți instala fără nicio ezitare cele
+      mai recente versiuni.
+    </p>
+
+    <h3>Tipuri de dependințe</h3>
+    <p>
+      Imaginați-vă un tort. Pentru prepararea lui, bucătarul are nevoie de
+      produse ce vor fi incluse în compoziția prăjiturii. Dar pentru gătit, veți
+      avea nevoie și de unelte, precum castroane, linguri, spatule, etc. Iar în
+      bucătărie mai sunt și mese, aragaze și frigidere - ceea ce se folosește
+      pentru a pregăti orice tip de mâncare.
+    </p>
+    <p>
+      La fel întâmplă și cu dependințele de proiect - unele vor fi folosite în
+      produsul final, altele sunt necesare doar în etapa de dezvoltare. Există
+      și unele care trebuie folosite indiferent de proiect.
+    </p>
+    <p>
+      Din acest motiv, comenzile <b>npm install</b> și <b>npm uninstall</b> au
+      trei <b>flags</b>.
+    </p>
+    <ul>
+      <li>
+        <b>--save</b> - indică faptul că se adaugă o dependență care va fi
+        inclusă în produsul final. Pachetul va fi instalat local în folderul
+        <b>node_modules</b> și se va specifica asta în câmpul
+        <b>dependencies</b> din <b>package.json</b>.
+      </li>
+      <li>
+        <b>--save-dev</b> - indică faptul că se adaugă o dependență pentru
+        development. Pachetul va fi instalat local, în folderul
+        <b>node_modules</b> și se va specifica asta în câmpul
+        <b>devDependencies</b> din <b>package.json</b>.
+      </li>
+      <li>
+        <b>--global</b> - indică faptul că se adaugă o dependință globală, adică
+        un instrument care este disponibil oricărui proiect. Pachetul va fi
+        instalat global (în sistem).
+      </li>
+    </ul>
+    <p><b>BINE DE ȘTIUT </b></p>
+    <ul>
+      <li>
+        Dacă niciun flag nu este specificat, <b>--save</b> va fi folosit
+        implicit.
+      </li>
+      <li>
+        Când eliminați un pachet, trebuie să specificați steagul corect, la fel
+        ca la instalare.
+      </li>
+      <li>
+        Nu instalați pachete la nivel global dacă lucrați la un proiect cu alți
+        colegi.
+      </li>
+    </ul>
+
+    <h3>Package versioning</h3>
+    <p>
+      Pachetele au asociate un număr de versiune. Numerele versiunilor sunt
+      conforme standardului <a href="https://semver.org/"><b>SemVer</b></a
+      >.
+    </p>
+    <ul>
+      <li>
+        <b>npm outdated</b> - este folosit pentru a căuta actualizări. Va
+        detecta versiunile compatibile și va enumera actualizările disponibile
+      </li>
+      <li>
+        <b>npm update</b> - va actualiza toate pachetele la versiunea maximă
+        permisă.
+      </li>
+      <li>
+        <b>npm update [numele pachetului]</b> - va actualiza pachetul
+        specificat.
+      </li>
+    </ul>
+    <p>
+      <b>BINE DE ȘTIUT</b> <br />
+      <br />
+      Dacă nu aveți încredere în calculator sau doriți o anumită versiune a unui
+      pachet, puteți deschide <b>package.json</b> și schimba manual versiunile
+      pachetului, apoi rulați <b>npm install</b>.
+    </p>
+
+    <h3>Cache management</h3>
+    <p>
+      Odată ce un pachet este instalat, <b>npm</b> memorează în <b>cache</b> o
+      copie a acestuia, astfel încât data viitoare când îl instalați, nu trebuie
+      să îl descărcați din nou de pe internet. Cache-ul este stocat în folderul
+      <b>.npm</b> din directorul <b>Home</b>.
+    </p>
+    <p>
+      Acest folder se aglomerează cu pachete vechi și uneori este util să îl
+      ștergeți, însă nici prea des nu e în regulă să faceți asta (de câteva ori
+      pe an). Memorarea în cache este utilă, deoarece reduce timpul de instalare
+      a pachetelor deja utilizate.
+    </p>
+    <p><b>npm cache clean</b></p>
+
+    <h2>Code Modularity</h2>
+    <p>
+      Conceptul de module ca modalitate de organizare a codului există de mult
+      timp. Odată cu creșterea proiectului și a bazei sale de cod, se practică
+      divizarea codului în fișiere, fiecare dintre acestea descriind o
+      funcționalitate separată.
+    </p>
+    <p>
+      Codul împărțit în module ajută la organizare, întreținere, testare și, cel
+      mai important, la gestionarea dependențelor. Cele mai importante beneficii
+      ale modulelor sunt întreținerea ușoară și reutilizarea lor.
+    </p>
+    <p>
+      <b>Maintainability</b> - un modul bine proiectat face ca dependența sa de
+      alte părți de cod să fie spre minimum posibil. Acest lucru ajută să
+      extindem funcționalitatea aplicației fără frica de a-i perturba
+      activitatea ca un întreg. Actualizarea unui singur modul este mult mai
+      ușoară dacă modulul este autonom.
+    </p>
+    <p>
+      <b>Namespace</b> - variabilele care nu sunt în scope-ul funcției - sunt
+      globale. Acest lucru cauzează, de obicei, <b>namespace pollution</b>,
+      atunci când variabilele globale sunt partajate între coduri care nu au
+      legătură între ele. Modulele evită această poluare princrearea unui
+      domeniu separat pentru variabile.
+    </p>
+    <p>
+      <b>Reuse</b> - toți programatorii obișnuiau să copieze codul vechi în
+      proiecte noi, schimbându-l în funcție de specificul proiectului. Asta
+      este, evident, o mare pierdere de timp. Este mult mai bine să ai un modul
+      care să poată fi reutilizat fără a fi nevoie să știi nimic despre mediul
+      în care este utilizat.
+    </p>
+
+    <h3>Module bundling</h3>
+    <p>
+      <b>Module bundling</b> - este procesul de concatenare a unui grup de
+      module și a dependențelor acestora într-un fișier sau grup de fișiere.
+    </p>
+    <p>
+      De obicei, codul este împărțit în foldere și fișiere, iar în plus este
+      necesar să se includă biblioteci externe. Ca rezultat, fiecare dintre
+      aceste fișiere trebuie să fie inclus în fișierul principal HTML în tagul
+      &ltscript&gt , care este apoi încărcată de browser.
+    </p>
+    <p>
+      Având taguri &ltscript&gt separate pentru fiecare fișier înseamnă că
+      browserul va descărca fiecare fișier separat, ceea ce afectează negativ
+      viteza de încărcare a paginii. Pentru a rezolva această problemă,
+      fișierele sunt concatenate în unul sau mai multe fișiere pentru a reduce
+      numărul de solicitări. Dar problema gestionării dependințelor dintre
+      module rămâne.
+    </p>
+    <p>
+      Dacă sunt utilizate sisteme de module precum <b>CommonJS</b> sau
+      <b>ESM</b>, trebuie folosit un instrument pentru a le converti în cod
+      ordonat corespunzător, accesibil browser-ului. Aici intră în joc
+      <b>Webpack</b> și alte pachete.
+    </p>
+
+    <h3>ECMAScript Modules (ESM)</h3>
+    <p>
+      Până de curând, <b>JS</b> nu avea un sistem de module încorporat.
+      <b>ESM</b>-urile au o sintaxă declarativă compactă și capacitatea de a se
+      încărca asincron. Un modul <b>ES</b> este o bucată reutilizabilă de cod
+      <b>JS</b> care exportă anumite obiecte, făcându-le disponibile altor
+      module.
+    </p>
+    <p><b>greeter.js </b></p>
+    <p>
+      <b
+        >const helloMessage = "hello!"; <br />
+        const goodbyeMessage = "goodbye!"; <br />
+        <br />
+        export const hello = () => helloMessage; <br />
+        export const goodbye = () => goodbyeMessage;</b
+      >
+    </p>
+    <p><b>index.js </b></p>
+    <p>
+      <b
+        >import { hello, goodbye } from "./greeter"; <br />
+        <br />
+        console.log(hello()); // "hello!" <br />
+        console.log(goodbye()); // "goodbye!"</b
+      >
+    </p>
+    <p>
+      Fiecare fișier JS stochează codul într-un context de modul unic și importă
+      dependințele de care are nevoie și exportă tot ceea ce trebuie să fie
+      importat de alte module. Operațiile de export/import sunt implementate
+      ajutorul la <b>import</b> și <b>export</b>. Există două avantaje evidente
+      ale acestei abordări - evitarea la <b>namespace pollution global</b> și
+      specificarea explicită a dependințelor.
+    </p>
+    <p>
+      Noul sistem de module diferă de <b>CommonJS</b>, în primul rând prin
+      faptul că este un standard. Deci, în timp, va fi pe deplin suportat de
+      browsere în mod nativ, fără instrumente suplimentare. Cu toate acestea,
+      suportul pentru browser este în prezent incomplet, astfel încât
+      <b>ESM</b>-urile sunt utilizate împreună cu instrumente de creare a
+      modulelor, cum ar fi <a href="https://webpack.js.org/"><b>Webpack</b></a
+      ><b> , </b><a href="https://parceljs.org/"><b>Parcel</b></a> și altele.
+    </p>
+    <p>
+      <b>BINE DE ȘTIUT</b> <br />
+      <br />
+      <b>ESM</b>-urile sunt proiectate având în vedere analiza statică. Așadar,
+      importul modulelor este procesat în timpul compilării, adică înainte ca
+      scriptul să fie rulat. Acest lucru permite să eliminăm exporturile care nu
+      sunt utilizate de alte module înainte de a rula scriptul, ceea ce poate
+      duce la economii semnificative în greutatea fișierului JS, reducând
+      încărcarea browserului. Acest lucru se numește <b>tree shaking</b> și se
+      face automat de către <b>bundleri</b> atunci când construiesc codul JS.
+    </p>
+
+    <h3>Named export</h3>
+    <p>
+      Un modul poate exporta mai multe entități, care se disting prin nume și se
+      numesc <b>named export</b>. Pentru a le importa într-un alt modul, trebuie
+      să cunoaștem numele entităților exportate pe care dorim să le importăm.
+    </p>
+    <p>
+      Prima modalitate este de a folosi cuvântul cheie <b>export</b> înaintea
+      oricăror entități care trebuie exportate. Acestea vor fi adăugate ca
+      proprietăți obiectului exportat. Când importăm, destructurăm proprietățile
+      din obiectul importat.
+    </p>
+    <p><b>my-module.js </b></p>
+    <p>
+      <b
+        >const sqrt = Math.sqrt; <br />
+        export const square = x => x * x; <br />
+        export const diag = (x, y) => sqrt(square(x) + square(y));</b
+      >
+    </p>
+    <p><b>main.js </b></p>
+    <p>
+      <b
+        >import { square, diag } from "./path/to/my-module"; <br />
+        <br />
+        console.log(square(11)); // 121 <br />
+        console.log(diag(4, 3)); // 5</b
+      >
+    </p>
+    <p>
+      A doua modalitate este de a specifica în mod explicit un obiect cu
+      proprietăți de exportat.
+    </p>
+    <p><b>my-module.js </b></p>
+    <p>
+      <b
+        >const sqrt = Math.sqrt; <br />
+        const square = x => x * x; <br />
+        const diag = (x, y) => sqrt(square(x) + square(y)); <br />
+        <br />
+        export { square, diag };</b
+      >
+    </p>
+    <p><b>main.js </b></p>
+    <p>
+      <b
+        >import { square, diag } from "./path/to/myModule"; <br />
+        <br />
+        console.log(square(11)); // 121 <br />
+        console.log(diag(4, 3)); // 5</b
+      >
+    </p>
+    <p>
+      Următoarea sintaxă importă toate exporturile de module ca obiect cu numele
+      specificat. Se numește <b>namespace import</b>.
+    </p>
+    <p><b>main.js </b></p>
+    <p>
+      <b
+        >import * as myModule from "./path/to/my-module"; <br />
+        <br />
+        console.log(myModule.square(11)); // 121 <br />
+        console.log(myModule.diag(4, 3)); // 5</b
+      >
+    </p>
+
+    <h3>Default export</h3>
+    <p>
+      Adesea, un modul exportă o singură entitate, iar un astfel de export este
+      comod pentru import. <b>Export implicit</b> - cea mai importantă valoare
+      exportată, care poate fi orice: o variabilă, o funcție, o clasă etc.
+    </p>
+    <p><b>my-func.js </b></p>
+    <p>
+      <b
+        >export default function myFunc() { <br />
+        // ... <br />
+        }</b
+      >
+    </p>
+    <p><b>my-class.js </b></p>
+    <p>
+      <b
+        >export default class MyClass { <br />
+        // ... <br />
+        }</b
+      >
+    </p>
+    <p><b>main.js </b></p>
+    <p>
+      <b
+        >import myFunc from "./path/to/my-func"; <br />
+        import MyClass from "./path/to/my-class"; <br />
+        <br />
+        myFunc(); <br />
+        <br />
+        const inst = new MyClass();</b
+      >
+    </p>
+    <p>
+      Utilizați un export <b>named</b> atunci când trebuie să exportați mai
+      multe entități și un export <b>default</b> când exportați o singură
+      entitate. Deși este posibil să utilizați exportul <b>implicit</b> și
+      exportul <b>numit</b> în același fișier, totuși este o practică bună să
+      alegeți un singur stil per modul.
+    </p>
+
+    <h2>Introducere în Webpack</h2>
+    <p>
+      <b>Webpack</b> - este un colector de <b>module JS</b>, un manager de
+      dependințe a modulelor. Analizează arborele de dependințe și creează unul
+      sau mai multe fișiere care conțin întreaga bază de cod a proiectului.
+      Aranjează ordinea de conectare a modulelor, colectează, minimizează,
+      împachetează și multe altele.
+    </p>
+    <p>
+      <b>Webpack</b> a devenit unul dintre cele mai importante instrumente de
+      dezvoltare web. În primul rând, este un manager de dependințe a aplicației
+      și un generator de fișiere <b>JS</b>, dar care poate transforma și toate
+      resursele (<b>HTML</b> și <b>CSS, SASS</b> etc.), poate optimiza imagini,
+      compila șabloane, poate rula un server web local pentru dezvoltare, etc.
+    </p>
+
+    <h3>Principiul de lucru</h3>
+    <p>
+      Să presupunem că avem o aplicație care poate îndeplini două sarcini
+      matematice simple: <b>adunarea</b> și <b>înmulțirea</b>. Decidem la un
+      moment dat să separăm aceste funcții în fișiere (module) separate pentru a
+      facilita menținerea codului. Prin urmare, în <b>index.html</b> scripturile
+      vor fi incluse astfel:
+    </p>
+    <p><b>index.html </b></p>
+    <p>
+      <b
+        >&ltscript src="sum.js"&gt&lt/script&gt <br />
+        &ltscript src="multiply.js"&gt&lt/script&gt <br />
+        &ltscript src="index.js"&gt&lt/script&gt</b
+      >
+    </p>
+    <p>
+      În cazul în care codul din sum.js este folosit în multiply.js și index.js,
+      iar codul de la multiply.js este folosit doar în index.js. Mai jos găsim
+      ierarhia dependințelor pe o diagramă simplă.
+    </p>
+    <p>
+      Dacă facem o greșeală în ordinea includerii scripturilor în index.html,
+      adică dacă index.js este inclus înainte de oricare dintre celelalte
+      dependințe sau dacă sum.js este adăugat după multiply.js , vor exista
+      erori. Acum imaginați-vă că scalăm acest lucru la o aplicație reală,
+      complet funcțională - ar putea exista sute de dependințe. Încercarea de a
+      salva ordinea de conectare a scripturilor va deveni un coșmar.
+    </p>
+    <p>
+      <b>Webpack</b> va converti dependințele în module și le va grupa într-unul
+      sau mai multe fișiere. Fiecare modul va avea un nume privat și va fi
+      inclus în ordinea și momentul potrivit.
+    </p>
+    <p>
+      <b>Gulp</b> are încă un loc de cinste în setul de instrumente al unui
+      programator pentru unele tipuri de proiecte, unde funcționalitatea
+      <b>Webpack</b> nu este necesară, deși pot funcționa grozav împreună. Deși
+      curba de învățare poate fi mai mare cu setări mai complexe,
+      <b>Webpack</b> este indispensabil dacă utilizăm biblioteci și cadre de
+      dezvoltare moderne, cum ar fi <b>React, Vue, Angular</b> etc.
+    </p>
+
+    <h3>Configurare</h3>
+    <p>
+      Linkurile de mai jos oferă tutoriale ce explică pas cu pas cum se
+      configurează Webpack.
+    </p>
+    <ul>
+      <li>
+        <a href="https://www.taniarascia.com/how-to-use-webpack/"
+          ><b>How to set up webpack 5 from scratch </b></a
+        >
+      </li>
+      <li>
+        <a href="https://webpack.js.org/concepts/"
+          ><b>Documentația Webpack </b></a
+        >
+      </li>
+    </ul>
+
+    <script defer src="./js/index15.js"></script>
+  </body>
+</html>
