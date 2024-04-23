@@ -70,12 +70,12 @@ console.log(`- exemplu 1 -`);
 // ------     Cristi Socaci     ------
 console.log(`---------        Cristi Socaci        ---------`);
 
-// import { validator } from "module";
+import validator from "validator";
 // // const validator = require("validator");
-// console.log(validator.isEmail("tre4511111@dfhdh.com"));
-// console.log(validator.isEmail("tre"));
-// console.log(validator.isEmail("tre4511111@dfhdh.com111"));
-// console.log(validator.isEmail("tre4511111@dfhdh"));
+console.log(validator.isEmail("tre4511111@dfhdh.com"));
+console.log(validator.isEmail("tre"));
+console.log(validator.isEmail("tre4511111@dfhdh.com111"));
+console.log(validator.isEmail("tre4511111@dfhdh"));
 
 // ---   Import-export js   ---
 console.log(`---   Import-export js   ---`);
@@ -115,7 +115,7 @@ birthDate();
 
 // const validator = require("validator");
 
-// console.log(validator.isEmail("cristi@marius.com"));
+console.log(validator.isEmail("cristi@marius.com"));
 
 // -----  exercitiu 1 generare string aleatoriu  ----
 console.log("-----  exercitiu 1 generare string aleatoriu  ----");

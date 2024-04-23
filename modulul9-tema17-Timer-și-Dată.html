@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modulul 9-Tema 17-Timer și Dată</title>
+
+    <link rel="stylesheet" href="./css/index.css" />
+  </head>
+  <body>
+    <h1>Modulul 9 - Tema 17 - Timer și Dată</h1>
+    <a href="" , target="_blank"><b>Lectie video</b></a>
+
+    <h2>Async</h2>
+    <p>
+      Tot codul este executat de procesorul calculatorului. Codul pe care l-am
+      scris până acum a fost sincron, adică a ocupat procesorul pe toată durata
+      execuției acestuia. De exemplu, viteza unei bucle de iterație printr-o
+      matrice depinde de viteza procesorului.
+    </p>
+    <p>
+      Există operații care interacționează cu lumea exterioară. De exemplu,
+      comunicarea cu un server prin intermediul rețelei care este mult mai lent
+      decât obținerea unor date din memoria locală. Dacă astfel de operații sunt
+      procesate sincron, atunci procesorul este inactiv când există un request
+      către server, în timp ce aplicația noastră ar trebui să execute alt cod.
+    </p>
+    <p>
+      Codul sincron este executat secvenţial, fiecare instrucţiune aşteptând
+      finalizarea celei anterioare. Când apelăm o funcție care efectuează o
+      acțiune de lungă durată, aceasta oprește programul pe durata execuției
+      sale. Adică, în modelul de programare sincron, totul se întâmplă pe rând.
+    </p>
+    <p>
+      <b>BINE DE ȘTIUT</b> <br />
+      Imaginați-vă o coadă la ghișeul de bilete într-o gară. Nu poți să cumperi
+      un bilet până când persoana din fața ta nu termină de cumpărat. În mod
+      similar, oamenii din spatele tău nu pot începe să cumpere bilete până nu o
+      faci tu. Imaginați-vă o coadă la ghișeul de bilete într-o gară. Nu poți să
+      cumperi un bilet până când persoana din fața ta nu termină de cumpărat. În
+      mod similar, oamenii din spatele tău nu pot începe să cumpere bilete până
+      nu o faci tu.
+    </p>
+    <p>
+      În codul asincron, pot fi efectuate mai multe operații în același timp.
+      Astfel, un request către server nu va opri programul, ci va continua să
+      efectueze alte operațiuni. Când solicitarea este finalizată, programul
+      este informat cu privire la asta și are acces la rezultat (de exemplu la
+      datele de pe server).
+    </p>
+    <p>
+      <b>BINE DE ȘTIUT</b> <br />
+      Imaginează-ți că iei prânzul la un restaurant. Tu și alți vizitatori
+      comandați de mâncare. Nu trebuie să aștepți ca mâncarea să fie adusă
+      persoanelor ce au comandat înaintea ta ca tu să faci doar o comandă. În
+      mod similar, ceilalți oameni nu trebuie să aștepte să plaseze o comandă
+      până când o vei primi pe a ta. Toată lumea își va primi mâncarea imediat
+      ce va fi gata. Imaginează-ți că iei prânzul la un restaurant. Tu și alți
+      vizitatori comandați de mâncare. Nu trebuie să aștepți ca mâncarea să fie
+      adusă persoanelor ce au comandat înaintea ta ca tu să faci doar o comandă.
+      În mod similar, ceilalți oameni nu trebuie să aștepte să plaseze o comandă
+      până când o vei primi pe a ta. Toată lumea își va primi mâncarea imediat
+      ce va fi gata.
+    </p>
+    <p>
+      Să ne uităm la diferențe printr-un exemplu în care programul face două
+      solicitări către server și apoi procesează rezultatul acestora. Operațiile
+      1 și 2 sunt funcții care fac cereri către server, iar 3, 4 și 5 poate fi
+      orice alt cod care trebuie executat.
+    </p>
+    <img
+      src="https://textbook.edu.goit.global/javascript-yk5evp/v2/ro/img/lesson-17/sync-vs-async.png"
+      alt="Sync&Async mode" />
+    <p>
+      În modelul sincron, totul este clar și monoton - operațiile anterioare
+      blochează execuția celor ulterioare. Dacă operațiile 3-5 procesează
+      click-uri ale utilizatorului, atunci interfața se va bloca pur și simplu
+      până când rezultatele solicitărilor 1-2 sunt procesate.
+    </p>
+    <p>
+      De exemplu, utilizatorul a trimis un comentariu (cerere de rețea) și în
+      același timp dorește să deschidă un sidebar cu cele mai recente știri.
+      După ce dă click pe butonul de submit al comentariului, interfața se va
+      bloca și nu va răspunde la acțiunile sale până când rezultatul trimiterii
+      unui comentariu nu vine de la server. Da, nu este foarte
+      <b>user friendly</b>.
+    </p>
+    <p>
+      În codul asincron, începerea unui request determină o ramificare, adică
+      începerea request-ului și rezultatul procesării acesteia sunt acțiuni
+      diferite. În timp ce cererea este în curs de executare, programul continuă
+      să ruleze și să execute alt cod. Odată ce o solicitare de rețea a fost
+      făcută, programul poate începe să își proceseze rezultatul imediat ce este
+      liber. Asta înseamnă că utilizatorul a postat un comentariu și a putut
+      imediat să deschidă sidebar-ul cu ultimele știri, fără a aștepta un
+      răspuns de la server.
+    </p>
+    <p>
+      În continuare, tot o singură operație poate fi efectuată într-o unitate de
+      timp, deoarece JavaScript este cu un singur <b>thread</b>. Programarea
+      <b>asincronă</b> se realizează prin apeluri de <b>funcții amânate</b>,
+      unde <b>inițializarea</b> unei operații asincrone și
+      <b>procesarea</b> rezultatului acesteia <b>sunt</b> două lucruri
+      <b>diferite</b>.
+    </p>
+
+    <h3>Codul asincron</h3>
+    <p>
+      În codul sincron, următoarele loguri nu pot să se execute până când cea
+      anterioară nu este executată. Adică, instrucțiunile sunt procesate
+      secvenţial.
+    </p>
+
+    <p>Exemplul 1</p>
+
+    <p>
+      <b
+        >console.log("First log");<br />
+        console.log("Second log");<br />
+        console.log("Third log");</b
+      >
+    </p>
+
+    <p>
+      Următorul cod este asincron. Ne vom familiariza în continuare cu funcția
+      <b>setTimeout()</b>. Momentan, tot ce trebuie să știm despre aceasta este
+      că e nevoie de <b>doi parametri</b>: o funcție <b>callback</b> care va fi
+      apelată după <b>timpul</b> pe care îl trecem ca <b>al doilea argument</b>.
+    </p>
+
+    <p>Exemplul 2</p>
+    <p>Uita-te in consola...!!!</p>
+
+    <p>
+      Funcția <b>setTimeout()</b> se execută sincron și înregistrează apelul
+      amânat al funcției callback. Va fi apelată asincron după intervalul de
+      timp specificat.
+    </p>
+
+    <h3>Multithreading</h3>
+    Nu confundați <b>asynchronous</b> și <b>multithreadingul</b> (paralelism) -
+    sunt modele de programare diferite. Iată o analogie simplă care pune totul
+    la locul său. Imaginează-ți că ești bucătar într-un restaurant și vine o
+    comandă pentru o cafea și un sandwich.
+    <ul>
+      <li>
+        <b>Abordarea single threaded sincronă</b> - pregătești mai întâi
+        cafeaua, apoi gătești sandwich-ul și cureți bucătăria.
+      </li>
+      <li>
+        <b>Abordarea single threaded asincronă</b> - începi să faci cafeua și
+        setezi cronometrul, apoi începi să gătești pâine prăjită și setezi
+        cronometrul în același mod. În timp ce se pregătește cafeaua și pâinea
+        prăjită, cureți bucătăria. Când cronometrele se opresc luați cafeaua de
+        pe foc, scoateți pâinea prăjită și o serviți.
+      </li>
+      <li>
+        M<b>ultithreading (paralelism)</b> - angajezi doi bucătari sa te ajute,
+        unul pentru prepararea cafelei și unul pentru pregătirea sandwich-ului.
+        Acum ai problema gestionării lor (threads) pentru ca aceștia să nu între
+        în conflict în bucătărie atunci când împart resursele.
+      </li>
+    </ul>
+    <p>
+      În procesele asincrone cu un singur <b>thread</b>, aveți un program al
+      sarcinilor în care unele sarcini depind de rezultatul altora. Pe măsură ce
+      fiecare sarcină se finalizează, codul este apelat pentru a-și procesa
+      rezultatul. Dar aveți nevoie de <b>un singur lucrător</b> pentru a
+      finaliza <b>toate sarcinile</b>,
+      <b>nu de un lucrător pentru fiecare sarcină</b>.
+    </p>
+
+    <h2>Timer</h2>
+    <p>
+      Timerul intern al browserului permite să întârziem un apel de funcție
+      pentru o anumită perioadă de timp. Pentru a face acest lucru, există
+      timeout-uri și intervale care controlează când și cât de des este apelată
+      funcția. Timerele sunt implementate în browser, nu sunt încorporate în
+      limbaj și sunt disponibile pe obiectul global window.
+    </p>
+
+    <h3>Timeout</h3>
+    <p>
+      Metoda <b>setTimeout()</b> permite să programăm o funcție ca să ruleze
+      după un anumit timp.
+    </p>
+    <p><b>const timerId = setTimeout(callback, delay, arg1, arg2, ...);</b></p>
+    <ul>
+      <li><b>callback</b> - o funcție care urmează să fie programată.</li>
+      <li>
+        <b>delay</b> - timpul în milisecunde după care funcția callback va fi
+        apelată doar o dată.
+      </li>
+    </ul>
+    <p>
+      Argumentele suplimentare ca a<b>rg1, arg2</b> etc. vor fi transmise
+      funcției callback în timpul apelului. Returnează <b>id</b>-ul
+      temporizatorului creat care poate fi folosit mai apoi pentru a-l șterge.
+    </p>
+
+    <p>Exemplul 1</p>
+    <p>Uita-te in consola...!!!</p>
+
+    <button
+      style="background-color: aquamarine; margin: 0 auto; display: block"
+      type="button"
+      class="btn">
+      Click me
+    </button>
+
+    <p>
+      Dacă, dintr-un motiv oarecare, trebuie să anulăm un apel de funcție
+      într-un timeout, se folosește metoda clearTimeout(id) care preia id-ul
+      temporizatorului și îl șterge.
+    </p>
+
+    <p>Exemplul 1</p>
+    <p>Uita-te in consola...!!!</p>
+
+    <p>
+      Fiindcă am apelat <b>clearTimeout()</b> care se va executa înaintea
+      funcției <b>greet()</b>, temporizatorul cu <b>timerId</b> va fi șters și
+      apelul callback-ului <b>greet()</b> în așteptare va fi anulat. Prin
+      urmare, nimic nu va fi afișat în consolă.
+    </p>
+
+    <h3>Interval</h3>
+    <p>
+      Metoda <b>setInterval()</b> este o modalitate simplă de a repeta codul
+      într-un interval de timp stabilit. Sintaxa și parametrii sunt aceiași ca
+      pentru <b>setTimeout()</b>. Spre deosebire de <b>setTimeout()</b>,
+      intervalul nu execută funcția doar o dată, ci o repetă în mod regulat după
+      o anumită perioadă de timp. Putem opri execuția apelând metoda
+      <b>clearInterval(id)</b>.
+    </p>
+    <p><b>const timerId = setInterval(callback, delay, arg1, arg2, ...);</b></p>
+    <p>
+      Când dăm click pe butonul "<b>Start</b>" va începe intervalul și la
+      fiecare secundă vom afișa un string în consolă. Folosim Math.random()
+      astfel încât șirurile să fie diferite. La click pe butonul "<b>Stop</b>",
+      vom apela
+      <b>clearInterval()</b> și vom transmite identificatorul intervalului
+      pentru a opri funcția.
+    </p>
+
+    <p>Exemplul 1</p>
+    <p>Uita-te in consola...!!!</p>
+
+    <div style="gap: 5px; justify-content: center; display: flex">
+      <button style="background-color: aqua" class="btn js-start">Start</button>
+      <button style="background-color: red" class="btn js-stop">Stop</button>
+    </div>
+
+    <h3>Frecvența declanșării contorului</h3>
+    <p>
+      Cronometrul browserului are cea mai mică întârziere posibilă. În
+      browserele moderne, acesta variază de la aproximativ 0 la 4 milisecunde.
+      În browserele mai vechi, întârzierea poate fi mai mare, până la 15
+      milisecunde. În mod implicit, întârzierea minimă este de 4 milisecunde,
+      deci
+      <b
+        >nu există nicio diferență între setTimeout(callback, 1) și
+        setTimeout(callback, 4)</b
+      >.
+    </p>
+
+    <h2>Date & time</h2>
+    <p>
+      Clasa <b>Date</b> realizează direct cea mai mare parte a lucrului cu date.
+      Acest lucru ne permite să reprezentăm timpul ca obiecte și să le manipulăm
+      cu metode predefinite. Folosind capacitățile clasei <b>Date</b>, putem
+      crea ceasuri, contoare, calendare și alte elemente interactive pentru o
+      interfață.
+    </p>
+
+    <h3>Crearea unei date</h3>
+    <p>
+      O instanță a unui obiect <b>Date</b> este un obiect care reprezintă un
+      anumit moment în timp. Crearea unei date fără argumente returnează un
+      obiect care stochează data și ora la momentul inițializării acesteia,
+      adică cea curentă. La conversia stringurilor, obiectul returnează
+      rezultatul apelării metodei <b>toString()</b>, de aceea în primul log vom
+      obține un șir de caractere, nu un obiect.
+    </p>
+
+    <p>Exemplul 1</p>
+    <p>Uita-te in consola...!!!</p>
+
+    <h3>Unix time</h3>
+    <p>
+      Datele sunt reprezentate intern în milisecunde începând cu
+      <b> miezul nopții de 1 ianuarie 1970 </b> în fusul orar <b>UTC</b>. Pentru
+      un computer, aceasta este data de începere a tuturor timpurilor -
+      <b>unix time</b>. Prin urmare, la inițializarea unei date cu un singur
+      număr, aceasta va reprezenta numărul de <b>milisecunde</b> care au trecut
+      de atunci.
+    </p>
+
+    <p>Exemplul 1</p>
+    <p>Uita-te in consola...!!!</p>
+
+    <p>
+      Metoda <b>getTime()</b> returnează o reprezentare numerică a datei
+      (<b>timestamp</b>), adică numărul de milisecunde de la miezul nopții de 1
+      ianuarie 1970.
+    </p>
+
+    <p>Exemplul 2</p>
+    <p>Uita-te in consola...!!!</p>
+
+    <p>
+      Comoditatea acestui format este faptul că putem reprezenta momente exacte
+      în timp ca un singur număr și nu ne mai facem griji cu privire la date,
+      șiruri și fusuri orare. Putem obține toate informațiile de care avem
+      nevoie atunci când e necesar.
+    </p>
+
+    <h3>Setarea unei date</h3>
+    <p>
+      Când creăm o instanță a clasei <b>Date</b>, putem seta data ca un șir sau
+      un număr. Șirul poate descrie doar o dată sau o dată și o oră.
+    </p>
+
+    <p>Exemplul 1</p>
+    <p>Uita-te in consola...!!!</p>
+
+    <p>
+      Setarea orei ca șiruri în mod intern apelează metoda <b>Date.parse()</b>,
+      care convertește șirul într-un număr - numărul de milisecunde. De aceea
+      formatul șirului transmis este foarte flexibil. De exemplu, putem omite
+      zero pentru zile și luni. Să ne uităm la câteva exemple care vor duce la
+      același rezultat.
+    </p>
+
+    <p>Exemplul 2</p>
+    <p>Uita-te in consola...!!!</p>
+
+    <p>
+      O altă modalitate de a crea obiecte noi este să transmitem șapte numere
+      care descriu anul, luna (începând cu 0), ziua, ora, minutul, secunda și
+      milisecunda. Sunt necesare doar primele trei.
+    </p>
+
+    <p>Exemplul 3</p>
+    <p>Uita-te in consola...!!!</p>
+
+    <h3>Metode</h3>
+    <p>
+      O instanță a clasei Date are multe metode de citire și scriere a valorilor
+      de dată și oră. Metodele returnează sau atribuie anul, luna, ziua, ora,
+      minutul, secunda și milisecunda pentru fiecare instanță. Aceste date pot
+      fi reprezentate ca un șir pe baza calendarului local sau a limbii.
+    </p>
+
+    <h4>Getter</h4>
+    <p>
+      <b>Getters</b> sunt folosiți pentru a citi întreaga dată sau doar o
+      singură parte. Valoarea returnată depinde de fusul orar curent setat pe
+      computer.
+    </p>
+
+    <p>Exemplul 1</p>
+    <p>Uita-te in consola...!!!</p>
+
+    <p>
+      Există versiuni echivalente ale acestor metode care returnează valori în
+      format UTC (Coordinated Universal Time) și nu adaptate la fusul orar
+      curent al utilizatorului.
+    </p>
+
+    <p>Exemplul 2</p>
+    <p>Uita-te in consola...!!!</p>
+
+    <h4>Setter</h4>
+    <p>
+      Tot ce poate fi citit poate fi și scris, numele metodelor de scriere încep
+      cu prefixul <b>set</b>. Pentru toate metodele sale există echivalentul lor
+      în <b>UTC</b>.
+    </p>
+
+    <p>Exemplul 1</p>
+    <p>Uita-te in consola...!!!</p>
+
+    <h3>Formatarea datei</h3>
+    <p>
+      Obiectele derivate din clasa <b>Date</b> pot fi reprezentate într-o
+      varietate mare de formate de tip <b>string</b> și <b>number</b>. Există o
+      gamă întreagă de metode pentru aceasta. De exemplu:
+      <b>toString(), toDateString()</b> și <b>toTimeString()</b> returnează o
+      reprezentare standard de tip string care depinde de fiecare browser.
+      Metoda <b>toString()</b> returnează întreaga dată, în timp ce
+      <b>toDateString()</b> și <b>toTimeString()</b> returnează doar
+      <b>data</b> și, respectiv, <b>ora</b>.
+    </p>
+
+    <p>Exemplul 1</p>
+    <p>Uita-te in consola...!!!</p>
+
+    <script src="./js/index17.js"></script>
+  </body>
+</html>

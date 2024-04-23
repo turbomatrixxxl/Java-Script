@@ -125,7 +125,7 @@ const theme = localStorage.getItem("ui-theme");
 console.log(theme);
 
 console.log(localStorage);
-localStorage.clear();
+// localStorage.clear();
 
 // - exemplu 2 -
 console.log(`- exemplu 2-schimbari  localStorage prin implementare obiect-`);
@@ -187,7 +187,9 @@ console.log(localStorage.getItem("notification-level")); // "mute"
 
 console.log(localStorage);
 
-localStorage.clear();
+localStorage.removeItem("sidebar");
+localStorage.removeItem("notification-level");
+
 console.log(localStorage.getItem("ui-theme")); // null
 console.log(localStorage.getItem("sidebar")); // null
 console.log(localStorage.getItem("notification-level")); // null
@@ -276,13 +278,68 @@ console.log(`- exemplu 1 -`);
 // ------     Cristi Socaci     ------
 console.log(`---------        Cristi Socaci        ---------`);
 
-// -----  exercitiu 1 generare string aleatoriu  ----
-console.log("-----  exercitiu 1 generare string aleatoriu  ----");
+// - exemplu 1 -
+console.log(`- exemplu 1 -`);
 
-// ------     Exercitii tema optional     ------
-console.log(`---------        Exercitii tema optional `);
+const myForm = document.querySelector(".my-feedback-form");
+const myLocalStorageKey = "goit0-example-message";
 
-// - exercitiul-1 -
-console.log(`- exercitiul-1 -`);
+console.log(myForm.elements.message);
+myForm.elements.message.value = localStorage.getItem(myLocalStorageKey) ?? "";
 
-// ------     Exercitii tema     ------
+myForm.addEventListener("input", (evt) => {
+  console.log(evt.target.value);
+  localStorage.setItem(myLocalStorageKey, evt.target.value);
+});
+
+myForm.addEventListener("submit", (evt) => {
+  evt.preventDefault();
+  localStorage.removeItem(myLocalStorageKey);
+  myForm.reset();
+});
+
+// - exemplu 2 -
+console.log(`- exemplu 2-Web Storage -`);
+
+const input = document.getElementById("input");
+const button = document.getElementById("submit");
+const show = document.getElementById("show");
+const deletee = document.getElementById("delete");
+
+const SAVED_VALUE_KEY = "savedValue";
+
+button.addEventListener("click", (e) => {
+  e.preventDefault();
+  localStorage.setItem(SAVED_VALUE_KEY, input.value);
+});
+
+show.addEventListener("click", () => {
+  const savedValue = localStorage.getItem(SAVED_VALUE_KEY);
+  console.log(savedValue);
+});
+
+deletee.addEventListener("click", () => {
+  localStorage.removeItem(SAVED_VALUE_KEY);
+});
+
+console.log(localStorage.length);
+
+// localStorage.clear();
+
+const user = {
+  name: "cristi",
+  secondName: "marius",
+  age: 25,
+};
+
+const userJson = JSON.stringify(user);
+
+const USER_KEY = "user";
+
+localStorage.setItem(USER_KEY, userJson);
+
+const userFromLocalstorage = localStorage.getItem(USER_KEY);
+console.log(userFromLocalstorage);
+
+const userFromLocalstorageParsed = JSON.parse(userFromLocalstorage);
+console.log(userFromLocalstorageParsed);
