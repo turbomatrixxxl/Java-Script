@@ -43,7 +43,7 @@ console.log(`---   Timeout   ---`);
 // - exemplu 1 -
 console.log(`- exemplu 1 -`);
 
-const button = document.querySelector("button");
+const button = document.querySelector(".mbtn");
 
 const onClick = () => {
   const timerId = setTimeout(() => {
@@ -311,17 +311,152 @@ console.log(`- exemplu 1 -`);
 // ------     Cristi Socaci     ------
 console.log(`---------        Cristi Socaci        ---------`);
 
-// -----  exercitiu 1 generare string aleatoriu  ----
-console.log("-----  exercitiu 1 generare string aleatoriu  ----");
-
-// ------     Exercitii tema optional     ------
-console.log(`---------        Exercitii tema optional `);
-
 // - exercitiul-1 -
-console.log(`- exercitiul-1 -`);
+console.log(`- exercitiul-1-async -`);
 
-// ------     Exercitii tema     ------
-console.log(`---------        Exercitii autoverificare 3        ---------`);
+let a = null;
+let b = null;
 
-// - exercitiul-1 -
-console.log(`- exercitiul-1 -`);
+setTimeout(() => {
+  // Will run last, after 2000 milliseconds
+  console.log(`// Will run last, after 4000 milliseconds`);
+  a = Number.parseFloat(window.prompt("Enter first number"));
+  console.log("First number is: ", a);
+  b = Number.parseFloat(window.prompt("Enter second number"));
+  console.log("Second number is: ", b);
+  const sum = a + b;
+
+  console.log("The sum is: ", sum);
+}, 4000);
+
+const names = ["asd", "ddd", "bbb"];
+
+const div = document.getElementById("names");
+
+for (let name of names) {
+  const nameElem = document.createElement("div");
+  nameElem.textContent = name;
+  div.appendChild(nameElem);
+}
+
+// - exercitiul-2 -
+console.log(`- exercitiul-2-interval-timer -`);
+
+function greet0(name, surname) {
+  console.log("Hello,", name, surname);
+}
+
+let timeoutId = null;
+
+function buttonClick() {
+  timeoutId = setTimeout(greet0, 10000, "Radu", "Bogdan");
+}
+
+let intervalId = null;
+
+let repeats = 0;
+
+function startClick() {
+  intervalId = setInterval(() => {
+    if (repeats === 20) {
+      clearInterval(intervalId);
+      return;
+    }
+    repeats += 1;
+    greet0("Cristi", "Marius");
+
+    console.log(`had run ${repeats} times`);
+  }, 1000);
+  console.log("🚀 ~ startClick ~ intervalId:", intervalId);
+}
+
+function stopClick() {
+  if (intervalId !== null) {
+    clearInterval(intervalId);
+    console.log(intervalId);
+  }
+
+  if (timeoutId !== null) {
+    clearTimeout(timeoutId);
+    console.log(timeoutId);
+  }
+}
+
+let timesRun = 0;
+
+const id = setInterval(() => {
+  if (timesRun === 5) {
+    clearInterval(id);
+    return;
+  }
+  timesRun += 1;
+  console.log("Run", timesRun, "times");
+}, 1000);
+
+// - exercitiul-3 -
+console.log(`- exercitiul-3-date-time -`);
+
+console.log(new Date());
+
+console.log(new Date(0));
+
+console.log(new Date(1624021654154));
+
+console.log(new Date("2030-03-16"));
+
+console.log(new Date("2030-03-16 14:25:00"));
+
+console.log("ISO: ", new Date("2030-03-16T14:25:00Z"));
+
+console.log(new Date(2023, 2, 16, 14, 25, 0, 0));
+
+console.log("----------------getters-------------");
+
+const date8 = new Date();
+
+console.log(date8.getTime());
+
+console.log(date8.getFullYear());
+console.log(date8.getMonth());
+console.log(date8.getDate());
+console.log(date8.getDay());
+console.log(date8.getHours());
+console.log(date8.getMinutes());
+console.log(date8.getSeconds());
+console.log(date8.getMilliseconds());
+
+console.log("----------------utc getters-------------");
+
+console.log(date8.getUTCFullYear());
+console.log(date8.getUTCMonth());
+console.log(date8.getUTCDate());
+console.log(date8.getUTCDay());
+console.log(date8.getUTCHours());
+console.log(date8.getUTCMinutes());
+console.log(date8.getUTCSeconds());
+console.log(date8.getUTCMilliseconds());
+
+console.log("-------------------setters---------------");
+
+date8.setFullYear("2025");
+console.log(date8);
+
+console.log("--------------------format--------------");
+
+console.log(date8.toString());
+console.log(date8.toTimeString());
+console.log(date8.toLocaleTimeString());
+
+console.log(date8.toDateString());
+console.log(date8.toLocaleDateString());
+
+console.log(date8.toUTCString());
+console.log(date8.toISOString());
+
+console.log(`ISO style`);
+console.log(new Date("1000-03-16T14:25:00Z"));
+
+// Romania daylight saving time: 31 Mar 2024
+
+console.log(new Date("2024-03-31")); // Sun Mar 31 2024 02:00:00 GMT+0200 (Eastern European Standard Time)
+console.log(new Date("2024-04-01")); // Mon Apr 01 2024 03:00:00 GMT+0300 (Eastern European Summer Time)

@@ -5,14 +5,423 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Modulul 9-Tema 18-Promises</title>
 
+    <link
+      href="
+    https://cdn.jsdelivr.net/npm/notiflix@3.2.7/src/notiflix.min.css
+    "
+      rel="stylesheet" />
+
     <link rel="stylesheet" href="./css/index.css" />
   </head>
   <body>
     <h1>Modulul 9 - Tema 18 - Promises</h1>
-    <a href="" , target="_blank"><b>Lectie video</b></a>
+    <a href="https://youtu.be/Xyq5pScM3Qk" , target="_blank"
+      ><b>Lectie video</b></a
+    >
 
-    <h2></h2>
+    <h2>Promises</h2>
+    <p>
+      Andreea promite că va coace un tort de ziua mea în două săptămâni. Dacă
+      totul e ok și nu se îmbolnăvește, voi avea o prăjitură de ziua mea. Dacă
+      Andreea nu se va simți bine, nu va putea coace prăjitura. Petrecerea se va
+      desfășura oricum, doar că fără tort. Un promis nu este o garanție a
+      împlinirii, așadar, nu știm dacă se va îndeplini sau nu.
+    </p>
+    <img
+      src="https://textbook.edu.goit.global/javascript-yk5evp/v2/ro/img/lesson-18/promise-story.png"
+      alt="example"
+      , />
+    <p>
+      <b>Promise</b> (promisiune) - un obiect care reprezintă starea curentă a
+      operației asincrone. Aceasta este ca un <b>valueholder</b> pentru o
+      valoare necunoscută la momentul în care a fost creată promisiunea. Permite
+      să procesăm rezultatele operațiilor asincrone ca și cum ar fi sincrone: în
+      loc de rezultatul final al unei operații asincrone, este returnat o
+      promisiune prin care înțelegem că vom primi un rezultat în viitor.
+    </p>
+    <p>Un promise poate avea una din cele trei stări:</p>
+    <ul>
+      <li>
+        <b>Pending</b> - este starea inițială când este creată promise-ul.
+      </li>
+      <li>
+        <b>Fulfilled</b> - operația s-a încheiat cu succes, cu un oarecare
+        rezultat.
+      </li>
+      <li>
+        <b>Rejected</b> - operațiunea a fost respinsă din cauza unei erori.
+      </li>
+    </ul>
+    <img
+      src="https://textbook.edu.goit.global/javascript-yk5evp/v2/ro/img/lesson-18/promise-states.png"
+      alt="example" />
+    <p>
+      Când un promise este creat, prima lui stare este <b>pending</b>, după care
+      poate să se îndeplinească cu succes <b>fulfilled</b>, returnând un
+      rezultat (valoare) sau să eșueze <b>rejected</b>, returnând, astfel, un
+      mesaj cu cauza erorii. Când un promise intră în starea
+      <b>fulfilled</b> sau <b>rejected</b> - este pentru totdeauna. Nu se mai
+      poate modifica acea stare.
+    </p>
+    <p>
+      <b>BINE DE ȘTIUT</b> <br />
+      <br />
+      Atunci când un promise este îndeplinit sau respins, se spune că este
+      <b>settled</b>. Este doar un termen pentru a descrie faptul că promisul se
+      află în orice altă stare decât cea de așteptare.
+    </p>
+    <p>Diferențele între un <b>promise</b> și o funcție <b>callback</b>:</p>
+    <ul>
+      <li>Callback e o funcție în timp ce un promise - obiect.</li>
+      <li>
+        Callback-urile sunt transmise ca argumente dintr-un cod exterior spre
+        cel interior, iar promise-urile sunt returnate din codul interior spre
+        cel exterior.
+      </li>
+      <li>
+        Callback-urile se ocupă de succesul și de eșecul unei operații.
+        Promisurile, însă, nu gestionează nimic.
+      </li>
+      <li>
+        Callback-urile pot gestiona mai multe evenimente, iar promise-urile sunt
+        asociate doar cu un singur eveniment.
+      </li>
+    </ul>
 
+    <h3>Crearea lor</h3>
+    <p>
+      Un promise este creat ca o instanță a clasei Promise, care ia o funcție
+      (executor) ca argument și o apelează imediat, chiar înainte ca promise-ul
+      să fie creat și returnat.
+    </p>
+    <p>
+      <b
+        >const promise = new Promise((resolve, reject) => { <br />
+        // Asynchronous operation <br />
+        });</b
+      >
+    </p>
+    <p>
+      Funcția executor anunță instanța (promise-ul) când și cum va fi finalizată
+      operația cu care este asociată. Putem efectua orice operație asincronă în
+      ea, după care trebuie să apelăm metoda <b>resolve</b>() la succes (starea
+      <b>fulfilled</b>) sau <b>reject</b>() la eșec (starea <b>rejected</b>).
+      Valoarea returnată a acestei funcții este ignorată.
+    </p>
+    <ul>
+      <li>
+        <b>resolve(value)</b> - funcție ce va fi apelată dacă operația e cu
+        succes. Argumentul transmis va fi valoarea promise-ului îndeplinit.
+      </li>
+      <li>
+        <b>reject(error)</b> - funcție ce va fi apelată în caz de eroare.
+        Argumentul transmis va fi valoarea promise-ului îndeplinit.
+      </li>
+    </ul>
+    <img
+      src="https://textbook.edu.goit.global/javascript-yk5evp/v2/ro/img/lesson-18/creating-promise.png"
+      alt="example" />
+
+    <p><b>Exemplul 1</b></p>
+    <p><b>Uitati-va in consola si dati refresh...!</b></p>
+
+    <p>
+      Variabila <b>promise</b> va stoca promise-ul în starea <b>pending</b> și
+      la două secunde după ce se apelează <b>resolve()</b> sau <b>reject()</b>,
+      promise-ul va intra în <b>fulfilled</b> sau <b>rejected</b> și o vom putem
+      procesa.
+    </p>
+
+    <h3>Metoda then()</h3>
+    <p>
+      Codul care trebuie să facă ceva în mod asincron creează un promise. Codul
+      extern, după ce a primit acel promise, agață handlerii pe el. Când
+      procesul se termină, codul asincron setează promise-ul în starea fulfilled
+      sau rejected, iar handlerii din codul extern sunt invocați automat.
+    </p>
+    <p>
+      După ce promise-ul este creat, rezultatul acesteia este procesat în
+      funcțiile callback. Codul trebuie scris ca și cum ne-am gândi noi la ce
+      s-ar putea întâmpla dacă promise-ul este îndeplinit sau nu, fără a ne
+      gândi la un interval anumit de timp.
+    </p>
+    <p>
+      <b>Metoda then()</b> ia două argumente - funcții callback care vor fi
+      apelate atunci când promise-ul își schimbă starea. Rezultatul
+      promise-ului, o valoare sau eroare, vor fi primite drept argument.
+    </p>
+    <p><b>promise.then(onResolve, onReject)</b></p>
+    <ul>
+      <li>
+        <b>onResolve(value)</b> - va fi apelat la finalizarea cu succes a
+        promise-ului și va primi rezultatul acesteia ca argument.
+      </li>
+      <li>
+        <b>onReject(error)</b>onReject(error) - va fi apelat atunci când
+        promise-ul este executat cu o eroare și o va primi ca argument. - va fi
+        apelat atunci când promise-ul este executat cu o eroare și o va primi ca
+        argument.
+      </li>
+    </ul>
+    <img
+      src="https://textbook.edu.goit.global/javascript-yk5evp/v2/ro/img/lesson-18/method-then.png"
+      alt="example" />
+    <p>
+      În exemplul următor, funcţia callback <b>onResolve</b> va fi apelat după
+      două secunde dacă promise-ul se execută cu succes, iar onReject va fi
+      apelată după două secunde dacă promise-ul eșuează.
+    </p>
+
+    <p><b>Exemplul 1</b></p>
+    <p><b>Uitati-va in consola si dati refresh...!</b></p>
+
+    <p>
+      <b
+        ><b>BINE DE ȘTIUT</b> <br />
+        <br />
+        Dacă funcțiile <b>onResolve</b> și <b>onReject</b> conțin o logică
+        complexă, ele sunt, pentru comoditate, declarate ca funcții externe și
+        transmise metodei then() după nume.</b
+      >
+    </p>
+
+    <h3>Metoda catch()</h3>
+    <p>
+      În practică, în metoda <b>then()</b> este procesată doar executarea cu
+      succes a unui promise, iar eroarea executării va fi prelucrată în metoda
+      <b>catch()</b>
+      pentru "prinderea" erorilor.
+    </p>
+    <img
+      src="https://textbook.edu.goit.global/javascript-yk5evp/v2/ro/img/lesson-18/method-catch.png"
+      alt="example" />
+    <p>
+      <b
+        >promise.catch(error => { <br />
+        // Promise rejected <br />
+        });</b
+      >
+    </p>
+    <p>
+      Funcția callback va fi apelată atunci când promise-ul eșuează și va primi
+      acea eroare ca argument.
+    </p>
+
+    <p><b>Exemplul 1</b></p>
+    <p><b>Uitati-va in consola si dati refresh...!</b></p>
+
+    <h3>Metoda finally()</h3>
+    <p>
+      Această metodă poate fi utilă dacă se dorește executarea unui cod după ce
+      promise-ul a fost rezolvat (fulfilled sau rejected), indiferent de
+      rezultat. Evită duplicarea codului în handlerele then() și catch().
+    </p>
+    <img
+      src="https://textbook.edu.goit.global/javascript-yk5evp/v2/ro/img/lesson-18/method-finally.png"
+      alt="example" />
+    <p>
+      <b
+        >promise.finally(() => { <br />
+        // Promise fulfilled or rejected <br />
+        });</b
+      >
+    </p>
+    <p>
+      Funcția callback nu va primi niciun argument deoarece nu se poate
+      determina dacă promisul este îndeplinit sau respins. Acesta va rula doar
+      codul care trebuia executat oricum.
+    </p>
+
+    <p><b>Exemplul 1</b></p>
+    <p><b>Uitati-va in consola si dati refresh...!</b></p>
+
+    <h3>Promises chaining</h3>
+    <p>
+      Metoda then() returnează un alt promise ca rezultat al execuției sale, a
+      cărei valoare va fi cea returnată de funcția callback onResolve. Acest
+      lucru permite să construim lanțuri asincrone de promise-uri.
+    </p>
+    <img
+      src="https://textbook.edu.goit.global/javascript-yk5evp/v2/ro/img/lesson-18/promise-chain.png"
+      alt="example" />
+    <p>
+      Deoarece metoda then() returnează un promise, poate dura ceva timp înainte
+      ca aceasta să fie îndeplinită, deci restul lanțului va trebui să aștepte.
+      Dacă apare o eroare oriunde în lanț, toate execuțiile then() ulterioare
+      sunt anulate și controlul este transmis metodei catch(). De aceea se află
+      la sfârșitul lanțului.
+    </p>
+
+    <p><b>Exemplul 1</b></p>
+    <p><b>Uitati-va in consola si dati refresh...!</b></p>
+
+    <h3>Promisification</h3>
+    <p>
+      Imaginați-vă că avem o funcție asincronă care efectuează o operație
+      asincronă, de exemplu, o solicitare către server. Pentru a procesa
+      rezultatul, acesta va trebui proiectat astfel încât să aștepte două
+      callback-uri - pentru o solicitare reușită și pentru o posibilă eroare.
+    </p>
+
+    <p><b>Exemplul 1</b></p>
+    <p><b>Uitati-va in consola si dati refresh...!</b></p>
+
+    <p>
+      Acum funcția fetchUserFromServer() știe prea multe despre codul care va
+      folosi rezultatul muncii sale. Ea așteaptă callback-uri și este
+      responsabilă pentru apelarea acestora în anumite condiții. Adică trecem
+      ceva în interiorul funcției (callbacks) și sperăm că va funcționa corect -
+      acest lucru nu este bine.
+    </p>
+    <p>
+      Cel mai bine este dacă funcției nu îi pasă de codul care îi va folosi
+      rezultatul. Pur și simplu efectuează o operație și returnează rezultatul
+      muncii sale în codul extern. Pentru a returna rezultatul unei operații
+      asincrone, un promise trebuie returnat ca rezultat al funcției.
+      Promisificarea este transformarea unei funcții cu callback-uri astfel
+      încât să nu accepte callback-uri, ci să returneze un promise.
+    </p>
+
+    <p><b>Exemplul 1</b></p>
+    <p><b>Uitati-va in consola si dati refresh...!</b></p>
+
+    <p>
+      <b>BINE DE ȘTIUT</b> <br />
+      <br />
+      Majoritatea librăriilor moderne se bazează pe promise-uri. Când o metodă
+      este apelată pentru o operație asincronă, rezultatul acesteia este
+      disponibil ca un promise la care putem atașa handlere în metodele then()
+      și catch().
+    </p>
+
+    <h2>Metodele clasei Promise</h2>
+    <p>
+      Există task-uri în care trebuie să lucrăm cu un întreg set de promisuri.
+      Într-un caz este necesar să așteptăm execuția tuturor și abia după, să
+      procesăm rezultatul lor, iar în celălalt, este suficient să așteptăm
+      execuția oricăruia, ignorând restul etc. Pentru astfel de cazuri, clasa
+      Promise are metode statice de lucru cu un promis sau un grup. Pentru
+      astfel de cazuri clasa Promise are metode statice de lucru cu un promis
+      sau un grup.
+    </p>
+
+    <h3>Promise.all()</h3>
+    <p>
+      Acceptă o matrice de promisuri, așteaptă ca acestea să fie executate și
+      returnează doar un promis. Dacă toate promisurile se execută cu succes,
+      promisul returnat va intra în starea fulfilled, iar valoarea sa va fi o
+      matrice a rezultatelor fiecărui promis. Dacă cel puțin unul este respins,
+      atunci promisul returnat va intra în starea rejected, iar valoarea sa va
+      fi o eroare.
+    </p>
+    <p><b>Promise.all([promise1, promise2, promise3, ...])</b></p>
+    <p>
+      Să scriem o funcție care ia ca parametri un text pentru resolve() și un
+      delay în milisecunde și returnează un promis ca rezultat al execuției
+      sale. Apoi vom crea două promisuri cu timpi de întârziere diferiți.
+    </p>
+
+    <p><b>Exemplul 1</b></p>
+    <p><b>Uitati-va in consola si dati refresh...!</b></p>
+
+    <p>
+      Callback-ul metodei then() va fi apelat după trei secunde, adică atunci
+      când promisul promiseB este îndeplinit. Promisul promiseA se va executa
+      peste o secundă și doar va aștepta. Dacă oricare dintre promisuri este
+      respins, va fi apelată metoda catch().
+    </p>
+
+    <h3>Promise.race()</h3>
+    <p>
+      Returnează un promis: fulfilled sau rejected, în funcție de rezultatul
+      celui mai "rapid" promis, însoțit de o valoare sau un mesaj cu motivul
+      respingerii.
+    </p>
+    <p><b>Promise.race([promise1, promise2, promise3, ...])</b></p>
+    <p>
+      Când cel puțin un promis din matrice este îndeplinit sau respins, atunci
+      promisul returnat va intra în starea resolved sau rejected și toate
+      celelalte vor fi anulate.
+    </p>
+
+    <p><b>Exemplul 1</b></p>
+    <p><b>Uitati-va in consola si dati refresh...!</b></p>
+
+    <h3>Promise.resolve() și Promise.reject()</h3>
+    <p>
+      Sunt niște metode statice pentru a crea instant promisuri de tip fulfilled
+      cât și rejected. Funcționează asemănător ca new Promise(), cu excepția
+      posibilității de a specifica o întârziere, dar are o sintaxă mai scurtă.
+    </p>
+
+    <p><b>Exemplul 1</b></p>
+    <p><b>Uitati-va in consola si dati refresh...!</b></p>
+
+    <p>
+      Aceste metode sunt folosite pentru a crea promisuri de funcții atunci când
+      este necesar să se construiască un lanț și există deja o valoare inițială.
+      Să refactorizăm următorul cod:
+    </p>
+
+    <p><b>Exemplul 2</b></p>
+    <p><b>Uitati-va in consola si dati refresh...!</b></p>
+
+    <p>
+      Când utilizăm callbacks, nu este nevoie să returnăm obiecte complexe cu
+      starea operației și să le verificăm într-un cod extern.
+    </p>
+
+    <p><b>Exemplul 3</b></p>
+    <p><b>Uitati-va in consola si dati refresh...!</b></p>
+
+    <p>
+      Ultimul pas este să creăm un promis din funcția makeGreeting() pentru a
+      elimina complet dependența acesteia de codul extern.
+    </p>
+
+    <h2>Event Loop</h2>
+    <p>
+      În această secțiune veți găsi link-uri către materiale suplimentare despre
+      Event Loop în JavaScript - mecanismul de executare a codului sincron și
+      asincron.
+    </p>
+    <ul>
+      <li>
+        <a
+          href="https://www.youtube.com/watch?v=8aGhZQkoFbQ"
+          target="_blank"
+          rel="noopener, noreferer"
+          ><b
+            >What the heck is the event loop anyway? | Philip Roberts (video)
+          </b></a
+        >
+      </li>
+      <li>
+        <a
+          href="https://www.youtube.com/watch?v=cCOL7MC4Pl0"
+          target="_blank"
+          rel="noopener, noreferer"
+          ><b>Jake Archibald: In The Loop (video) </b></a
+        >
+      </li>
+      <li>
+        <a
+          href="https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/"
+          target="_blank"
+          rel="noopener, noreferer"
+          ><b>Tasks, microtasks, queues and schedules (article) </b></a
+        >
+      </li>
+    </ul>
+
+    <h2>Cristi Socaci</h2>
+    <p><b>Exemplul 1</b></p>
+
+    <div id="users"></div>
+
+    <script src="
+    https://cdn.jsdelivr.net/npm/notiflix@3.2.7/dist/notiflix-aio-3.2.7.min.js
+    "></script>
     <script src="./js/index18.js"></script>
   </body>
 </html>

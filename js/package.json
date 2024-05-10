@@ -11,6 +11,7 @@
   "author": "Radu Bogdan Naramzoiu <turbomatrixxxl@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "notiflix": "^3.2.7",
     "validator": "^13.11.0"
   }
 }
