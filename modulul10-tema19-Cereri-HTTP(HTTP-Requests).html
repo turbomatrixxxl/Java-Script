@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modulul 10-Tema 19-Cereri HTTP (HTTP-Requests)</title>
+
+    <link rel="stylesheet" href="./css/index19.css" />
+    <link rel="stylesheet" href="./css/index.css" />
+  </head>
+  <body>
+    <h1>Modulul 10 - Tema 19 - Cereri HTTP (HTTP - Requests)</h1>
+    <a href="https://youtu.be/KrzYrpkiFsk" , target="_blank"
+      ><b>Lectie video</b></a
+    >
+
+    <h2>Protocolul HTTP</h2>
+    <p>
+      Înainte ca utilizatorul să vadă conținutul site-ului pe ecran, browserul
+      face o cerere către server pentru a obține tocmai acest conținut. Fișierul
+      HTML, imaginile, stilurile și scripturile provin de la server prin
+      protocolul HTTP - un set de reguli și convenții utilizate la transferul de
+      date prin rețea.
+    </p>
+    <img
+      src="https://textbook.edu.goit.global/javascript-yk5evp/v2/ro/img/lesson-19/client-server.png"
+      alt="Example" />
+    <p>
+      <b>HyperText Transfer Protocol</b> - un protocol utilizat pe scară largă
+      pentru transferul de resurse web de diferite tipuri: html, css,
+      javascript, imagini, audio și video etc.
+    </p>
+    <p>
+      HTTP se bazează pe structura <b>client-server</b> și un model de
+      <b>cerere-răspuns</b>
+      în care aplicația client inițiază o conexiune, formează o cerere și o
+      trimite către server, după care serverul procesează acest lucru, formează
+      un răspuns și îl trimite înapoi clientului. Comunicarea între ele se
+      realizează printr-o serie de solicitări HTTP intercalate și răspunsuri
+      HTTP.
+    </p>
+    <img
+      src="https://textbook.edu.goit.global/javascript-yk5evp/v2/ro/img/lesson-19/request-response.png"
+      alt="Example" />
+    <p>Solicitarea(request-ul) are loc în mai multe etape:</p>
+    <ul>
+      <li>
+        <b>Cerere DNS</b> - caută cel mai apropiat server DNS pentru a converti
+        o adresă (de exemplu, google.com) în reprezentarea sa numerică, o adresă
+        IP (74.125.87.99).
+      </li>
+      <li>
+        <b>Conexiune</b> - stabilirea unei conexiuni cu serverul folosind adresa
+        IP obținută.
+      </li>
+      <li>
+        <b>Trimiterea datelor</b> - redirecționarea pachetelor de la client la
+        server.
+      </li>
+      <li>
+        <b>Se așteaptă un răspuns</b> - se așteaptă ca pachetele de date să
+        ajungă la server, acesta le va procesa și răspunsul va fi returnat.
+      </li>
+      <li>
+        <b>Se primesc date</b> - pachetele au sosit, puteți primi date de la
+        ele.
+      </li>
+    </ul>
+
+    <h2>Protocolul HTTPS</h2>
+    <p>
+      <b>HyperText Transfer Protocol Secure</b> - este o setare add-on peste
+      protocolul HTTP în care toate comunicațiile dintre client și server sunt
+      criptate pentru a fi securizate. Oferă protecție împotriva atacurilor de
+      tip <b> MITM (Man-in-the-Middle) </b>. Datele sunt transmise prin
+      protocoale criptografice <b>SSL</b> sau <b>TLS</b>.
+    </p>
+    <img
+      src="https://textbook.edu.goit.global/javascript-yk5evp/v2/ro/img/lesson-19/http-vs-https.png"
+      alt="Example" />
+    <p>
+      Când se comunică printr-o conexiune HTTP normală, toate datele sunt
+      transmise ca text și pot fi citite de oricine are acces la conexiunea
+      dintre client și server. Dacă utilizatorii cumpără online și completează
+      un formular de comandă care conține informații despre cardul de credit,
+      detaliile lor financiare sunt mult mai ușor de furat dacă sunt transmise
+      în text simplu. Cu HTTPS, datele vor fi criptate, iar hacker-ul nu le va
+      putea decripta, deoarece decriptarea necesită acces la cheia privată care
+      este stocată pe server.
+    </p>
+    <p>
+      <b>BINE DE ȘTIUT</b> <br />
+      <br />
+      Protocolul HTTPS asigură faptul că informațiile despre clienți, cum ar fi
+      codul cardului de credit, sunt criptate și nu pot fi interceptate atunci
+      când sunt decriptate. Vizitatorii pot confirma că site-ul este securizat,
+      uitându-se la pictograma din stânga barei de adrese. Conexiunile
+      securizate sunt marcate cu o pictogramă de lacăt(doua chei inverse una sub
+      alta).
+    </p>
+
+    <h2>Materiale suplimentare</h2>
+    <ul>
+      <li>
+        <a href="https://www.youtube.com/watch?v=72snZctFFtA" target="_blank"
+          ><b>DNS explained </b></a
+        >
+      </li>
+      <li>
+        <a
+          href="https://www.youtube.com/playlist?list=PLzdnOPI1iJNfMRZm5DDxco3UdsFegvuB7"
+          target="_blank"
+          ><b>How The Internet Works </b></a
+        >
+      </li>
+      <li>
+        <a
+          href="https://www.youtube.com/watch?v=AEaKrq3SpW8&list=PL8dPuuaLjXtNlUrzyH5r6jN9ulIgZBpdo"
+          target="_blank"
+          ><b>The Internet: Crash Course Computer Science #29 </b></a
+        >
+      </li>
+      <li>
+        <a
+          href="https://www.youtube.com/watch?v=guvsH5OFizE&list=PL8dPuuaLjXtNlUrzyH5r6jN9ulIgZBpdo"
+          target="_blank"
+          ><b>The World Wide Web: Crash Course Computer Science #30 </b></a
+        >
+      </li>
+    </ul>
+
+    <h2>REST API</h2>
+    <p>
+      Serverul este un calculator cu un software special. Backend-ul este un
+      program situat pe un server care poate procesa solicitările HTTP primite
+      și are un set de acțiuni gata făcute pentru anumite solicitări.
+    </p>
+    <img
+      src="https://textbook.edu.goit.global/javascript-yk5evp/v2/ro/img/lesson-19/rest-api.png"
+      alt="Example" />
+    <p>
+      <b>API (application programming interface)</b> - un set de reguli de
+      comunicare bine definite între diferite componente software. Interfața
+      descrie ce i se poate cere programului să facă și care va fi rezultatul.
+    </p>
+    <p>
+      <b>REST (representational state transfer)</b> - un stil de arhitectură
+      back-end bazat pe un set de principii care descriu modul în care sunt
+      definite și abordate resursele de rețea.
+    </p>
+    <p>
+      <b>REST API</b> - backend-ul este construit pe principiul REST. Servește
+      ca strat între aplicația web și baza de date. Are o interfață standard
+      pentru accesarea resurselor. Funcționează ca un site web, trimitem o
+      solicitare HTTP de la client la server, iar ca răspuns, în loc de o pagină
+      HTML, primim date în format JSON.
+    </p>
+
+    <h3>Forma cererii</h3>
+    <p>
+      Un serviciu REST necesită ca un client să facă o cerere de adăugare,
+      preluare sau modificare a datelor. Cererea poate fi constituită din
+      următoarele părți:
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Entry</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Metoda HTTP</td>
+          <td>Specifică ce operație trebuie efectuată.</td>
+        </tr>
+        <tr>
+          <td>HTTP-headers</td>
+          <td>
+            Permite clientului să trimită informații adiționale despre cerere.
+          </td>
+        </tr>
+        <tr>
+          <td>Path</td>
+          <td>
+            Calea către resursă. Căile disponibile sunt descrise în documentația
+            backend.
+          </td>
+        </tr>
+        <tr>
+          <td>Body</td>
+          <td>Blocul request-ului ce conțin date.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Metode HTTP</h3>
+    <p>
+      Există mai multe metode HTTP de bază pentru a lucra cu un serviciu REST.
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Method</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>POST</td>
+          <td>Creează o resursă nouă</td>
+        </tr>
+        <tr>
+          <td>GET</td>
+          <td>Obține un set de resurse sau o singură resursă</td>
+        </tr>
+        <tr>
+          <td>PUT</td>
+          <td>Actualizează o resursă existentă sau crează o nouă resursă</td>
+        </tr>
+        <tr>
+          <td>PATCH</td>
+          <td>Actualizează o resursă existentă</td>
+        </tr>
+        <tr>
+          <td>DELETE</td>
+          <td>Șterge resursa</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>HTTP-headers</h3>
+    <p>
+      Anteturile conțin informații de serviciu legate de conținutul cererii. De
+      exemplu, tipul de conținut pe care clientul îl poate procesa într-un
+      răspuns de la server (<b>Accept</b>) sau care descrie tipul de resursă pe
+      care clientul o trimite către server sau serverul o trimite clientului
+      (<b>Content-Type</b>).
+    </p>
+    <p>
+      <b
+        >Accept: text/html <br />
+        Content-Type: application/json</b
+      >
+    </p>
+    <p>
+      MIME types - sunt opțiunile tipului de conținut. Se folosesc pentru a
+      specifica conținutul cererii și al răspunsului, fiind formate dintr-un tip
+      și un subtip, separate printr-o bară oblică /. De exemplu, un fișier text
+      care conține HTML ar fi fost descris ca text/html. Dacă fișierul conține
+      CSS, acesta va fi descris ca text/css. Datele de tip JSON vor fi descrise
+      ca application/json. Dacă clientul așteaptă text/css, dar primește
+      application/json, nu va putea recunoaște și procesa conținutul
+      răspunsului.
+    </p>
+
+    <h3>Paths</h3>
+    <p>
+      Un request trebuie să conțină calea către resursa pe care se efectuează
+      operația. Căile disponibile (puncte finale, resurse) sunt descrise în
+      documentația backend.
+    </p>
+    <p>
+      <b
+        >GET https://bookstore.com/api/orders <br />
+        Accept: application/json</b
+      >
+    </p>
+    <p>
+      O astfel de cale specifică în mod explicit resursa, chiar dacă nu ați mai
+      văzut-o până acum. Este ierarhică și descriptivă. Efectuăm un request
+      pentru a obține o colecție de orders.
+    </p>
+    <p>
+      <b
+        >GET https://bookstore.com/api/orders/289 <br />
+        Accept: application/json</b
+      >
+    </p>
+    <p>
+      Ultima parte a căii se numește parametru dinamic și este descrisă în
+      documentație ca <b>/resource/:parameter</b>. Resursa rămâne nechimbată
+      deoarece este calea către întreaga colecție, doar valoarea parametrului se
+      modifică pentru fiecare dintre elementele sale.
+    </p>
+
+    <h3>Status code</h3>
+    <p>
+      La o cerere, serverul trimite un răspuns care conține un cod de stare
+      pentru a informa clientul despre rezultatul operației. Codurile sunt
+      împărțite în grupuri.
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Group</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1XX</td>
+          <td>Au un scop informativ</td>
+        </tr>
+        <tr>
+          <td>2XX</td>
+          <td>Codurile de succes a unei operații</td>
+        </tr>
+        <tr>
+          <td>3XX</td>
+          <td>Descrie tot ce are legătură cu redirecționarea (redirect)</td>
+        </tr>
+        <tr>
+          <td>4XX</td>
+          <td>Erori din partea clientului</td>
+        </tr>
+        <tr>
+          <td>5XX</td>
+          <td>Erori din partea serverului</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      <b>BINE DE ȘTIUT</b> <br />
+      Nu este necesar să știm toate codurile din fiecare grup, este suficient
+      doar să le cunoaștem pe cele mai comune. Restul poate fi găsit întotdeauna
+      în HTTP status codes guide.
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Code</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>200 (OK)</td>
+          <td>Un răspuns standard pentru solicitările HTTP cu succes.</td>
+        </tr>
+        <tr>
+          <td>201 (Created)</td>
+          <td>
+            Un răspuns standard pentru cererea HTTP care a creat cu succes o
+            resursă.
+          </td>
+        </tr>
+        <tr>
+          <td>400 (Bad Request)</td>
+          <td>
+            Solicitarea nu poate fi procesată din cauza sintaxei cererii
+            nevalide sau a unei alte erori pe partea de client.
+          </td>
+        </tr>
+        <tr>
+          <td>401 (Unauthorized)</td>
+          <td>Este necesară autorizarea pentru a accesa resursa.</td>
+        </tr>
+        <tr>
+          <td>403 (Forbidden)</td>
+          <td>
+            Clientul nu are permisiunile necesare de a accesa această resursă.
+          </td>
+        </tr>
+        <tr>
+          <td>404 (Not Found)</td>
+          <td>
+            Resursa nu a fost găsită. Posibil să fi fost ștearsă sau să nu
+            existe încă.
+          </td>
+        </tr>
+        <tr>
+          <td>500 (Internal Server Error)</td>
+          <td>Un răspuns general la o defecțiune neașteptată a serverului.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Cerere-Răspuns</h3>
+    <p>
+      Să presupunem că avem o aplicație care ne permite să vedem, să creăm, să
+      edităm și să ștergem clienți și comenzi pentru o librărie mică al cărui
+      backend este găzduit pe bookstore.com/api. Folosind cunoștințele
+      dobândite, vom descrie procesul de cerere-răspuns către backend în termeni
+      de pseudocod.
+    </p>
+    <p>
+      Dacă dorim să obținem date despre toți clienții, cererea GET va arăta
+      astfel.
+    </p>
+    <p>
+      <b
+        >GET bookstore.com/api/customers <br />
+        Accept: application/json</b
+      >
+    </p>
+    <p>La care serverul ne va trimite un astfel de răspuns.</p>
+    <p>
+      <b
+        >Status: 200 OK <br />
+        Content-Type: application/json <br />
+        Body: Datele tuturor clienților sub forma JSON</b
+      >
+    </p>
+    <p>Pentru a obține datele unui client, specificăm id-ul acestuia.</p>
+    <p><b>GET bookstore.com/api/customers/289 Accept: application/json</b></p>
+    <p>La care serverul ne va trimite un astfel de răspuns.</p>
+    <p>
+      <b
+        >Status: 200 OK <br />
+        Content-Type: application/json <br />
+        Body: Datele clientului sub forma JSON</b
+      >
+    </p>
+    <p>Pentru a adăuga un nou client, efectuăm o cerere POST.</p>
+    <p>
+      <b
+        >POST bookstore.com/api/customers <br />
+        Content-Type: application/json <br />
+        Body: { "username": "Mango", "email": "mango@gmail.com" }</b
+      >
+    </p>
+    <p>
+      Serverul adaugă un identificator unic și returnează întregul obiect ca
+      rezultat.
+    </p>
+    <p>
+      <b
+        >Status: 201 Created <br />
+        Content-type: application/json <br />
+        Body: { "id": 18674, "username": "Mango", "email": "mango@gmail.com"
+        }</b
+      >
+    </p>
+
+    <h2>AJAX</h2>
+    <p>
+      <b>AJAX (Asynchronous JavaScript and XML)</b> - o metodă de primire sau
+      trimitere a datelor, urmată de actualizarea interfeței în funcție de
+      aceste date, fără a fi necesară reîncărcarea paginii. Datorită acestui
+      fapt, timpul de răspuns este redus și pagina web devine mai interactivă.
+      Acest proces îl putem înțelege în urma unui exemplu de încărcare a
+      datelor.
+    </p>
+    <ol>
+      <li>
+        Pe o pagină web are loc un eveniment (pagina se încarcă, se face click
+        pe butonul "Load more", este trimis un formular etc.).
+      </li>
+      <li>
+        Pe partea de client, folosind JavaScript, ca răspuns la acest eveniment,
+        se va executa o funcție care este predestinată lucrului cu servere, unde
+        va fi creată și trimisă o cerere HTTP.
+      </li>
+      <li>
+        Serverul primește și procesează cererea HTTP, trimițând înapoi date în
+        format JSON ca răspuns.
+      </li>
+      <li>
+        Pe partea de client, folosind JavaScript, răspunsul de la server este
+        procesat, datele sunt citite și interfața este actualizată.
+      </li>
+    </ol>
+    <p>
+      B<b>INE DE ȘTIUT</b> <br />
+      <br />
+      În ciuda faptului că XML este prezent în numele tehnologiei, JSON l-a
+      înlocuit în web-ul modern, iar numele a fost lăsat. AJAX se referă la
+      orice comunicare cu serverul fără a reîncărca pagina.
+    </p>
+
+    <h3>Fetch API</h3>
+    <p>
+      Este o interfață încorporată în browser, disponibilă pe obiectul window
+      care conține un set de proprietăți și metode pentru trimiterea, primirea
+      și procesarea resurselor de la server. Metoda <b>fetch()</b> oferă o
+      interfață modernă pentru a face cereri către server, fiind construită pe
+      promise-uri.
+    </p>
+    <ul>
+      <li>
+        <b>url</b> - calea către datele din backend de unde trebuie primite,
+        create sau modificate. Este un argument obligatoriu.
+      </li>
+      <li>
+        <b>options</b> - obiect cu setări de solicitare: metodă (by default
+        GET), headers, body etc. Este un argument opțional.
+      </li>
+    </ul>
+    <p>
+      Vom crea request-uri către <b>JSONPlaceholder API</b> - un
+      <b>API REST</b> public pentru prototipare rapidă care expune o colecție de
+      utilizatori fake în resursa /users.
+    </p>
+    <p>
+      <b
+        >fetch("https://jsonplaceholder.typicode.com/users") <br />
+        .then(response => {<br />
+        // Response handling <br />
+        }) <br />
+        .then(data => { <br />
+        // Data handling <br />
+        }) <br />
+        .catch(error => { <br />
+        // Error handling <br />
+        });</b
+      >
+    </p>
+
+    <h3>Verificarea răspunsului</h3>
+    <p>
+      Valoarea promisului returnat de metoda fetch() este un obiect cu
+      informații despre starea răspunsului primit de la server. O instanță a
+      clasei Response, prevăzută cu diverse metode și proprietăți. În funcție de
+      tipul de conținut primit, se folosește o metodă diferită pentru a converti
+      corpul răspunsului în date.
+    </p>
+    <ul>
+      <li><b>json()</b> - parsează datele în format JSON.</li>
+      <li>
+        <b>text()</b> - parsează datele în format text, cum ar fi
+        <b>.csv (date de tabel)</b>.
+      </li>
+      <li>
+        <b>blob()</b> - parsează datele care descriu un fișier, cum ar fi o
+        imagine, un sunet sau un videoclip.
+      </li>
+    </ul>
+    <p>
+      Prima metodă then() verifică starea răspunsului și convertește datele în
+      formatul corect sau aruncă în mod explicit o eroare pentru a gestiona
+      cererea HTTP eșuată în blocul catch().
+    </p>
+    <p>
+      <b
+        >fetch("https://jsonplaceholder.typicode.com/users") <br />
+        .then(response => { <br />
+        if (!response.ok) { <br />
+        throw new Error(response.status); <br />
+        } <br />
+        return response.json(); <br />
+        }) <br />
+        .then(data => { <br />
+        // Data handling <br />
+        }) <br />
+        .catch(error => { <br />
+        // Error handling <br />
+        });</b
+      >
+    </p>
+
+    <p><b>Exemplul 1</b></p>
+    <p>Uitati-va in consola...!</p>
+    <br />
+    <p>
+      <b>BINE DE ȘTIUT</b> <br />
+      <br />
+      Acest lucru este necesar pentru ca fetch() să răspundă corect la un cod de
+      stare ca 404, care din punct de vedere tehnic nu este o eroare, dar nu
+      este nici un succes pentru client.
+    </p>
+
+    <h3>Tab-ul Network</h3>
+    <p>
+      În devTools, tab-ul Network afișează toate solicitările HTTP care se fac
+      de pe pagină. Selectând filtrul <b>XHR</b>, rămân doar cererile către
+      backend. După apăsarea butonului din exemplu, după un timp, cererea va fi
+      afișată în listă. Selectându-l, puteți vizualiza informațiile despre
+      request și corpul răspunsului în <b>Headers</b>, <b>Preview</b> și
+      <b>Response</b>.
+    </p>
+    <img src="./images/network-tab.png" alt="Example" />
+
+    <h3>Interacțiunea cu un API REST public</h3>
+    <p>
+      Fiecare backend este unic, iar în rețeaua world wide web astfel de servere
+      sunt de numărul milioanelor. Pe de altă parte, API-urile REST sunt
+      construite pe o arhitectură standard, însemnând că putem înțelege cum
+      funcționează orice backend, după care, tot ce trebuie să facem este să
+      citim documentația backend-ului pe care dorim să-l utilizăm.
+    </p>
+    <p>
+      Vom continua să lucrăm cu
+      <a href="https://jsonplaceholder.typicode.com/"
+        ><b>JSONPlaceholder API</b></a
+      >. În documentație găsim adresa de URL a resursei pentru a solicita
+      informații despre colecția de utilizatori fake.
+    </p>
+    <p><b>https://jsonplaceholder.typicode.com/users</b></p>
+    <p>Această cale este formată din următoarele părți:</p>
+    <ul>
+      <li>
+        <b>https://jsonplaceholder.typicode.com</b> - endpoint, URL-ul de bază,
+        punct de intrare.
+      </li>
+      <li><b>/users</b> - resursa pe care o accesăm.</li>
+    </ul>
+    <p>
+      Dând click pe butonul "Fetch users", vom face o solicitare GET și vom
+      desena o listă de utilizatori, în funcție de datele primite.
+    </p>
+    <br />
+    <p><b>Exemplul 1</b></p>
+    <p>Uitati-va in consola...!</p>
+    <br />
+    <button type="button" class="btn">Fetch users</button>
+    <ul class="user-list"></ul>
+
+    <p>
+      <b>BINE DE ȘTIUT</b> <br />
+      <br />
+      Funcția fetchUsers() returnează un promis, așa că adăugăm un lanț de
+      metode then() și catch() la rezultatul apelului.
+    </p>
+
+    <h3>Greșelile începătorului</h3>
+    <p>
+      Să ne uităm la o greșeală des întâlnită atunci când se utilizează cod
+      asincron - încercarea de a utiliza datele cererii HTTP în afara
+      callback-ului din metoda then(). Programatorul începător încearcă să scrie
+      "rezultatul la fetch" într-o variabilă externă și să-l folosească mai jos
+      în cod, imediat după apelarea metodei fetch().
+    </p>
+    <p>
+      În afara callback-ului din metoda then() nu există date, deoarece ultimul
+      console.log() va fi executat înainte de sosirea răspunsului de la server.
+      În acest moment, variabila globalVariable este încă undefined. Valoarea
+      promisului de tip <b>fulfilled</b> este disponibilă doar în callback-ul de
+      la then().
+    </p>
+    <br />
+    <p><b>Exemplul 1</b></p>
+    <p>Uitati-va in consola...!</p>
+
+    <h3>Parametrii query string</h3>
+    <p>
+      Parametrii unui request permit să specificăm criterii suplimentare pentru
+      backend. De exemplu, câte elemente ale colecției dorim să obținem. Poate
+      fi necesar în anumite cazuri să adăugăm sortarea după o anumită
+      proprietate a obiectului, să limităm selecția etc. Lista parametrilor,
+      numele lor și valorile posibile depind de backend și sunt specificate în
+      documentație.
+    </p>
+    <p>
+      Simbolul <b>?</b> indică începutul parametrilor. Fiecare parametru este o
+      pereche <b>nume=valoare</b>. Simbolul <b>&</b> este folosit pentru a
+      indica un "Și" semantic, separând parametrii din url.
+    </p>
+    <p>
+      <b
+        >const url =
+        "https://jsonplaceholder.typicode.com/users?_limit=7&_sort=name";</b
+      >
+    </p>
+    <p>
+      O astfel de solicitare GET va returna o serie de șapte utilizatori (fiind
+      10 în total) sortați după nume (câmpul name) în ordine alfabetică.
+    </p>
+    <br />
+    <p><b>Exemplul 1</b></p>
+    <p>Uitati-va in consola...!</p>
+    <br />
+    <button type="button" class="btn0">Fetch users</button>
+    <ul class="user-list0"></ul>
+
+    <h4>Class URLSearchParams</h4>
+    <p>
+      Pot exista mulți parametri și nu este convenabil să facem un string lung,
+      atât pentru lizibilitate, cât și pentru modificarea sa ulterioară. La
+      compilarea unui șir de parametri, o instanță a clasei URLSearchParams este
+      creată și inițializată ca un obiect. Rezultatul va fi un obiect special
+      (iterator) cu metode care returnează rezultatul apelării metodei
+      <b>toString()</b> - reprezentarea lui ca șir.
+    </p>
+    <br />
+    <p><b>Exemplul 1</b></p>
+    <p>Uitati-va in consola...!</p>
+    <br />
+    <p>
+      În url, proprietățile obiectului vor deveni parametri cu valorile
+      acestora. Opțiunile vor fi separate prin <b>&</b>. Când o valoare este
+      interpolată în șiruri de șablon, aceasta este implicit convertită într-un
+      șir, deci nu este nevoie să apelăm metoda <b>toString()</b> atunci când
+      compunem adresa URL. Să nu uitați să începeți query string-ul cu <b>?</b>.
+    </p>
+
+    <h3>HTTP headers</h3>
+    <p>
+      Clasa <b>Headers</b> permite să efectuăm diverse acțiuni asupra antetelor
+      de solicitare HTTP și răspuns. Aceste acțiuni includ extragerea,
+      configurarea, adăugarea și eliminarea antetelor.
+    </p>
+    <br />
+    <p><b>Exemplul 1</b></p>
+    <p>Uitati-va in consola...!</p>
+    <br />
+    <p>
+      În practică, antetele cererii sunt de obicei doar un obiect cu
+      proprietăți. În acest caz, nu vor exista metode, ceea ce de obicei nici nu
+      este necesar.
+    </p>
+    <br />
+    <p><b>Exemplul 2</b></p>
+    <p>Uitati-va in consola...!</p>
+
+    <p>
+      <br />
+      <b>BINE DE ȘTIUT </b> <br />
+      <br />
+      Browserele moderne adaugă multe antete implicite, în funcție de operațiune
+      și de corpul cererii, astfel încât nu este nevoie să specificați de
+      fiecare dată anteturile standard.
+    </p>
+
+    <h2>Cross-Origin Resource Sharing</h2>
+    <p>
+      În mod implicit, o solicitare HTTP poate fi făcută numai de pe site-ul
+      curent. Când încercați să solicitați un alt domeniu, port sau protocol,
+      adică să efectuați o solicitare între domenii, browserul dă o eroare.
+      Acest lucru se face din motive de securitate, iar permisiunile sunt
+      configurate pe backend. Dacă backend-ul nu acceptă solicitări între
+      domenii, atunci programatorul front-end nu va putea face nimic în acest
+      sens din codul său.
+    </p>
+    <p>
+      <br />
+      <b>BINE DE ȘTIUT</b> <br />
+      <br />
+      Această politică de browser se numește <b>CORS</b> și reprezintă
+      <b> Cross-Origin Resource Sharing </b>, unde <b>Origine</b> este domeniul,
+      portul sau protocolul. Traducerea sa ar suna ca "partajarea resurselor
+      între diferite surse".
+    </p>
+    <p>
+      La fiecare solicitare, browserul singur adaugă antetul HTTP Origin, unde
+      specifică adresa paginii web care dorește să facă o cerere HTTP. De
+      exemplu, dacă facem o solicitare de preluare a unor resurse de pe
+      https://my-site.com/about la https://my-api.com/users, atunci anteturile
+      vor fi astfel:
+    </p>
+    <p>
+      <br />
+      <b
+        >GET /users <br />
+        Host: my-api class="com" <br />
+        Origin: https://my-site.com</b
+      >
+    </p>
+    <p>
+      Serverul verifică antetul <b>Origin</b> și, dacă acceptă solicitări între
+      domenii, adaugă antetul HTTP special <b>Access-Control-Allow-Origin</b> la
+      răspuns.
+    </p>
+    <p>
+      <br />
+      <b
+        ># Private API <br />
+        Access-Control-Allow-Origin: https://my-site.com <br />
+        <br />
+        # Public API <br />
+        Access-Control-Allow-Origin: *</b
+      >
+    </p>
+    <p>
+      Valoarea acestui antet (<b>Origin</b>) va fi domeniul permis pentru
+      efectuarea acelui request. În cazul nostru, ar trebui să fie un site
+      https://my-site.com, dacă backend-ul este privat sau caracterul special,
+      *, dacă backend-ul este public, adică permite oricui să facă cereri.
+    </p>
+    <img
+      src="https://textbook.edu.goit.global/javascript-yk5evp/v2/ro/img/lesson-19/cors.png"
+      alt="Example" />
+    <p>
+      Browserul acționează ca un intermediar între codul JavaScript și backend.
+      Acesta adaugă un antet <b>Origin</b> la fiecare cerere cu valoarea corectă
+      și verifică prezența antetului <b>Access-Control-Allow-Origin</b> în
+      răspuns. Dacă există un antet și valoarea acestuia se potrivește, cererea
+      originală va fi executată și codul JavaScript va obține rezultatul, altfel
+      va apărea o eroare <b>CORS</b>.
+    </p>
+
+    <script src="./js/index19.js"></script>
+  </body>
+</html>

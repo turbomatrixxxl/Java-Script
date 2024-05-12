@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modulul 10-Tema 19-Cereri HTTP (HTTP-Requests)</title>
+
+    <link rel="stylesheet" href="./css/index20.css" />
+    <link rel="stylesheet" href="./css/index.css" />
+  </head>
+  <!-- <style>
+    body {
+      padding-bottom: 32px;
+    }
+
+    .btn {
+      margin: auto;
+      display: block;
+    }
+    .loader {
+      width: 48px;
+      height: 48px;
+      border: 5px solid #000;
+      border-bottom-color: transparent;
+      border-radius: 50%;
+
+      display: inline-block;
+      box-sizing: border-box;
+      animation: rotation 1s linear infinite;
+      margin: auto;
+      display: block;
+    }
+
+    @keyframes rotation {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  </style> -->
+  <body>
+    <h1>Modulul 10 - Tema 20 - Paginarea</h1>
+    <a href="https://youtu.be/DdtEzhsyWzk" , target="_blank"
+      ><b>Lectie video</b></a
+    >
+
+    <h2>Paginarea</h2>
+    <p>
+      O bază de date poate stoca colecții cu sute de milioane de înregistrări.
+      Prin urmare, returnarea întregii colecții pentru fiecare cerere GET
+      consumă prea multe resurse. Dimensiunea corpului la răspuns va fi prea
+      mare, iar timpul de solicitare va dura zeci de secunde sau chiar minute -
+      cu cât răspunsul din backend conține mai multe date, cu atât răspunsul va
+      fi mai greu, deoarece necesită timp ca acele date să treacă prin rețea.
+    </p>
+    <p>
+      În plus, trebuie să ne gândim și la utilizatori - este puțin probabil că
+      aceștia să aibă nevoie, simultan, de toate milioanele de înregistrări.
+      Procesarea unei cantități atât de mari de date ca răspuns și redarea lor
+      interfeței vor consuma resurse uriașe dispozitivului pe care este
+      vizualizată pagina web. Conform statisticilor, utilizatorii găsesc
+      informațiile de care sunt interesați pe primele pagini.
+    </p>
+    <p>
+      Să presupunem că backend-ul nostru, my-api.com, stochează o colecție
+      foarte mare de postări în resursa /posts, pe care o vom reprezenta sub
+      forma a douăsprezece elemente, așa cum vedem în imaginea de mai jos.
+    </p>
+    <img
+      src="https://textbook.edu.goit.global/javascript-yk5evp/v2/ro/img/lesson-20/no-pagination.png"
+      alt="Example" />
+    <p>
+      Pentru fiecare solicitare <b>GET</b>, backend-ul va trebui să returneze
+      întreaga colecție și vom întâlni problemele descrise mai devreme. Pentru a
+      le rezolva, există paginarea - o tehnică în care nu întreaga colecție, ci
+      o anumită parte a acesteia este returnată la prima și apoi la fiecare
+      solicitare <b>GET</b> ulterioară. Paginarea este implementată pe partea de
+      backend și utilizată în frontend, folosind parametri speciali de
+      interogare.
+    </p>
+
+    <h3>Numărul de elemente în răspuns</h3>
+    <p>
+      Primul parametru definește numărul de elemente din răspunsul de pe
+      backend. În cazul nostru se numește <b>per_page</b>. Nu există un standard
+      pentru denumirea parametrilor de paginare, așa că numele acestora depind
+      de programatorul backend.
+    </p>
+    <img
+      src="https://textbook.edu.goit.global/javascript-yk5evp/v2/ro/img/lesson-20/per-page-param.png"
+      alt="Example" />
+    <p>
+      Într-o astfel de solicitare GET, backend-ul nu va returna întreaga
+      colecție de douăsprezece elemente, ci doar primele patru. Dacă treceți o
+      valoare negativă sau o valoare mai mare decât numărul de elemente din
+      colecție, atunci backend-ul poate răspunde diferit - fie le ignoră sau
+      returnează o eroare <b>400 (BAD REQUEST)</b>, în funcție de implementare.
+    </p>
+    <p>
+      API-ul public
+      <a
+        href="https://github.com/typicode/json-server#paginate"
+        target="_blank"
+        rel="noopener, noreferer"
+        ><b>JSONPlaceholder API</b></a
+      >
+      acceptă, de asemenea, paginarea - numărul de elemente din răspuns este
+      controlat de parametrul <b>_limit</b>. Există un total de o sută de
+      articole în colecția /posts. Schimbați valoarea parametrului
+      <b>_limit</b> din exemplu și examinați răspunsul din backend în interfața
+      web, dar și în tab-ul Network.
+    </p>
+    <br />
+    <p><b>Exemplul 1</b></p>
+    <p>Uitati-va in consola...!</p>
+    <br />
+    <button type="button" class="btn">Fetch posts</button>
+    <ul class="posts"></ul>
+
+    <h3>Numărul grupului de elemente</h3>
+    <p>
+      Specificând numărul dorit de elemente în răspuns, obținem întotdeauna
+      același rezultat - primele elemente per_page ale colecției, așa-numitul
+      prim grup sau "pagină". Al doilea parametru de paginare controlează
+      offset-ul din colecție - numărul grupului de elemente pe care dorim să-l
+      obținem. Dacă backend-ul implementează paginarea, atunci valoarea
+      implicită a acestui parametru este una - primul grup sau "pagină" de
+      elemente. În cazul nostru se numește page.
+    </p>
+    <img
+      src="https://textbook.edu.goit.global/javascript-yk5evp/v2/ro/img/lesson-20/page-param.png"
+      alt="Example" />
+    <p>
+      Schimbând valoarea parametrului page, spunem backend-ului care grup de
+      elemente este următorul pe care dorim să-l primim și tot așa, până când
+      colecția rămâne fără elemente. Dacă setați o valoare negativă sau mai mare
+      decât numărul de grupuri din colecție, răspunsul backend-ului va depinde
+      de implementarea acestuia.
+    </p>
+    <p>
+      În
+      <a
+        href="https://github.com/typicode/json-server#paginate"
+        target="_blank"
+        rel="noopener, noreferer"
+        ><b>JSONPlaceholder API</b></a
+      >, parametrul care controlează grupul de elemente se numește <b>_page</b>.
+      Schimbați-i valoarea în exemplu și examinați răspunsul din backend în
+      interfața web, dar și în tab-ul Network.
+    </p>
+    <br />
+    <p><b>Exemplul 1</b></p>
+    <p>Uitati-va in consola...!</p>
+    <br />
+    <button type="button" class="btn0">Fetch posts</button>
+    <ul class="posts0"></ul>
+    <p>
+      <b>BINE DE ȘTIUT</b> <br />
+      <br />
+      Pentru a ști când se epuizează elementele dintr-o colecție și pentru a
+      afișa utilizatorului un mesaj corespunzător, backend-ul, la fiecare
+      răspuns, returnează nu numai o serie de elemente, ci și metadate despre
+      numărul disponibil de grupuri ("pagini"). În funcție de valoarea
+      parametrului per_page sau doar de numărul total de elemente din colecție,
+      atunci calculul numărului de grupuri cade pe umerii programatorului
+      front-end. Din păcate,
+      <a
+        href="https://github.com/typicode/json-server#paginate"
+        target="_blank"
+        rel="noopener, noreferer"
+        ><b>JSONPlaceholder API</b></a
+      >
+      nu implementează această funcționalitate.
+    </p>
+
+    <h3>Technica "Load more"</h3>
+    <p>
+      Pentru a schimba dinamic numărul grupului pentru fiecare cerere
+      ulterioară, este suficient să declarăm încă o variabilă globală, să o
+      numim page și să setăm valoarea inițială la 1 - va fi primul grup de
+      elemente. După fiecare solicitare reușită, în apelarea metodei
+      <b>then()</b>, vom crește valoarea <b>page</b> cu unu. La formarea
+      parametrilor de request, folosim valoarea acestora.
+    </p>
+    <br />
+    <p><b>Exemplul 1</b></p>
+    <p>Uitati-va in consola...!</p>
+    <br />
+    <ul class="posts1"></ul>
+    <button type="button" class="btn1">Fetch posts</button>
+
+    <p>
+      După încărcarea primului grup de elemente, textul de pe buton se va
+      schimba, iar butonul în sine va coborî sub lista de postări. Când
+      utilizatorul derulează pagina și dă click din nou pe ea, va fi executată o
+      solicitare pentru al doilea grup de elemente, care va fi adăugat la lista
+      de postări deja existentă. Dacă nu mai sunt postări de descărcat, dând
+      click pe butonul "Fetch posts", vom afișa o notificare.
+    </p>
+    <p>
+      Am adăugat verificarea sfârșitului de colecție pe partea de front-end,
+      deoarece
+      <a
+        href="https://github.com/typicode/json-server#paginate"
+        target="_blank"
+        rel="noopener, noreferer"
+        ><b>JSONPlaceholder API</b></a
+      >
+      nu implementează această funcționalitate pe backend. În cazul nostru, este
+      suficient să împărțim numărul total de elemente din colecție la numărul de
+      elemente dintr-un grup. Acest lucru este similar cu cazul în care
+      backend-ul nu returnează numărul de pagini disponibile, ci doar numărul
+      total de articole din colecție.
+    </p>
+
+    <h2>Cristi Socaci</h2>
+
+    <p><b>Exemplu paginare</b></p>
+
+    <button type="button" class="btn3">Fetch posts</button>
+    <ul class="posts3"></ul>
+
+    <span class="loader"></span>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js"
+      integrity="sha512-PJa3oQSLWRB7wHZ7GQ/g+qyv6r4mbuhmiDb8BjSFZ8NZ2a42oTtAq5n0ucWAwcQDlikAtkub+tPVCw4np27WCg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"></script>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
+      integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"></script>
+    <script src="./js/index20.js"></script>
+  </body>
+</html>
