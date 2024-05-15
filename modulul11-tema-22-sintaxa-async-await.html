@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modulul 11-Tema 22-Sintaxa async/await</title>
+
+    <style>
+      p {
+        margin: 0;
+      }
+
+      .user-list {
+        margin: 0;
+        list-style: none;
+        padding: 24px;
+      }
+
+      .user-list .item:not(:last-child) {
+        margin-bottom: 16px;
+      }
+    </style>
+    <link rel="stylesheet" href="./css/index.css" />
+  </head>
+  <body>
+    <h1>Modulul 11 - Tema 22 - Sintaxa async/await</h1>
+    <h2>Funcții asincrone</h2>
+    <p>
+      Să interacționezi cu backend-ul poate fi uneori confuz, după o operație
+      asincronă. Deseori, trebuie să facem o altă solicitare către server, în
+      funcție de datele primite, iar această acțiune se poate repeta de mai
+      multe ori. Spre exemplu, pe pagina de profil, un utilizator dorește să-și
+      vadă lista sa de prieteni. Primul lucru care trebuie să-l facem este să-i
+      confirmăm drepturile de acces la acea pagină în backend. Pentru a face
+      acest lucru, facem un request la my-api.com/me. Dacă backend-ul permite
+      accesul, vom primi ca raspun un token unic de acces la resursele
+      protejate.
+    </p>
+    <p>
+      <b
+        >const fetchFriends = () => { <br />
+        return fetch("my-api.com/me").then((token) => { <br />
+        console.log(token); <br />
+        }); <br />
+        };</b
+      >
+    </p>
+
+    <br />
+    <p><b>Exemplul 1</b></p>
+    <p>Uitati-va in consola...!</p>
+    <br />
+
+    <p>
+      În continuare, trebuie să solicităm profilul utilizatorului de la
+      my-api.com/profile. Aceste informații din profil nu sunt complete, conțin
+      doar date critice, cum ar fi: id-ul utilizatorului, nume/prenume etc, dar
+      fără lista de prieteni.
+    </p>
+
+    <br />
+    <p><b>Exemplul 2</b></p>
+    <p>Uitati-va in consola...!</p>
+    <br />
+
+    <p>
+      <b
+        >const fetchFriends = () => { <br />
+        return fetch("my-api.com/me") <br />
+        .then(token => { <br />
+        return fetch(`my-api.com/profile?token=${token}`); <br />
+        }) <br />
+        .then(user => { <br />
+        console.log(user.id); <br />
+        }); <br />
+        };</b
+      >
+    </p>
+    <p>
+      Și doar după aceea putem solicita lista de prieteni de la
+      my-api.com/users/:userId/friends.
+    </p>
+
+    <br />
+    <p><b>Exemplul 3</b></p>
+    <p>Uitati-va in consola...!</p>
+    <br />
+
+    <p>
+      <b
+        >const fetchFriends = () => { <br />
+        return fetch("my-api.com/me") <br />
+        .then(token => { <br />
+        return fetch(`my-api.com/profile?token=${token}`); <br />
+        }) <br />
+        .then(user => { <br />
+        return fetch(`my-api.com/users/${user.id}/friends`); <br />
+        }); <br />
+        }; <br />
+        <br />
+        fetchFriends() <br />
+        .then(friends => console.log(friends)) <br />
+        .catch(error => console.error(error));</b
+      >
+    </p>
+    <p>
+      Însă, după cum se observă, nu este cel mai lizibil cod, deși operațiile
+      sunt relativ simple. Din cauza faptului că parsăm funcții de gestionare la
+      metoda then(), se obțin ramificări.
+    </p>
+    <p>
+      Funcțiile asincrone ajută la eliminarea callback-urilor și a diferitor
+      construcții nedorite. Cu toate acestea, ele funcționează excelent cu
+      metodele then() și catch(), deoarece returnează garantat un promise.
+    </p>
+
+    <br />
+    <p><b>Exemplul 4</b></p>
+    <p>Uitati-va in consola...!</p>
+    <br />
+
+    <p>
+      <b
+        >const fetchFriends = async () => { <br />
+        const token = await fetch("my-api.com/me"); <br />
+        const user = await fetch(`my-api.com/profile?token=${token}`); <br />
+        const friends = await fetch(`my-api.com/users/${user.id}/friends`);
+        <br />
+        return friends; <br />
+        }; <br />
+        <br />
+        fetchFriends() <br />
+        .then(friends => console.log(friends)) <br />
+        .catch(error => console.error(error));</b
+      >
+    </p>
+
+    <h3>Sintaxa async/await</h3>
+    <p>
+      <b>Funcțiile asincrone (async/await)</b> sunt o modalitate ușoară de a
+      scrie cod asincron care arată la exterior ca unul sincron. Sintaxa
+      async/await se bazează pe promisuri, deci nu blochează firul principal de
+      execuție a programului.
+    </p>
+    <p>
+      Pentru a declara o funcție arrow asincronă, adăugați cuvântul cheie
+      <b>async</b> înainte de lista de parametri. În interiorul acestuia, putem
+      folosi operatorul <b>await</b>, iar rezultatul acestuia îl stocăm într-o
+      variabilă pentru că va returna un promis. Metoda
+      <b>response.json()</b> returnează, de asemenea, un promis, așa că folosim
+      keyword-ul await.
+    </p>
+
+    <br />
+    <p><b>Exemplul 4</b></p>
+    <p>Uitati-va in consola...!</p>
+    <br />
+
+    <p>
+      Când interpetorul întâlnește sintaxa await, suspendă execuția acelei
+      funcții (nu întregul script) și așteaptă până când promisul din dreapta
+      <b>await</b> este îndeplinit. Imediat ce promisul este îndeplinit,
+      execuția funcției este reluată și rezultatul operației asincrone este
+      disponibil pentru linia de mai jos.
+    </p>
+    <ul>
+      <li>
+        Operatorul <b>await</b> poate fi folosit numai în corpul unei funcții
+        <b>async</b>.
+      </li>
+      <li>
+        Operatorul <b>await</b> suspendă funcția până când promisul este
+        îndeplinit (<b>fulfilled</b> sau <b>rejected</b>).
+      </li>
+      <li>
+        Dacă promisul a fost <b>fulfilled</b>, operatorul <b>await</b> va
+        returna valoarea acesteia.
+      </li>
+      <li>
+        Dacă promisul a fost respins cu o eroare (<b>rejected</b>), declarația
+        <b>await</b> va arunca o eroare.
+      </li>
+      <li>O funcție asincronă returnează întotdeauna un promis.</li>
+      <li>
+        Dacă nu se specifică o valoarea returnată, va fi returnat un promis cu
+        valoarea <b>undefined</b>.
+      </li>
+    </ul>
+    <p>
+      Orice funcție poate fi asincronă, fie că este ea o metodă a unui obiect, o
+      metodă intr-o clasă, un callback, o funcție simplă sau inline. Toate
+      acestea vor putea folosi operatorul <b>await</b> și cu siguranță vor
+      returna un promis, deoarece vor fi <b>funcții asincrone</b>.
+    </p>
+    <p>
+      <b
+        >// Function declaration <br />
+        async function foo() { <br />
+        // ... <br />
+        } <br />
+        <br />
+        // Functional expression <br />
+        const foo = function async() { <br />
+        // ... <br />
+        }; <br />
+        <br />
+        // Arrow function <br />
+        const foo = async () => { <br />
+        // ... <br />
+        }; <br />
+        <br />
+        // Object method <br />
+        const user = { <br />
+        async foo() { <br />
+        // ... <br />
+        }, <br />
+        }; <br />
+        <br />
+        // Class method class User { <br />
+        async foo() { <br />
+        // ... <br />
+        } <br />
+        }</b
+      >
+    </p>
+
+    <h3>Prelucrarea erorilor</h3>
+    <p>
+      Dacă rezultatul unei funcții asincrone (un promis) nu este utilizat în
+      codul extern, erorile sunt tratate în corpul construcției
+      <b>try...catch</b>. Valoarea parametrului <b>error</b> din blocul
+      <b>catch</b> este eroarea pe care <b>await</b> o va genera dacă promisul
+      este respins.
+    </p>
+
+    <br />
+    <p><b>Exemplul 1</b></p>
+    <p>Uitati-va in consola...!</p>
+    <br />
+
+    <p>
+      Dacă rezultatul unei funcții asincrone (un promis) este folosit în cod
+      extern (<b>global</b>), adică în afara funcțiilor asincrone, erorile sunt
+      gestionate de metoda <b>catch()</b>. Valoarea parametrului
+      <b>error</b> din metoda <b>catch()</b> este eroarea pe care <b>await</b> o
+      va genera dacă promisul este respins.
+    </p>
+
+    <br />
+    <p><b>Exemplul 2</b></p>
+    <p>Uitati-va in consola...!</p>
+    <br />
+
+    <p>
+      Acest lucru nu va funcționa...!!! - <b>await</b> poate fi folosit doar în
+      corpul unei funcții asincrone.
+    </p>
+
+    <p><b>Exemplul 3</b></p>
+
+    <p>
+      <b
+        >const fetchUsers = async () => { <br />
+        const response = await fetch("https://jsonplaceholder.typicode.com/
+        <br />users"); <br />
+        const users = await response.json(); <br />
+        return users; <br />
+        }; <br />
+        <br />
+        // ❌ SyntaxError: await is only valid in async function <br />
+        const users = await fetchUsers();</b
+      >
+    </p>
+    <p>
+      Dacă rezultatul unei funcții asincrone este folosit într-o altă funcție
+      asincronă, erorile sunt gestionate de construcția <b>try...catch</b>.
+      Valoarea parametrului <b>error</b> din blocul <b>catch</b> este eroarea pe
+      care <b>await</b> o va genera dacă promisul este respins.
+    </p>
+
+    <br />
+    <p><b>Exemplul 4</b></p>
+    <p>Uitati-va in consola...!</p>
+    <br />
+
+    <h3>Request-uri paralele</h3>
+    <p>
+      Dacă trebuie făcute mai multe solicitări în același timp, trebuie folosită
+      cu mare atenție sintaxa <b>async/await</b>. În exemplul următor, trei
+      cereri consecutive vor fi executate deoarece execuția funcției asincrone
+      este suspendată atunci când interpretorul întâlnește <b>await</b>. Pe
+      lângă asta, analiza rezultatelor interogării va fi, de asemenea,
+      secvențială și prin urmare, va dura mai mult.
+    </p>
+
+    <br />
+    <p><b>Exemplul 1</b></p>
+    <p>Uitati-va in consola...!</p>
+    <br />
+
+    <p>
+      În tab-ul de <b>Network</b>, se poate vedea clar că lansarea fiecărei
+      solicitări ulterioare așteaptă finalizarea celei anterioare. Adică sunt
+      executate secvențial și prin urmare, va dura, de asemenea, mai mult. Este
+      în regulă dacă request-urile sunt dependente unele de altele, adică
+      următorul request folosește rezultatul celui anterior.
+    </p>
+    <img
+      src="https://textbook.edu.goit.global/javascript-yk5evp/v2/ro/img/lesson-22/concurrent-requests.png"
+      alt="Example" />
+    <p>
+      În cazul nostru, acestea sunt complet independente, așa că trebuie să le
+      rulăm în paralel. Pentru a face acest lucru, va fi creată o serie de
+      promisuri, după care se va folosi metoda Promise.all() pentru a aștepta
+      execuția lor. Matricea de promisuri poate fi creată prin metodele map(),
+      filter() și așa mai departe, în funcție de natura task-ului.
+    </p>
+
+    <br />
+    <p><b>Exemplul 2</b></p>
+    <p>Uitati-va in consola...!</p>
+    <br />
+
+    <p>
+      Cu această abordare, request-urile sunt executate în paralel, ceea ce
+      economisește timp de așteptare pentru execuția lor, care este egal cu
+      durata celei mai «lente». Această tehnică este potrivită numai dacă
+      <b>solicitările nu depind unele de altele</b>.
+    </p>
+    <img
+      src="https://textbook.edu.goit.global/javascript-yk5evp/v2/ro/img/lesson-22/parallel-requests.png"
+      alt="Example" />
+    <p>
+      Verificați acest lucru deschizând <b>devTools</b> din exemplul live. Am
+      adăugat, de asemenea, un buton care execută o solicitare atunci când se dă
+      click și am gestionat o posibilă eroare cu construcția <b>try...catch</b>.
+      Acesta este un cod <b>AJAX</b> standard ce utilizează funcții asincrone.
+    </p>
+
+    <br />
+    <p><b>Exemplul 3</b></p>
+    <p>Uitati-va in consola...!</p>
+    <br />
+
+    <button type="button" class="btn">Fetch users</button>
+    <ul class="user-list"></ul>
+
+    <script src="./js/index22.js"></script>
+  </body>
+</html>

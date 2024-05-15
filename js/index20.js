@@ -230,9 +230,9 @@ function fetchPosts0() {
   axios
     .get(`${JSON_PLACEHOLDER_URL}/posts?${queryParams}`)
     .then((response) => {
-      //   if (response.data.length === 0) {
-      //     fetchPostsButton3.style.visibility = "hidden";
-      //   }
+      if (response.data.length === 0) {
+        fetchPostsButton3.style.visibility = "hidden";
+      }
       if (response.data.length === 0) {
         loader.style.visibility = "hidden";
       }
@@ -241,7 +241,7 @@ function fetchPosts0() {
       //   console.log(postsListItems);
 
       postsUl.append(...postsListItems);
-      //   fetchPostsButton3.textContent = "Fetch more posts";
+      fetchPostsButton3.textContent = "Fetch more posts";
       pageNumber++;
     })
     .catch((err) => console.log(err));
@@ -260,3 +260,5 @@ window.addEventListener(
     }
   }, 300)
 );
+
+// console.log(mockData);

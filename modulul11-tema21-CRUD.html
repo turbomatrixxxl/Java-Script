@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modulul 11-Tema 21-CRUD</title>
+
+    <link rel="stylesheet" href="./css/index.css" />
+  </head>
+  <body>
+    <h1>CRUD</h1>
+    <img
+      src="https://textbook.edu.goit.global/javascript-yk5evp/v2/ro/img/lesson-21/crud.png"
+      alt="Title img" />
+    <p>
+      Pentru a interacționa cu resursele de backend, sunt folosite patru
+      operațiuni: create (crearea), read (citirea), update (actualizarea) și
+      delete (ștergerea).
+    </p>
+    <p>Fiecare dintre ele are definită în spate o metodă standard HTTP.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Method</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>POST</td>
+          <td>Operația de create - crează o nouă resursă.</td>
+        </tr>
+        <tr>
+          <td>GET</td>
+          <td>
+            Operația de read - pentru a obține o singură resursă sau un set de
+            resurse după id.
+          </td>
+        </tr>
+        <tr>
+          <td>PUT и PATCH</td>
+          <td>Operația de update - actualizează o resursă după id.</td>
+        </tr>
+        <tr>
+          <td>DELETE</td>
+          <td>Operația de delete - șterge o resursă după id.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>
+      Vom face solicitări către
+      <a
+        href="https://jsonplaceholder.typicode.com/"
+        target="_blank"
+        rel="noopener noreferer"
+        ><b>JSONPlaceholder API</b></a
+      >, care oferă o colecție de postări fake în resursa /posts, reprezentate
+      de obiecte cu proprietăți ca id , author și body.
+    </p>
+
+    <h3>Read</h3>
+    <p>
+      Metoda <b>HTTP GET</b> este folosită pentru a obține datele existente.
+      Metoda <b>fetch()</b> trebuie să trimită o cerere de tip <b>GET</b> către
+      server fără nici un corp. Backend-ul, la primirea cererii, o va procesa și
+      va returna resursele necesare ca răspuns.
+    </p>
+    <p>
+      Vom obține o matrice cu toate postările. Pentru a face acest lucru, facem
+      un request la resursa <b>/posts</b> descrisă în documentația backend.
+      Metodă <b>fetch()</b> face o cerere <b>GET</b> în mod implicit, deci nu
+      este necesar să suprascriem opțiunile de solicitare.
+    </p>
+
+    <br />
+    <p><b>Exemplul 1</b></p>
+    <p>Uitati-va in consola...!</p>
+    <br />
+
+    <p>
+      Ca să obținem o postare după <b>ID (proprietatea id)</b> o vom adăuga la
+      resursa <b>/posts/:postId</b>. Ultima parte a acestei căi se numește
+      parametru dinamic și este descrisă în documentație ca
+      <b>/resource/:parameter</b>. Resursa rămâne neschimbată, este calea către
+      întreaga colecție, doar valoarea parametrului se modifică pentru fiecare
+      dintre elementele sale.
+    </p>
+
+    <br />
+    <p><b>Exemplul 1</b></p>
+    <p>Uitati-va in consola...!</p>
+    <br />
+
+    <h3>Create</h3>
+    <p>
+      Metoda <b>POST</b> este folosită pentru a adăuga o nouă resursă. Metoda
+      <b>fetch()</b> trebuie să trimită o cerere <b>POST</b> către server, în
+      corpul căreia va fi un obiect cu câmpurile author și body. Identificatorul
+      va fi creat automat de baza de date. Rezultatul unei astfel de cereri va
+      fi un obiect adăugat la baza de date.
+    </p>
+
+    <br />
+    <p><b>Exemplul 1</b></p>
+    <p>Uitati-va in consola...!</p>
+    <br />
+
+    <p>
+      Facem o cerere de a crea o postare, accesând resursa /posts, dar în
+      setările metodei <b>fetch()</b> schimbăm metoda <b>HTTP</b> în
+      <b>POST</b>. Așa știe backend-ul să nu citească obiectul ca pe unul
+      existent, ci să-l creeze ca o nouă resursă în acea colecție.
+    </p>
+    <p>
+      Corpul cererii trebuie să fie un string, deoarece protocolul
+      <b>HTTP</b> transmite totul ca text. Când se transmit tipuri de date
+      complexe, acestea trebuie să fie transformate într-un string, folosind
+      metoda <b>JSON.stringify()</b>. Nu uitați să specificați antetul
+      <b>Content-Type</b>, care specifică tipul de date transmise pentru
+      backend.
+    </p>
+    <p>
+      Ca răspuns, dacă totul este ok, vom obține același <b>JSON</b> cu un id
+      adăugat. Identificatorul va fi unic pentru fiecare obiect.
+    </p>
+
+    <h3>Update</h3>
+    <p>
+      Metodele <b>PUT</b> și <b>PATCH</b> sunt folosite pentru a actualiza
+      datele existente. Metoda ce trebuie utilizată va fi specificată în
+      documentația backend-ului. Metoda <b>fetch()</b> trebuie să trimită o
+      cerere către server, în corpul căreia este necesar să specificăm un obiect
+      ale căror câmpuri sunt spre modificare. Calea specifică în ce colecție și
+      ce element dorim să actualizăm. Backend-ul, la primirea cererii, o va
+      procesa și va returna resursa actualizată ca răspuns la cerere.
+    </p>
+
+    <br />
+    <p><b>Exemplul 1</b></p>
+    <p>Uitati-va in consola...!</p>
+    <br />
+
+    <p>Ca răspuns, dacă totul este ok, vom primi obiectul actualizat.</p>
+    <p>
+      <b>BINE DE ȘTIUT</b> <br />
+      <br />
+      Metoda <b>PATCH</b> înlocuiește într-o resursă existentă doar valorile
+      parsate în corpul cererii. Metoda <b>PUT</b> înlocuiește complet resursa
+      cu valorile primite.
+    </p>
+
+    <h3>Delete</h3>
+    <p>
+      Metoda <b>DELETE</b> este folosită pentru a șterge datele existente.
+      Metoda <b>fetch()</b> trebuie să trimită o cerere <b>DELETE</b> fără un
+      corp către server. Calea specifică în ce colecție și ce element dorim să
+      ștergem. Backend-ul, la primirea cererii, o va procesa, va elimina resursa
+      din colecție și va returna starea rezultatului ca răspuns.
+    </p>
+
+    <br />
+    <p><b>Exemplul 1</b></p>
+    <p>Uitati-va in consola...!</p>
+    <br />
+
+    <script src="./js/index21.js"></script>
+  </body>
+</html>
