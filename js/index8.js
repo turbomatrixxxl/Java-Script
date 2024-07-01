@@ -88,7 +88,8 @@ console.log(`-------       Metoda filter()       -------`);
 
 const values = [51, -3, 27, 21, -68, 42, -37];
 console.log(values);
-
+const splice = values.splice(0, 1);
+console.log(splice);
 console.log(`-value >= 0-`);
 
 const positiveValues = values.filter((value) => value >= 0);
@@ -232,7 +233,6 @@ const anyAvailable = fruits.some((fruits) => fruits.amount > 0); // true
 
 // -----     Metoda reduce()     -----
 console.log(`-------       Metoda reduce()       -------`);
-
 const total = [2, 7, 3, 14, 6].reduce((previousValue, number) => {
   return previousValue + number;
 }, 0);
